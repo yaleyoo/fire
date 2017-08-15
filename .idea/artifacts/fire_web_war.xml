@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="fire-web:war">
-    <output-path>$PROJECT_DIR$/fire-web/target</output-path>
-    <root id="archive" name="fire.war">
-      <element id="artifact" artifact-name="fire-web:war exploded" />
-    </root>
-  </artifact>
-</component>

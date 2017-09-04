@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fes.dao.mappers.CourseMapper">
+    <resultMap type="com.fes.dao.domain.Course" id="courseResult">
+        <result column="id" property="id"/>
+        <result column="course_name" property="courseName"/>
+        <result column="course_desc" property="courseDesc"/>
+        <result column="course_type" property="courseType"/>
+        <result column="course_price" property="coursePrice"/>
+    </resultMap>
+
+    <sql id="baseColumns">
+        id,course_name,course_desc,course_type,course_price
+    </sql>
+
+    <insert id="insert" parameterType="com.fes.dao.domain.Course">
+        INSERT INTO course(course_name,course_desc,course_type,course_price)
+        VALUES(#{courseName},#{courseDesc},#{courseType},#{coursePrice})
+    </insert>
+
+    <select id="getCourseList" resultMap="courseResult">
+        select
+        <include refid="baseColumns"/>
+        from course
+    </select>
+
+</mapper>

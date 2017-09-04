@@ -10,8 +10,9 @@
             http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
             ">
 
-    <mvc:annotation-driven />
+
     <context:component-scan base-package="com.fes.web.controller"/>
+    <mvc:annotation-driven />
 
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
@@ -57,7 +58,7 @@
             <!--<mvc:exclude-mapping path="/loanstatus" />-->
             <!-- 测试end -->
             <!-- <mvc:exclude-mapping path="/innerApi/**" /> -->
-            <mvc:exclude-mapping path="/order/**"/>
+            <mvc:exclude-mapping path="/test/**"/>
             <bean class="com.fes.web.interceptor.AppLoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
@@ -68,8 +69,9 @@
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
         <!--可为空,方便实现自已的依据扩展名来选择视图解释类的逻辑 -->
-        <property name="contentType" value="text/html;charset=UTF-8"/>
-        <property name="cache" value="false"/>
-    </bean>
+        <!-- <property name="contentType" value="text/html;charset=UTF-8"/>-->
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+         <property name="cache" value="false"/>
+     </bean>
 
-</beans>
+ </beans>

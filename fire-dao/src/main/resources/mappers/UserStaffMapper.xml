@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fes.dao.mappers.UserStaffMapper">
+    <resultMap type="com.fes.dao.domain.UserStaff" id="staffResult">
+        <result column="id" property="id"/>
+        <result column="user_name" property="username"/>
+        <result column="first_name" property="firstName"/>
+        <result column="last_name" property="lastName"/>
+        <result column="sex" property="sex"/>
+        <result column="password" property="password"/>
+        <result column="address" property="address"/>
+        <result column="phone_num" property="phoneNum"/>
+        <result column="desc" property="desc"/>
+        <result column="general_user_management" property="generalUserManage"/>
+        <result column="trainer_user_management" property="trainerUserManage"/>
+        <result column="course_management" property="courseManage"/>
+        <result column="course_price_management" property="priceManage"/>
+        <result column="staff_user_management" property="staffUserManage"/>
+    </resultMap>
+
+    <sql id="baseColumns">
+        id, user_name, first_name, last_name, sex, password, address, phone_num, `desc`, general_user_management,trainer_user_management
+        ,course_management,course_price_management,staff_user_management
+    </sql>
+
+    <insert id="insert" parameterType="com.fes.dao.domain.UserStaff">
+        INSERT INTO user_staff (class_id_list, first_name, last_name, user_name, sex, password, address, phone_num,
+        `desc`,general_user_management,trainer_user_management,
+        course_management,course_price_management,staff_user_management)
+        VALUES(#{classIdList},#{firstName},#{lastName},#{username},#{sex},#{password},#{address},#{phoneNum},#{desc},#{generalUserManage},
+        #{trainerUserManage},#{courseManage},#{priceManage},#{staffUserManage})
+    </insert>
+
+    <select id="getAllStaffInfo" resultMap="staffResult">
+        select
+        <include refid="baseColumns"/>
+        from user_staff
+    </select>
+
+</mapper>

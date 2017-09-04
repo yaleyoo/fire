@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.fes.dao.mappers.UserTrainerMapper">
+    <resultMap type="com.fes.dao.domain.UserTrainer" id="trainerResult">
+        <result column="id" property="id"/>
+        <result column="class_id_list" property="classIdList"/>
+        <result column="first_name" property="firstName"/>
+        <result column="last_name" property="lastName"/>
+        <result column="user_name" property="username"/>
+        <result column="sex" property="sex"/>
+        <result column="password" property="password"/>
+        <result column="address" property="address"/>
+        <result column="phone_num" property="phoneNum"/>
+        <result column="desc" property="desc"/>
+        <result column="availability" property="availability"/>
+        <result column="certification" property="certification"/>
+    </resultMap>
+
+    <sql id="baseColumns">
+        id, class_id_list, first_name, last_name, user_name, sex, password, address, phone_num, `desc`,
+        availability,certification
+    </sql>
+
+    <insert id="insert" parameterType="com.fes.dao.domain.UserTrainer">
+        INSERT INTO user_trainer(class_id_list, first_name, last_name, user_name, sex, password, address,
+        phone_num, `desc`,availability,certification)
+        VALUES(#{classIdList},#{firstName},#{lastName},#{username},#{sex},#{password},#{address},#{phoneNum},#{desc},
+        #{availability},#{certification})
+    </insert>
+
+    <select id="getAllTrainerInfo" resultMap="trainerResult">
+        select
+        <include refid="baseColumns"/>
+        from user_trainer
+    </select>
+
+</mapper>

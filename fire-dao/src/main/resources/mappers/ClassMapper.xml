@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.fes.dao.mappers.ClassMapper">
+    <resultMap type="com.fes.dao.domain.ClassPO" id="classResult">
+        <result column="id" property="id"/>
+        <result column="course_id" property="courseId"/>
+        <result column="class_item_ids" property="classItemIds"/>
+        <result column="tutor_id" property="tutorId"/>
+        <result column="tutor_name" property="tutorName"/>
+        <result column="tutor_desc" property="tutorDesc"/>
+        <result column="class_addr" property="classAddr"/>
+        <result column="class_start_time" property="classStartTime"/>
+        <result column="class_time_table" property="classTimeTable"/>
+        <result column="price" property="price"/>
+        <result column="registered_students_num" property="registeredNum"/>
+        <result column="registered_students" property="registeredStudents"/>
+        <result column="contact_detail" property="contactDetail"/>
+
+    </resultMap>
+
+    <sql id="baseColumns">
+        id,course_id,class_item_ids,tutor_id,tutor_name,tutor_desc,class_addr,class_start_time,class_time_table,
+        price,registered_students_num,registered_students,contact_detail
+    </sql>
+
+    <insert id="insert" parameterType="com.fes.dao.domain.ClassPO">
+        INSERT INTO class (course_id,class_item_ids,tutor_id,tutor_name,tutor_desc,class_addr,class_start_time,
+        class_time_table,price,registered_students_num,registered_students,contact_detail)
+        VALUES(#{courseId},#{classItemIds},#{tutorId},#{tutorName},#{tutorDesc},#{classAddr},#{classStartTime},
+        #{classTimeTable},#{price},#{registeredNum},#{registeredStudents},#{contactDetail})
+    </insert>
+
+    <select id="getClassListByCourseId" resultMap="classResult">
+        select
+        <include refid="baseColumns"/>
+        from class where course_id=#{courseId}
+    </select>
+
+</mapper>

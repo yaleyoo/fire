@@ -145,7 +145,7 @@
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>7.1.6.v20100715</version>
+                <version>8.1.16.v20140903</version>
                 <configuration>
                     <stopKey>stop</stopKey>
                     <stopPort>5599</stopPort>

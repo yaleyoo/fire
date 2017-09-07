@@ -24,5 +24,12 @@ public class UserController {
     public SimpleHttpResult showAllCustomer(){
         return userService.showAllCustomer();
     }
+    
+    @RequestMapping(value = "/verifyLogin", method = RequestMethod.POST)
+    @ResponseBody
+    public SimpleHttpResult varifyLogin(String username, String password){
+    	//stub
+    	return new SimpleHttpResult();
+    }
 
 }

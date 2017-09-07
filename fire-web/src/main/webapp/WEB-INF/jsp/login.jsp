@@ -30,13 +30,63 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	</style>
 	
+	<script type="text/javascript">
+		function request(){
+			$.ajax({
+	            type: "POST",
+	            //url for request
+                url: "user/verifyLogin",
+                data: {username: $('#username').val(),
+                password: $('#password').val()},
+                // asyncronise, default is true
+                async: false,
+                dataType: "text",
+                error: function(request) {
+                    alert("Connection error");
+                },
+                success: function(data) {
+                	var json = $.parseJSON(data);
+                	//json.error.returnCode : 1-failure 0-success
+                	//json.data : data returned
+                	if(json.error.returnCode=='0'){//success
+                			requestRedirect("success");
+                	}
+                	else{
+                			requestRedirect("failure");
+                	}
+                }
+            });
+		}
+		
+		//Request Redirect
+		function requestRedirect(destination){
+		
+			if(destination=="success"){
+				var form = $("<form></form>"); 
+				form.attr("action","index");
+				form.attr("method","get");
+				//form.append("<input name='username' value='value'></input>");   append value here if its nessesary
+				form.appendTo("body").submit();
+				form.remove();
+             }
+             if(destination=="failure"){
+             	var form = $("<form></form>"); 
+				form.attr("action","login");
+				form.attr("method","get");
+				//form.append("<input name='username' value='value'></input>");   append value here if its nessesary
+				form.appendTo("body").submit();
+				form.remove();
+             }
+		}
+	</script>
+	
   </head>
   
   <body>
      <div class="container">
 		            <div class="row">
 		                <div class="col-md-offset-3 col-md-6">
-		                    <form action="user/validateLogin" method="post" class="form-horizontal">
+		                    <form action="user/verifyLogin" method="post" class="form-horizontal">
 		                        <span class="heading">login</span>
 		                        <div class="form-group">
 		                            <input class="form-control" id="username" name="username"  placeholder="username">
@@ -53,9 +103,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                                <label for="checkbox1"></label>
 		                            </div>
 		                            <span class="text">Remember me</span>
-		                            <button class="btn btn-default">login</button>
-		                        </div>
+		                             <input type="button" value="login" onclick="request()" class="btn btn-default"></button>
+		                            </div>
 		                    </form>
+		                   
+		                        
 		                </div>
 		            </div>
 		        </div>

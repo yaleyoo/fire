@@ -29,4 +29,10 @@
         from user_organization
     </select>
 
+    <select id="getOrganization" resultMap="orgResult" parameterType="string">
+        select
+        <include refid="baseColumns"/>
+        from user_organization where user_name=#{username}
+    </select>
+
 </mapper>

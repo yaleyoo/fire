@@ -18,7 +18,7 @@
 
 
     <properties>
-        <spring_version>3.2.9.RELEASE</spring_version>
+        <spring_version>4.0.6.RELEASE</spring_version>
         <!-- Log libs -->
         <slf4j_version>1.7.5</slf4j_version>
         <!-- Test libs -->

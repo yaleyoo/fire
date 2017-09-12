@@ -37,4 +37,10 @@
         from user_staff
     </select>
 
+    <select id="getStaff" resultMap="staffResult" parameterType="string">
+        select
+        <include refid="baseColumns"/>
+        from user_staff where user_name=#{username}
+    </select>
+
 </mapper>

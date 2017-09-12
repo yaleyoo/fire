@@ -151,7 +151,8 @@
                     <stopPort>5599</stopPort>
                     <webAppConfig>
                         <contextPath>/</contextPath>
-                        <defaultsDescriptor>src/main/webapp/WEB-INF/web.xml</defaultsDescriptor>
+
+                        <descriptor>src/main/webapp/WEB-INF/web.xml</descriptor>
                     </webAppConfig>
                     <scanIntervalSeconds>0</scanIntervalSeconds>
                     <connectors>

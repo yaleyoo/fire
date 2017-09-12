@@ -18,4 +18,6 @@ public interface IUserService {
     SimpleHttpResult showAllTrainer();
 
     SimpleHttpResult addCustomer(CustomerRequest request);
+
+    SimpleHttpResult verifyLogin(int userType, String username, String password);
 }

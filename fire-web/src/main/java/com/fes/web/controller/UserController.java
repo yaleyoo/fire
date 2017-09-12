@@ -2,17 +2,16 @@ package com.fes.web.controller;
 
 import com.fes.biz.service.IUserService;
 import com.fes.common.domain.SimpleHttpResult;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 /**
  * Created by qigege on 2017/9/3.
  */
-@Controller
+
+@RestController
 @RequestMapping("/user")
 public class UserController {
 
@@ -20,16 +19,15 @@ public class UserController {
     private IUserService userService;
 
     @RequestMapping(value = "/showAllCustomer", method = RequestMethod.GET)
-    @ResponseBody
+
     public SimpleHttpResult showAllCustomer(){
         return userService.showAllCustomer();
     }
     
     @RequestMapping(value = "/verifyLogin", method = RequestMethod.POST)
-    @ResponseBody
-    public SimpleHttpResult varifyLogin(String username, String password){
-    	//stub
-    	return new SimpleHttpResult();
+    public SimpleHttpResult varifyLogin(int userType, String username, String password){
+
+    	return userService.verifyLogin(userType, username, password);
     }
 
 }

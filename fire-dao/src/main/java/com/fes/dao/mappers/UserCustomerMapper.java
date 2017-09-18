@@ -17,7 +17,7 @@ public interface UserCustomerMapper {
 
     UserCustomer getCustomer(@Param("username") String username);
 
-
+    boolean insertCustomer(UserCustomer user);
 
 
 

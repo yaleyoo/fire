@@ -20,7 +20,7 @@
         id, class_id_list, first_name, last_name, user_name, sex, password, address, phone_num, `desc`, organization_id
     </sql>
 
-    <insert id="insert" parameterType="com.fes.dao.domain.UserCustomer">
+    <insert id="insertCustomer" parameterType="com.fes.dao.domain.UserCustomer" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO user_customer(class_id_list, first_name, last_name, user_name, sex, password, address, phone_num, `desc`, organization_id)
         VALUES(#{classIdList},#{firstName},#{lastName},#{username},#{sex},#{password},#{address},#{phoneNum},#{desc},#{organizationId})
     </insert>

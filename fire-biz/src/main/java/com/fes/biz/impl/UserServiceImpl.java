@@ -59,8 +59,17 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public SimpleHttpResult addCustomer(CustomerRequest request) {
-        return null;
+    public SimpleHttpResult addCustomer(UserCustomer user) {
+    	boolean success = userCustomerMapper.insertCustomer(user);
+    	SimpleHttpResult httpResult = new SimpleHttpResult();
+    	
+    	if(success){
+    		httpResult.setSuccess(true);
+    	}
+    	else{
+    		httpResult.setSuccess(false);
+    	}
+        return httpResult;
     }
 
     @Override

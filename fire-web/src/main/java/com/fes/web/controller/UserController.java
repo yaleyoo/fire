@@ -2,6 +2,8 @@ package com.fes.web.controller;
 
 import com.fes.biz.service.IUserService;
 import com.fes.common.domain.SimpleHttpResult;
+import com.fes.dao.domain.UserCustomer;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,5 +31,13 @@ public class UserController {
 
     	return userService.verifyLogin(userType, username, password);
     }
+    
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public SimpleHttpResult register(UserCustomer user){
+    	
+    	//return userService.addCustomer(user);
+    	return new SimpleHttpResult();
+    }
+    
 
 }

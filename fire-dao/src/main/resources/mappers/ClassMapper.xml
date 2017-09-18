@@ -36,5 +36,23 @@
         <include refid="baseColumns"/>
         from class where course_id=#{courseId}
     </select>
-
+	<select id="filter" resultMap="classResult">
+    		select
+    		<include refid="baseColumns"/>
+    		from class where 1=1
+    		<if test="courseID!=0">
+    			and course_id=#{courseID}
+    		</if>
+    		<if test="classAddr!=null">
+    			and class_addr=#{classAddr}
+    		</if>
+    		<if test="classStartTime!=null">
+    			and class_start_time=#{classStartTime}
+    		</if>
+		<![CDATA[ and price >=]]> #{minPrice}
+		<if test="maxPrice!=0">
+			<![CDATA[ and price <=]]> #{maxPrice} 
+		</if>   			
+    </select>
+	
 </mapper>

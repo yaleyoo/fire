@@ -34,5 +34,11 @@
         <include refid="baseColumns"/>
         from user_organization where user_name=#{username}
     </select>
+    
+    <select id="showOrganizationByID" resultMap = "orgResult" parameterType = "int">
+    		select 
+    		<include refid="baseColumns"/>
+    		from user_organization where id=#{organizationID}
+    </select>
 
 </mapper>

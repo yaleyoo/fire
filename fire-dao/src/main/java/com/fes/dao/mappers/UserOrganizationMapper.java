@@ -8,4 +8,7 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface UserOrganizationMapper {
     UserOrganization getOrganization(@Param("username") String username);
+    
+    UserOrganization showOrganizationByID(@Param("organizationID") int organizationID);
+
 }

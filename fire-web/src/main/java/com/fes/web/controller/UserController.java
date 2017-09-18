@@ -38,6 +38,17 @@ public class UserController {
     	//return userService.addCustomer(user);
     	return new SimpleHttpResult();
     }
+    @RequestMapping(value = "/showOrganization", method = RequestMethod.GET)
+    public SimpleHttpResult showOrganizationByID(int organizationID) {
+    		return userService.showOrganizationByID(organizationID);
+    }
+
+    
+    @RequestMapping(value = "/filterClass", method = RequestMethod.GET)
+    public SimpleHttpResult filterClass(int courseID, String classAddr, String classStartTime, int minPrice, int maxPrice ) {
+    		return userService.filterClass(courseID, classAddr, classStartTime, minPrice, maxPrice);
+    }
+
     
 
 }

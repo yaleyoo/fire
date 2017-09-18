@@ -21,4 +21,8 @@ public interface IUserService {
     SimpleHttpResult addCustomer(UserCustomer customer);
 
     SimpleHttpResult verifyLogin(int userType, String username, String password);
+    
+    SimpleHttpResult showOrganizationByID(int organizationID);
+    
+    SimpleHttpResult filterClass(int courseID, String classAddr, String classStartTime, int minPrice, int maxPrice);
 }

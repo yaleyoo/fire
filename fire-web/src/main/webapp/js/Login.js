@@ -34,7 +34,7 @@ function loginTopRequest() {
 			success : function(data) {
 				//0-individual 1-organization
 				var jumpTo = "";
-				if( $('input:radio:checked').val() == 0){
+				if( $('input:radio:checked').val() == 1){
 					jumpTo = "individualHome";
 				}else{
 					jumpTo = "organizationHome";

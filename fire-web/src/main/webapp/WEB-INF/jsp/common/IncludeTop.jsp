@@ -60,12 +60,11 @@
 								<a href="register" class="flatbtn" id="myaccount">My account</a>
 							</c:if>
 							<c:if test="${sessionScope.user == null}">
-							</c:if>
 								<a href="#loginmodal" class="flatbtn" id="modaltrigger">Log
 									in</a>
 								<!-- ${pageContext.request.contextPath} -->
 								<a href="register" class="flatbtn" id="modaltrigger">Register</a>
-							
+							</c:if>							
 						</div>
 						<div id="loginmodal" style="display: none;" tabindex="1">
 							<h1>User Login</h1>

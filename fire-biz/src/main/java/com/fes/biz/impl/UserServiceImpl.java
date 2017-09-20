@@ -68,7 +68,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public SimpleHttpResult addCustomer(UserCustomer user) {
+    public SimpleHttpResult addIndividualCustomer(UserCustomer user) {
     	boolean success = userCustomerMapper.insertCustomer(user);
     	SimpleHttpResult httpResult = new SimpleHttpResult();
     	
@@ -80,6 +80,22 @@ public class UserServiceImpl implements IUserService {
     	}
         return httpResult;
     }
+    
+    @Override
+	public SimpleHttpResult addOrganizationCustomer(UserOrganization user) {
+		// TODO Auto-generated method stub
+    	boolean success = userOrganizationMapper.insertCustomer(user);
+    	SimpleHttpResult httpResult = new SimpleHttpResult();
+    	
+    	if(success){
+    		httpResult.setSuccess(true);
+    	}
+    	else{
+    		httpResult.setSuccess(false);
+    	}
+        return httpResult;
+	}
+
 
     @Override
     public SimpleHttpResult verifyLogin(int userType, String username, String password) {
@@ -174,4 +190,5 @@ public class UserServiceImpl implements IUserService {
 		return httpResult;
     }
 
+	
 }

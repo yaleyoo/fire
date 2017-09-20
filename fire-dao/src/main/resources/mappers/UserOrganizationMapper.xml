@@ -17,7 +17,7 @@
         id,class_id_list,organization_name,user_name,user_id_list,password,address,`desc`,people_num
     </sql>
 
-    <insert id="insert" parameterType="com.fes.dao.domain.UserOrganization">
+    <insert id="insertCustomer" parameterType="com.fes.dao.domain.UserOrganization">
         INSERT INTO user_organization(class_id_list,organization_name,user_name,user_id_list,password,address,
         `desc`,people_num)
         VALUES(#{classIdList},#{organizationName},#{username},#{userIdList},#{password},#{address},#{desc},#{peopleNum})

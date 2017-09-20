@@ -3,6 +3,7 @@ package com.fes.web.controller;
 import com.fes.biz.service.IUserService;
 import com.fes.common.domain.SimpleHttpResult;
 import com.fes.dao.domain.UserCustomer;
+import com.fes.dao.domain.UserOrganization;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,12 +33,20 @@ public class UserController {
     	return userService.verifyLogin(userType, username, password);
     }
     
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public SimpleHttpResult register(UserCustomer user){
+    @RequestMapping(value = "/individualRegister", method = RequestMethod.POST)
+    public SimpleHttpResult individualRegister(UserCustomer user){
     	
-    	//return userService.addCustomer(user);
+    	//return userService.addIndividualCustomer(user);
     	return new SimpleHttpResult();
     }
+    
+    @RequestMapping(value = "/organizationRegister", method = RequestMethod.POST)
+    public SimpleHttpResult orgnizationRegister(UserOrganization user){
+    	
+    	//return userService.addOrganizationCustomer(user);
+    	return new SimpleHttpResult();
+    }
+    
     @RequestMapping(value = "/showOrganization", method = RequestMethod.GET)
     public SimpleHttpResult showOrganizationByID(int organizationID) {
     		return userService.showOrganizationByID(organizationID);

@@ -3,6 +3,7 @@ package com.fes.biz.service;
 import com.fes.biz.request.domain.CustomerRequest;
 import com.fes.common.domain.SimpleHttpResult;
 import com.fes.dao.domain.UserCustomer;
+import com.fes.dao.domain.UserOrganization;
 
 
 /**
@@ -18,7 +19,9 @@ public interface IUserService {
 
     SimpleHttpResult showAllTrainer();
 
-    SimpleHttpResult addCustomer(UserCustomer customer);
+    SimpleHttpResult addIndividualCustomer(UserCustomer customer);
+    
+    SimpleHttpResult addOrganizationCustomer(UserOrganization customer);
 
     SimpleHttpResult verifyLogin(int userType, String username, String password);
     

@@ -1,5 +1,6 @@
 package com.fes.dao.mappers;
 
+import com.fes.dao.domain.UserCustomer;
 import com.fes.dao.domain.UserOrganization;
 import org.apache.ibatis.annotations.Param;
 
@@ -10,5 +11,7 @@ public interface UserOrganizationMapper {
     UserOrganization getOrganization(@Param("username") String username);
     
     UserOrganization showOrganizationByID(@Param("organizationID") int organizationID);
+    
+    boolean insertCustomer(UserOrganization user);
 
 }

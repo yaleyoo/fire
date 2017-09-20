@@ -228,7 +228,7 @@ function individualRegisterRequest() {
 		// firstName,familyName,address,gender(radio),emailAddr,password,contactNum
 		$.ajax({
 			type : "POST",
-			url : "user/verifyIndividualRegister",
+			url : "user/individualRegister",
 			data : $("#individualRegisterForm").serialize(),
 			dataType : "text",
 			async : false,
@@ -238,9 +238,9 @@ function individualRegisterRequest() {
 			success : function(data) {
 				var json = $.parseJSON(data);
 				if (json.error.returnCode == '0') {// success
-					requestRedirect("success");
+					indivudualRegisterRedirect("success");
 				} else {
-					requestRedirect("failure");
+					indivudualRegisterRedirect("failure");
 				}
 			}
 		});
@@ -248,7 +248,7 @@ function individualRegisterRequest() {
 }
 
 // Request Redirect
-function requestRedirect(destination) {
+function indivudualRegisterRedirect(destination) {
 	if (destination == "success") {
 		var form = $("<form></form>");
 		// invoke methods in ViewController.java
@@ -414,7 +414,7 @@ function organizationRegisterRequest() {
 		// firstName,familyName,address,gender(radio),emailAddr,password,contactNum
 		$.ajax({
 			type : "POST",
-			url : "user/verifyOrganizationRegister",
+			url : "user/organizationRegister",
 			data : $("#organizationRegisterForm").serialize(),
 			dataType : "text",
 			async : false,
@@ -424,9 +424,9 @@ function organizationRegisterRequest() {
 			success : function(data) {
 				var json = $.parseJSON(data);
 				if (json.error.returnCode == '0') {// success
-					requestRedirect("success");
+					organizationRegisterRedirect("success");
 				} else {
-					requestRedirect("failure");
+					organizationRegisterRedirect("failure");
 				}
 			}
 		});
@@ -434,7 +434,7 @@ function organizationRegisterRequest() {
 }
 
 // Request Redirect
-function requestRedirect(destination) {
+function organizationRegisterRedirect(destination) {
 	if (destination == "success") {
 		var form = $("<form></form>");
 		// invoke methods in ViewController.java

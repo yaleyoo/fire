@@ -98,7 +98,7 @@
 								<div class="col-sm-8">
 									<div class="form-control_userName">
 										<input type="mail" class="form-control_userName_input"
-											id="emailAddr" name="emailAddr" placeholder=""> <input
+											id="emailAddr" name="username" placeholder=""> <input
 											type="button" class="button white" value="Get the CAPTCHA"
 											onclick="clickToVerifyCode(this);" id="btnMailVerify"
 											name="btnMailVerify" /> <br> <span id="emaiInfo"></span>
@@ -112,7 +112,7 @@
 									style="color: red">*</span>Password</label>
 								<div class="col-sm-8">
 									<input type="password" class="form-control1" id="inputPassword"
-										placeholder="Password"> <span class="psdInfo"></span>
+										name="password" placeholder="Password"> <span class="psdInfo"></span>
 								</div>
 							</div>
 							<div class="form-group">

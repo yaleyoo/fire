@@ -14,11 +14,41 @@ public class ViewController {
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String showAllCustomer(){
-        return "index";
+        return "account/index";
     }
     
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String viewLogin(){
         return "login";
+    }
+    
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String viewRegister(){
+        return "account/register";
+    }
+    
+    @RequestMapping(value = "/organizationRegister", method = RequestMethod.GET)
+    public String viewOrganizationRegister(){
+        return "account/organizationRegister";
+    }
+    
+    @RequestMapping(value = "/individualRegister", method = RequestMethod.GET)
+    public String viewIndividualRegister(){
+        return "account/individualRegister";
+    }
+    
+    @RequestMapping(value = "/mailUs", method = RequestMethod.GET)
+    public String viewMail(){
+        return "mail";
+    }
+    
+    @RequestMapping(value = "/individualHome", method = RequestMethod.GET)
+    public String viewIndividualHome(){
+        return "IndividualUser/individualHome";
+    }
+    
+    @RequestMapping(value = "/organizationHome", method = RequestMethod.GET)
+    public String viewOrganizationHome(){
+        return "OrganizationUser/organizationHome";
     }
 }

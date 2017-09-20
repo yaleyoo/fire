@@ -54,20 +54,18 @@
 					</div>
 					<div class="social-w3licon">
 						<div align="center">
-						<a class="flatbtn" id="logout" onclick="logOut">Log out</a>
-								<!-- ${pageContext.request.contextPath} -->
-								<a href="register" class="flatbtn" id="myaccount">My account</a>
 							<c:if test="${sessionScope.user != null}">
 								<a class="flatbtn" id="logout" href="user/logOut">Log out</a>
 								<!-- ${pageContext.request.contextPath} -->
 								<a href="register" class="flatbtn" id="myaccount">My account</a>
 							</c:if>
 							<c:if test="${sessionScope.user == null}">
+							</c:if>
 								<a href="#loginmodal" class="flatbtn" id="modaltrigger">Log
 									in</a>
 								<!-- ${pageContext.request.contextPath} -->
 								<a href="register" class="flatbtn" id="modaltrigger">Register</a>
-							</c:if>
+							
 						</div>
 						<div id="loginmodal" style="display: none;" tabindex="1">
 							<h1>User Login</h1>
@@ -81,8 +79,8 @@
 							<div id="verifyPassword"></div>
 							<div id="psdResult"></div>
 							<label><input name="userType" id="userType1" type="radio"
-								checked value="0">Individual</label> <label><input
-								name="userType" id="userType2" type="radio" value="1">Organization</label>
+								checked value="1">Individual</label> <label><input
+								name="userType" id="userType2" type="radio" value="2">Organization</label>
 							<br>
 							<div align="center">
 								<!-- call indexLogin.js to finish the transmission of login data -->

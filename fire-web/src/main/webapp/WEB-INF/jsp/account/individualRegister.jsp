@@ -96,7 +96,7 @@
 									style="color: red">*</span>Family Name</label>
 								<div class="col-sm-8">
 									<input type="text" class="form-control1" id="familyName"
-										name="familyName" placeholder=""> <span
+										name="lastName" placeholder=""> <span
 										id="familyNameInfo"></span>
 								</div>
 							</div>
@@ -106,7 +106,7 @@
 								<div class="col-sm-8">
 									<div class="form-control_userName">
 										<input type="mail" class="form-control_userName_input"
-											id="emailAddr" name="emailAddr" placeholder="" /> 
+											id="emailAddr" name="username" placeholder="" /> 
 										<input type="button" class="button white" value="Get the CAPTCHA"
 											onclick="clickToVerifyCode(this);" id="btnMailVerify"
 											name="btnMailVerify" />	
@@ -121,11 +121,11 @@
 								<label for="checkbox" class="col-sm-2 control-label">Gender</label>
 								<div class="col-sm-8">
 									<div class="checkbox-inline1">
-										<label><input name="gender" type="radio" checked value="male">
+										<label><input name="sex" type="radio" checked value="1">
 											Male</label>
 									</div>
 									<div class="checkbox-inline1">
-										<label><input name="gender" type="radio" value="female">
+										<label><input name="sex" type="radio" value="0">
 											Female</label>
 									</div>
 								</div>
@@ -151,7 +151,7 @@
 							<div class="form-group">
 								<label for="txtarea1" class="col-sm-2 control-label">Address</label>
 								<div class="col-sm-8">
-									<textarea name="txtarea1" id="address" name="address" cols="50"
+									<textarea id="address" name="address" cols="50"
 										rows="4" class="form-control1"></textarea>
 								</div>
 							</div>
@@ -161,7 +161,7 @@
 									Number</label>
 								<div class="col-sm-8">
 									<input type="number" class="form-control1" id="contactNum"
-										name="contactNum" /> <span id="contactInfo"></span>
+										name="phoneNum" /> <span id="contactInfo"></span>
 								</div>
 							</div>
 							<div class="form_register">

@@ -34,7 +34,7 @@ function loginTopRequest() {
 			success : function(data) {
 				//0-individual 1-organization
 				var jumpTo = "";
-				if( $('input:radio:checked').val() == '0'){
+				if( $('input:radio:checked').val() == 0){
 					jumpTo = "individualHome";
 				}else{
 					jumpTo = "organizationHome";
@@ -43,9 +43,11 @@ function loginTopRequest() {
 				// json.error.returnCode : 1-failure 0-success
 				// json.data : data returned
 				if (json.error.returnCode == '0') {// success
-					requestRedirect("success", jumpTo);
+					loginRedirect("success", jumpTo);
 				} else {
-					requestRedirect("failure", jumpTo);
+					alert("Username or password is wrong.");
+					jumpTo = "index";
+					loginRedirect("failure", jumpTo);
 				}
 			}
 		});
@@ -55,7 +57,7 @@ function loginTopRequest() {
 }
 
 // Request Redirect
-function requestRedirect(destination,jumpPage) {
+function loginRedirect(destination,jumpPage) {
 	if (destination == "success") {
 		var form = $("<form></form>");
 		// invoke methods in ViewController.java
@@ -68,7 +70,7 @@ function requestRedirect(destination,jumpPage) {
 	}
 	if (destination == "failure") {
 		var form = $("<form></form>");
-		form.attr("action", "index");
+		form.attr("action", jumpPage);
 		form.attr("method", "get");
 		// form.append("<input name='username' value='value'></input>"); append
 		// value here if its nessesary
@@ -120,7 +122,7 @@ function logOut() {
 }
 
 // Request Redirect
-function requestRedirect(destination,jumpPage) {
+function requestLogoutRedirect(destination,jumpPage) {
 	if (destination == "success") {
 		var form = $("<form></form>");
 		// invoke methods in ViewController.java
@@ -133,7 +135,7 @@ function requestRedirect(destination,jumpPage) {
 	}
 	if (destination == "failure") {
 		var form = $("<form></form>");
-		form.attr("action", "index");
+		form.attr("action",jumpPage );
 		form.attr("method", "get");
 		// form.append("<input name='username' value='value'></input>"); append
 		// value here if its nessesary

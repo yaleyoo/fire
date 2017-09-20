@@ -28,23 +28,24 @@ public class UserController {
     }
     
     @RequestMapping(value = "/verifyLogin", method = RequestMethod.POST)
-    public SimpleHttpResult varifyLogin(int userType, String username, String password){
-
+    //0-individual 1-organization
+    public SimpleHttpResult verifyLogin(int userType, String username, String password){
+    	
     	return userService.verifyLogin(userType, username, password);
     }
     
     @RequestMapping(value = "/individualRegister", method = RequestMethod.POST)
     public SimpleHttpResult individualRegister(UserCustomer user){
     	
-    	//return userService.addIndividualCustomer(user);
-    	return new SimpleHttpResult();
+    	return userService.addIndividualCustomer(user);
+    	//return new SimpleHttpResult();
     }
     
     @RequestMapping(value = "/organizationRegister", method = RequestMethod.POST)
     public SimpleHttpResult orgnizationRegister(UserOrganization user){
-    	
-    	//return userService.addOrganizationCustomer(user);
-    	return new SimpleHttpResult();
+    	System.out.println(user.getUsername());
+    	return userService.addOrganizationCustomer(user);
+    	//return new SimpleHttpResult();
     }
     
     @RequestMapping(value = "/showOrganization", method = RequestMethod.GET)

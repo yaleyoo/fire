@@ -96,7 +96,7 @@
 									style="color: red">*</span>Family Name</label>
 								<div class="col-sm-8">
 									<input type="text" class="form-control1" id="familyName"
-										name="lastName" placeholder=""> <span
+										name="familyName" placeholder=""> <span
 										id="familyNameInfo"></span>
 								</div>
 							</div>
@@ -106,7 +106,7 @@
 								<div class="col-sm-8">
 									<div class="form-control_userName">
 										<input type="mail" class="form-control_userName_input"
-											id="emailAddr" name="username" placeholder="" /> 
+											id="emailAddr" name="emailAddr" placeholder="" /> 
 										<input type="button" class="button white" value="Get the CAPTCHA"
 											onclick="clickToVerifyCode(this);" id="btnMailVerify"
 											name="btnMailVerify" />	
@@ -161,7 +161,7 @@
 									Number</label>
 								<div class="col-sm-8">
 									<input type="number" class="form-control1" id="contactNum"
-										name="phoneNum" /> <span id="contactInfo"></span>
+										name="contactNum" /> <span id="contactInfo"></span>
 								</div>
 							</div>
 							<div class="form_register">

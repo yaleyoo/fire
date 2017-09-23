@@ -55,7 +55,7 @@
 					<div class="social-w3licon">
 						<div align="center">
 							<c:if test="${sessionScope.user != null}">
-								<a class="flatbtn" id="logout" href="user/logOut">Log out</a>
+								<a class="flatbtn" id="logout" onclick="logOut()">Log out</a>
 								<!-- ${pageContext.request.contextPath} -->
 								<a href="register" class="flatbtn" id="myaccount">My account</a>
 							</c:if>

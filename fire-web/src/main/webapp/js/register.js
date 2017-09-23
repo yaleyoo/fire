@@ -159,9 +159,9 @@ function clickToVerifyCode(obj) {
 					$('#emaiInfo').css({
 						"color" : "#F00"
 					});
-					//submit is not allowed
+					// submit is not allowed
 					$("#submit").attr("disabled", true);
-				}else{
+				} else {
 					$('#emaiInfo').text('The verification code is correct.');
 					$('#emaiInfo').css({
 						"color" : "#000"
@@ -215,11 +215,13 @@ function mailVerification(obj) {
 
 // click register: transfer info to controller
 function individualRegisterRequest() {
-	if ($("#familyName").val() == '' || $("#emailAddre").val() == ''
+	if ($("#familyName").val() == '' || $("#emailAddr").val() == ''
 			|| $("#inputPassword").val() == ''
 			|| $("#confirmPassword").val() == ''
-			|| $("#contactNum").val() == '' || $("#userMailCode").val() =='') {
-		$("#btnInfo").text('Please enter necessary information with * and complete the verification of email address.');
+			|| $("#contactNum").val() == '' || $("#userMailCode").val() == '') {
+		$("#btnInfo")
+				.text(
+						'Please enter necessary information with * and complete the verification of email address.');
 		$("#btnInfo").css({
 			"color" : "#F00"
 		});
@@ -399,13 +401,15 @@ function organizationRegisterVerification() {
 					});
 }
 
-//click register: transfer info to controller
+// click register: transfer info to controller
 function organizationRegisterRequest() {
-	if ($("#organizationName").val() == '' || $("#emailAddre").val() == ''
+	if ($("#organizationName").val() == '' || $("#emailAddr").val() == ''
 			|| $("#inputPassword").val() == ''
 			|| $("#confirmPassword").val() == ''
-			|| $("#contactNum").val() == '' ||  $("#userMailCode").val() =='') {
-		$("#btnInfo").text('Please enter necessary information with * and complete the verification of email address.');
+			|| $("#contactNum").val() == '' || $("#userMailCode").val() == '') {
+		$("#btnInfo")
+				.text(
+						'Please enter necessary information with * and complete the verification of email address.');
 		$("#btnInfo").css({
 			"color" : "#F00"
 		});
@@ -448,6 +452,129 @@ function organizationRegisterRedirect(destination) {
 	if (destination == "failure") {
 		var form = $("<form></form>");
 		form.attr("action", "organizationRegister");
+		form.attr("method", "get");
+		// form.append("<input name='username' value='value'></input>"); append
+		// value here if its nessesary
+		form.appendTo("body").submit();
+		form.remove();
+	}
+}
+
+// modifyProfile
+// click to change: transfer info to controller
+function organizationProfileModificationRequest() {
+	// organizationName, inputPassword, address, contactNum,
+	// organizationDescription
+	if ($("#organizationName").val() == '' && $("#inputPassword").val() == ''
+			&& $("#confirmPassword").val() == ''
+			&& $("#contactNum").val() == '' && $("#address").val() == ''
+			&& $("#organizationDescription").val() == '') {
+		$("#btnInfo").text('Please enter new information to update.');
+		$("#btnInfo").css({
+			"color" : "#F00"
+		});
+	} else {
+		$("#btnInfo").text('');
+		$.ajax({
+			type : "POST",
+			url : "user/organizationProfileModification",
+			data : $("#organizationProfileForm").serialize(),
+			dataType : "text",
+			async : false,
+			error : function(request) {
+				alert("Connection error");
+			},
+			success : function(data) {
+				var json = $.parseJSON(data);
+				if (json.error.returnCode == '0') {// success
+					organizationProfileModificationRedirect("success");
+				} else {
+					organizationProfileModificationRedirect("failure");
+				}
+			}
+		});
+	}
+}
+
+// Request Redirect
+function organizationProfileModificationRedirect(destination) {
+	if (destination == "success") {
+		alert("You profile changed successfully!");
+		var form = $("<form></form>");
+		// invoke methods in ViewController.java
+		form.attr("action", "organizationHome");
+		form.attr("method", "get");
+		// form.append("<input name='username' value='value'></input>"); append
+		// value here if its nessesary
+		form.appendTo("body").submit();
+		form.remove();
+	}
+	if (destination == "failure") {
+		alert("You profile is not changed!");
+		var form = $("<form></form>");
+		form.attr("action", "organizationProfile");
+		form.attr("method", "get");
+		// form.append("<input name='username' value='value'></input>"); append
+		// value here if its nessesary
+		form.appendTo("body").submit();
+		form.remove();
+	}
+}
+
+// Add a child for organization
+function addNewChildAccountRequest() {
+	if ($("#familyName").val() == '' || $("#emailAddr").val() == ''
+			|| $("#inputPassword").val() == ''
+			|| $("#confirmPassword").val() == ''
+			|| $("#contactNum").val() == '' || $("#userMailCode").val() == '') {
+		$("#btnInfo")
+				.text(
+						'Please enter necessary information with * and complete the verification of email address.');
+		$("#btnInfo").css({
+			"color" : "#F00"
+		});
+	} else {
+		$("#btnInfo").text('');
+		// firstName,familyName,address,gender(radio),emailAddr,password,contactNum
+		alert( $("#addNewChildForm").serialize());
+		$.ajax({
+			type : "POST",
+			url : "user/addNewChildAccount",
+			data : $("#addNewChildForm").serialize(),
+			dataType : "text",
+			async : false,
+			error : function(request) {
+				alert("Connection error");
+			},
+			success : function(data) {
+				var json = $.parseJSON(data);
+				if (json.error.returnCode == '0') {// success
+					addNewChildAccountRedirect("success");
+				} else {
+					addNewChildAccountRedirect("failure");
+				}
+			}
+		});
+	}
+}
+
+//Request Redirect
+function addNewChildAccountRedirect(destination) {
+	if (destination == "success") {
+		alert("The child account is added successfully!");
+		var form = $("<form></form>");
+		// invoke methods in ViewController.java
+		form.attr("action", "organizationHome");
+		form.attr("method", "get");
+		// form.append("<input name='username' value='value'></input>"); append
+		// value here if its nessesary
+		form.appendTo("body").submit();
+		form.remove();
+	}
+	if (destination == "failure") {
+		alert("Fails to add the child account!");
+		var form = $("<form></form>");
+		form.attr("action", "organizationChildrenmanagement");
 		form.attr("method", "get");
 		// form.append("<input name='username' value='value'></input>"); append
 		// value here if its nessesary

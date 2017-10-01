@@ -1,9 +1,10 @@
 package com.fes.biz.impl;
 
-import com.fes.biz.constant.UserType;
-import com.fes.biz.request.domain.CustomerRequest;
+import com.fes.common.constants.UserType;
 import com.fes.biz.service.IUserService;
+import com.fes.biz.vo.HttpTokenVO;
 import com.fes.common.domain.SimpleHttpResult;
+import com.fes.common.util.TokenManager;
 import com.fes.dao.domain.ClassPO;
 import com.fes.dao.domain.UserCustomer;
 import com.fes.dao.domain.UserOrganization;
@@ -16,7 +17,9 @@ import com.fes.dao.mappers.UserStaffMapper;
 import com.fes.dao.mappers.UserTrainerMapper;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,6 +45,9 @@ public class UserServiceImpl implements IUserService {
 
     @Resource
     private ClassMapper classMapper;
+
+    @Resource
+    private TokenManager tokenManager;
     
     @Override
     public SimpleHttpResult showAllCustomer() {
@@ -98,9 +104,9 @@ public class UserServiceImpl implements IUserService {
 
 
     @Override
-    public SimpleHttpResult verifyLogin(int userType, String username, String password) {
-        SimpleHttpResult httpResult = new SimpleHttpResult();
-
+    public SimpleHttpResult verifyLogin(int userType, String username, String password, HttpServletResponse response) throws UnsupportedEncodingException {
+        SimpleHttpResult<HttpTokenVO> httpResult = new SimpleHttpResult();
+        HttpTokenVO result = new HttpTokenVO();
         if (userType == UserType.CUSTOMER.getUserType()){
             UserCustomer userCustomer = userCustomerMapper.getCustomer(username);
             if (userCustomer == null){
@@ -108,6 +114,11 @@ public class UserServiceImpl implements IUserService {
             }
             else if(!password.equals(userCustomer.getPassword())){
                 httpResult.setSuccess(false,"password is incorrect!");
+            }
+            else {
+                String token = tokenManager.createToken(username, userType);
+                result.setToken(token);
+                httpResult.setData(result);
             }
             return httpResult;
         }
@@ -120,6 +131,11 @@ public class UserServiceImpl implements IUserService {
             else if (!password.equals(userOrganization.getPassword())) {
                 httpResult.setSuccess(false, "password is incorrect!");
             }
+            else {
+                String token = tokenManager.createToken(username, userType);
+                result.setToken(token);
+                httpResult.setData(result);
+            }
             return httpResult;
         }
 
@@ -131,6 +147,11 @@ public class UserServiceImpl implements IUserService {
             else if (!password.equals(userTrainer.getPassword())) {
                 httpResult.setSuccess(false, "password is incorrect!");
             }
+            else {
+                String token = tokenManager.createToken(username, userType);
+                result.setToken(token);
+                httpResult.setData(result);
+            }
             return httpResult;
         }
 
@@ -141,6 +162,11 @@ public class UserServiceImpl implements IUserService {
             }
             else if (!password.equals(userStaff.getPassword())) {
                 httpResult.setSuccess(false, "password is incorrect!");
+            }
+            else {
+                String token = tokenManager.createToken(username, userType);
+                result.setToken(token);
+                httpResult.setData(result);
             }
             return httpResult;
         }

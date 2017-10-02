@@ -12,6 +12,7 @@
 	<import resource="classpath*:applicationContext-dao.xml" />
 
 	<bean id="userService" class="com.fes.biz.impl.UserServiceImpl"/>
+	<bean id="classService" class="com.fes.biz.impl.ClassServiceImpl"/>
 
 
 </beans>

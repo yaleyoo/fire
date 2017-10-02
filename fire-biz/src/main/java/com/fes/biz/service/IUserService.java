@@ -4,9 +4,11 @@ import com.fes.biz.request.domain.CustomerRequest;
 import com.fes.common.domain.SimpleHttpResult;
 import com.fes.dao.domain.UserCustomer;
 import com.fes.dao.domain.UserOrganization;
+import org.springframework.http.ResponseEntity;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
 
 
 /**
@@ -14,21 +16,21 @@ import java.io.UnsupportedEncodingException;
  */
 public interface IUserService {
 
-    SimpleHttpResult showAllCustomer();
+    ResponseEntity showAllCustomer();
 
-    SimpleHttpResult showAllStaff();
+    ResponseEntity showAllStaff();
 
-    SimpleHttpResult showAllOrganization();
+    ResponseEntity showAllOrganization();
 
-    SimpleHttpResult showAllTrainer();
+    ResponseEntity showAllTrainer();
 
-    SimpleHttpResult addIndividualCustomer(UserCustomer customer);
-    
-    SimpleHttpResult addOrganizationCustomer(UserOrganization customer);
+    ResponseEntity addIndividualCustomer(UserCustomer customer);
 
-    SimpleHttpResult verifyLogin(int userType, String username, String password, HttpServletResponse response) throws UnsupportedEncodingException;
-    
-    SimpleHttpResult showOrganizationByID(int organizationID);
-    
-    SimpleHttpResult filterClass(int courseID, String classAddr, String classStartTime, int minPrice, int maxPrice);
+    ResponseEntity addOrganizationCustomer(UserOrganization customer);
+
+    ResponseEntity verifyLogin(int userType, String username, String password, HttpServletResponse response) throws UnsupportedEncodingException;
+
+    ResponseEntity showOrganizationByID(int organizationID);
+
+
 }

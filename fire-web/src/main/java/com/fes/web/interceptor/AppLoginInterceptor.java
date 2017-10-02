@@ -37,7 +37,7 @@ public class AppLoginInterceptor implements HandlerInterceptor {
         String token = httpServletRequest.getHeader("Authorization");
         UserType[] userTypes = method.getAnnotation(Authorization.class).authority();
 
-        if (!tokenManager.verifyToken(token, userTypes)){
+        if (!tokenManager.verifyToken(token, userTypes, httpServletRequest)){
             SimpleHttpResult httpResult = new SimpleHttpResult(false, "illegal request!");
             httpServletResponse.getWriter().write(JSON.toJSONString(httpResult));
             httpServletResponse.getWriter().flush();

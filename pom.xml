@@ -18,7 +18,7 @@
 
 
     <properties>
-        <spring_version>4.0.6.RELEASE</spring_version>
+        <spring_version>4.3.10.RELEASE</spring_version>
         <!-- Log libs -->
         <slf4j_version>1.7.5</slf4j_version>
         <!-- Test libs -->
@@ -32,7 +32,7 @@
         <skip_maven_deploy>true</skip_maven_deploy>
 
         <org.codehaus.jackson.version>1.9.12</org.codehaus.jackson.version>
-        <jackson.databind.version>2.1.0</jackson.databind.version>
+        <jackson.databind.version>2.9.0</jackson.databind.version>
     </properties>
 
     <dependencyManagement>
@@ -178,6 +178,33 @@
                 <groupId>joda-time</groupId>
                 <artifactId>joda-time</artifactId>
                 <version>2.2</version>
+            </dependency>
+
+
+
+            <dependency>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>2.9.0</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>3.2.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-redis</artifactId>
+                <version>1.8.4.RELEASE</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.1.39</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

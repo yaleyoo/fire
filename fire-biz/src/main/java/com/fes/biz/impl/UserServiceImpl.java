@@ -51,8 +51,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public ResponseEntity showAllCustomer() {
         SimpleHttpResult<List<UserCustomer>> httpResult = new SimpleHttpResult<>();
-        List<UserCustomer> result = new ArrayList<>();
-        result = userCustomerMapper.getAllCustomerInfo();
+        List<UserCustomer> result = userCustomerMapper.getAllCustomerInfo();
         httpResult.setData(result);
         return new ResponseEntity(httpResult, HttpStatus.OK);
     }

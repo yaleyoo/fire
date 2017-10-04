@@ -13,15 +13,32 @@
         id,course_name,course_desc,course_type,course_price
     </sql>
 
-    <insert id="insert" parameterType="com.fes.dao.domain.Course">
+    <insert id="insertCourse" parameterType="com.fes.dao.domain.Course">
         INSERT INTO course(course_name,course_desc,course_type,course_price)
         VALUES(#{courseName},#{courseDesc},#{courseType},#{coursePrice})
     </insert>
 
-    <select id="getCourseList" resultMap="courseResult">
+    <select id="selectCourseById" resultMap="courseResult">
+        select
+        <include refid="baseColumns"/>
+        from course where id=#{id}
+    </select>
+
+    <select id="selectCourse" resultMap="courseResult">
         select
         <include refid="baseColumns"/>
         from course
     </select>
+
+    <update id="updateCourse" parameterType="com.fes.dao.domain.Course">
+        update course set course_name=#{courseName},course_desc=#{courseDesc},course_type=#{courseType},
+        course_price=#{coursePrice} where id=#{id}
+    </update>
+
+    <delete id="deleteCourse">
+        delete from course where id=#{id}
+    </delete>
+
+
 
 </mapper>

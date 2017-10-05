@@ -27,7 +27,7 @@ public class ExceptionAdvice {
     @ExceptionHandler(BindException.class)
     public SimpleHttpResult handleBindException(BindException e) {
 
-        return new SimpleHttpResult(false, "param error!\n"+e.getMessage());
+        return new SimpleHttpResult(false, "param error!");
     }
 
     /**
@@ -37,7 +37,7 @@ public class ExceptionAdvice {
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public SimpleHttpResult handleValidationException(MissingServletRequestParameterException e) {
 
-        return new SimpleHttpResult(false, "param error!\n"+e.getMessage());
+        return new SimpleHttpResult(false, "param error!");
     }
 
 

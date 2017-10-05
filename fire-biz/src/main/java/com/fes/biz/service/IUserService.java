@@ -28,7 +28,7 @@ public interface IUserService {
 
     ResponseEntity addOrganizationCustomer(UserOrganization customer);
 
-    ResponseEntity verifyLogin(int userType, String username, String password, HttpServletResponse response) throws UnsupportedEncodingException;
+    ResponseEntity verifyLogin(int userType, String username, String password) throws UnsupportedEncodingException;
 
     ResponseEntity showOrganizationByID(int organizationID);
 

@@ -103,7 +103,7 @@ public class UserServiceImpl implements IUserService {
 
 
     @Override
-    public ResponseEntity verifyLogin(int userType, String username, String password, HttpServletResponse response) throws UnsupportedEncodingException {
+    public ResponseEntity verifyLogin(int userType, String username, String password) throws UnsupportedEncodingException {
         SimpleHttpResult<HttpTokenVO> httpResult = new SimpleHttpResult();
         HttpTokenVO result = new HttpTokenVO();
         if (userType == UserType.CUSTOMER.getUserType()){

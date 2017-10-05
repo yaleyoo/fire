@@ -3,16 +3,16 @@ package com.fes.web.controller;
 import com.fes.biz.service.ICourseService;
 import com.fes.dao.domain.Course;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by qigege on 2017/10/2.
  */
 @RestController
 @RequestMapping("/course")
+@CrossOrigin(origins = "*")
+@Validated
 public class CourseController {
 
     private ICourseService courseService;

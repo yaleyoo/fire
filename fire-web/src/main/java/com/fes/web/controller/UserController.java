@@ -70,5 +70,11 @@ public class UserController {
         return userService.showOrganizationByID(organizationID);
     }
 
+    @RequestMapping(value = "/modifyProfile", method = RequestMethod.POST)
+    public ResponseEntity modifyProfile(UserCustomer userCustomer) {
+    		return userService.modifyProfile(userCustomer);
+    }
+
+
 
 }

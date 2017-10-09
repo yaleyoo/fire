@@ -32,5 +32,6 @@ public interface IUserService {
 
     ResponseEntity showOrganizationByID(int organizationID);
 
+    ResponseEntity modifyProfile(UserCustomer userCustomer);
 
 }

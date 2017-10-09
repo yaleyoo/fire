@@ -188,7 +188,20 @@ public class UserServiceImpl implements IUserService {
     		return new ResponseEntity(httpResult, HttpStatus.OK);
     }
     
-
+    @Override
+    public ResponseEntity modifyProfile(UserCustomer userCustomer) {
+    		SimpleHttpResult httpResult = new SimpleHttpResult();
+    		boolean success = userCustomerMapper.update(userCustomer);
+    		if(success) {
+    			httpResult.setSuccess(true);
+    			return new ResponseEntity(httpResult, HttpStatus.OK);
+    		}
+    		else {
+    			httpResult.setSuccess(false);
+    			return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
+    		}
+    		
+    }
 
 	
 }

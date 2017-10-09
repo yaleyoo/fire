@@ -19,7 +19,7 @@ public interface UserCustomerMapper {
 
     boolean insertCustomer(UserCustomer user);
 
-
+    boolean update(UserCustomer user);
 
 
 }

@@ -107,23 +107,21 @@
 								<div class="col-sm-8">
 									<div class="form-control_userName">
 										<input type="mail" class="form-control_userName_input"
-											id="emailAddr" name="emailAddr" placeholder="" /> 
-										<input type="button" class="button white" value="Get the CAPTCHA"
+											id="emailAddr" name="emailAddr" placeholder="" /> <input
+											type="button" class="button white" value="Get the CAPTCHA"
 											onclick="clickToVerifyCode(this);" id="btnMailVerify"
-											name="btnMailVerify" />	
-											<br>													
-											<span id="emaiInfo"></span>														
+											name="btnMailVerify" /> <br> <span id="emaiInfo"></span>
 									</div>
 									<input type="text" class="form-control_userName_Captcha"
-										id="userMailCode" name="userMailCode" placeholder="" />																							
-								</div>																
-							</div>							
+										id="userMailCode" name="userMailCode" placeholder="" />
+								</div>
+							</div>
 							<div class="form-group">
 								<label for="checkbox" class="col-sm-2 control-label">Gender</label>
 								<div class="col-sm-8">
 									<div class="checkbox-inline1">
-										<label><input name="sex" type="radio" checked value="1">
-											Male</label>
+										<label><input name="sex" type="radio" checked
+											value="1"> Male</label>
 									</div>
 									<div class="checkbox-inline1">
 										<label><input name="sex" type="radio" value="0">
@@ -136,8 +134,8 @@
 									style="color: red">*</span>Password</label>
 								<div class="col-sm-8">
 									<input type="password" class="form-control1" id="password"
-										name="password" placeholder="Password" >
-										<span class="psdInfo"></span>
+										name="password" placeholder="Password"> <span
+										class="psdInfo"></span>
 								</div>
 							</div>
 							<div class="form-group">
@@ -145,32 +143,29 @@
 									style="color: red">*</span>Confirm Password</label>
 								<div class="col-sm-8">
 									<input type="password" class="form-control1"
-										id="confirmPassword" placeholder="Confirm Password" />
-										<span class="psd1Info"></span>
+										id="confirmPassword" placeholder="Confirm Password" /> <span
+										class="psd1Info"></span>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="txtarea1" class="col-sm-2 control-label">Address</label>
 								<div class="col-sm-8">
-									<textarea id="address" name="address" cols="50"
-										rows="4" class="form-control1"></textarea>
+									<textarea id="address" name="address" cols="50" rows="4"
+										class="form-control1"></textarea>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="focusedinput" class="col-sm-2 control-label"
-									><span style="color: red">*</span>Contact
-									Number</label>
+								<label for="focusedinput" class="col-sm-2 control-label"><span
+									style="color: red">*</span>Contact Number</label>
 								<div class="col-sm-8">
 									<input type="number" class="form-control1" id="contactNum"
 										name="contactNum" /> <span id="contactInfo"></span>
 								</div>
 							</div>
 							<div class="form_register">
-								<span id="btnInfo" ></span> 
-								<br>
-								<a class="wthree-more w3more1 nina"
-									data-text="Register" id="submit" 
-									onclick="individualRegisterRequest()"> <span>R</span><span>e</span><span>g</span><span>i</span><span>s</span><span>t</span><span>e</span><span>r</span>
+								<span id="btnInfo"></span> <br> <a
+									class="wthree-more w3more1 nina" data-text="Register"
+									id="submit" onclick="individualRegisterRequest()"> <span>R</span><span>e</span><span>g</span><span>i</span><span>s</span><span>t</span><span>e</span><span>r</span>
 								</a>
 							</div>
 						</form>
@@ -193,4 +188,46 @@
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="js/bootstrap.js"></script>
 
-	<%@ include file="../common/IncludeBottom.jsp"%>
+	<!-- footer-top -->
+	<div class="footer-agiletop">
+		<div class="container">
+			<div class="col-md-8 w3agile_hire_left">
+				<h4>We are always ready to help you. There are many ways to
+					contact us</h4>
+			</div>
+			<div class="col-md-4 w3agile_hire_right">
+				<a href="mailUs" class="wthree-more w3more1 nina"
+					data-text="contect me"> <span>c</span><span>o</span><span>n</span><span>t</span><span>e</span><span>c</span><span>t</span>
+					<span>m</span><span>e</span>
+				</a>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	<!-- //footer-top -->
+	<!-- footer -->
+	<div class="footer">
+		<div class="container">
+			<div class="col-md-4 w3layouts_footer_grid">
+				<h2>
+					Follow <span>Us</span>
+				</h2>
+			</div>
+			<div class="col-md-8 w3layouts_footer_grid">
+				<ul class="social_agileinfo">
+					<li><a href="#" class="w3_facebook"><i
+							class="fa fa-facebook"></i></a></li>
+					<li><a href="#" class="w3_twitter"><i
+							class="fa fa-twitter"></i></a></li>
+					<li><a href="#" class="w3_instagram"><i
+							class="fa fa-instagram"></i></a></li>
+					<li><a href="#" class="w3_google"><i
+							class="fa fa-google-plus"></i></a></li>
+				</ul>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	<!-- //footer -->
+</body>
+</html>

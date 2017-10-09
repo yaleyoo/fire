@@ -19,7 +19,7 @@ function loginTopRequest() {
 			type : "POST",
 			// url for request.
 			// invoke methods in UserController.java
-			url : "user/verifyLogin",
+			url : "user/token",
 			data : {
 				username : $('#username').val(),
 				password : $('#password').val(),
@@ -27,28 +27,25 @@ function loginTopRequest() {
 			},
 			// asyncronise, default is true
 			async : false,
-			dataType : "text",
-			error : function(request) {
-				alert("Connection error");
+			dataType : "json",
+			error : function(data) {
+                var json = $.parseJSON(data);
+                if (json != null){
+                    alert(json.error.returnUserMessage);
+                }else{
+                    alert("Connection error");
+                }
 			},
 			success : function(data) {
 				//0-individual 1-organization
-				var jumpTo = "";
-				if( $('input:radio:checked').val() == 0){
-					jumpTo = "individualHome";
-				}else{
-					jumpTo = "organizationHome";
-				}
-				var json = $.parseJSON(data);
-				// json.error.returnCode : 1-failure 0-success
-				// json.data : data returned
-				if (json.error.returnCode == '0') {// success
-					loginRedirect("success", jumpTo);
-				} else {
-					alert("Username or password is wrong.");
-					jumpTo = "index";
-					loginRedirect("failure", jumpTo);
-				}
+                var json = $.parseJSON(data);
+                if( $('input:radio:checked').val() == '0'){
+                    jumpTo = "individualHome";
+                    location.href("individualHome.html");
+                }else{
+                    jumpTo = "organizationHome";
+                    location.href("organizationHome.html");
+                }
 			}
 		});
 	}else{
@@ -86,7 +83,7 @@ function logOut() {
 			type : "POST",
 			// url for request.
 			// invoke methods in UserController.java
-			url : "user/verifyLogin",
+			url : "user/token",
 			data : {
 				username : $('#username').val(),
 				password : $('#password').val(),
@@ -95,25 +92,27 @@ function logOut() {
 			// asyncronise, default is true
 			async : false,
 			dataType : "text",
-			error : function(request) {
-				alert("Connection error");
+			error : function(data) {
+                var json = $.parseJSON(data);
+                if (json != null){
+                	alert(json.error.returnUserMessage);
+				}else{
+                    alert("Connection error");
+				}
+
 			},
 			success : function(data) {
 				//0-individual 1-organization
-				var jumpTo = "";
+                var json = $.parseJSON(data);
 				if( $('input:radio:checked').val() == '0'){
 					jumpTo = "individualHome";
+                    location.replace("individualHome.html");
 				}else{
 					jumpTo = "organizationHome";
+                    location.replace("organizationHome.html");
 				}
-				var json = $.parseJSON(data);
-				// json.error.returnCode : 1-failure 0-success
-				// json.data : data returned
-				if (json.error.returnCode == '0') {// success
-					requestRedirect("success", jumpTo);
-				} else {
-					requestRedirect("failure", jumpTo);
-				}
+
+
 			}
 		});
 	}else{

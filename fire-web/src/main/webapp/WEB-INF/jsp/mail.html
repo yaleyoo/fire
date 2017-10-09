@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" type="text/css" media="all"
+	href="css/stylelogin.css">
+<!-- Custom Theme files -->
+<link href="css/bootstrap.css" type="text/css" rel="stylesheet"
+	media="all">
+<link href="css/style.css" type="text/css" rel="stylesheet" media="all">
+<link href="css/font-awesome.css" rel="stylesheet">
+<link rel="stylesheet" href="css/flexslider.css" type="text/css"
+	media="all" />
+<!-- font-awesome icons -->
+<link
+	href="http://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700"
+	rel="stylesheet">
+<link
+	href="http://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700"
+	rel="stylesheet">
+<!-- //web-fonts -->
+
+<script src="js/jquery-2.2.3.min.js"></script>
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/jquery.leanModal.min.js"></script>
+<script src="js/numscroller-1.0.js"></script>
+<script src="js/SmoothScroll.min.js"></script>
+<script src="js/jarallax.js"></script>
+<script src="js/Login.js"></script>
+<script src="js/move-top.js"></script>
+<script src="js/easing.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/register.js"></script>
+<script src="js/numscroller-1.0.js"></script>
+<script src="js/commonJs.js"></script>
+</head>
+<body>
+	<!-- banner -->
+	<div class="banner">
+		<div class="banner-agileinfo">
+			<!-- header -->
+			<div class="header">
+				<div class="container">
+					<div class="logo">
+						<h1>
+							<a href="index">FES Booking</a>
+						</h1>
+					</div>
+					<div class="social-w3licon">
+						<div align="center">
+							<a class="flatbtn" id="logout" onclick="logOut()">Log out</a>
+							<!-- ${pageContext.request.contextPath} -->
+							<a href="register" class="flatbtn" id="myaccount">My account</a>
+							<a href="#loginmodal" class="flatbtn" id="modaltrigger">Log
+								in</a>
+							<!-- ${pageContext.request.contextPath} -->
+							<a href="register" class="flatbtn" id="modaltrigger">Register</a>
+						</div>
+						<div id="loginmodal" style="display: none;" tabindex="1">
+							<h1>User Login</h1>
+							<label for="username">Username:</label> <input type="text"
+								name="username" id="username" class="txtfield" tabindex="1"
+								onBlur="usernameVerify()" />
+							<div id="usernameResult"></div>
+							<label for="password">Password:</label> <input type="password"
+								name="password" id="password" class="txtfield" tabindex="2"
+								onBlur="psdVerify()" />
+							<div id="verifyPassword"></div>
+							<div id="psdResult"></div>
+							<label><input name="userType" id="userType1" type="radio"
+								checked value="1">Individual</label> <label><input
+								name="userType" id="userType2" type="radio" value="2">Organization</label>
+							<br>
+							<div align="center">
+								<!-- call indexLogin.js to finish the transmission of login data -->
+								<input type="button" id="loginbtn" class="flatbtn-blu hidemodal"
+									value="Log In" tabindex="3" onClick="loginTopRequest()" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- //header -->
+		</div>
+	</div>
+	<!-- //banner  -->
+
+	<div class="contact">
+		<div class="container">
+			<div class="w3ls-title">
+				<h3 class="agileits-title">Mail Us</h3>
+			</div>
+			<!-- map -->
+			<div class="map">
+				<iframe
+					src="https://www.google.com/maps/embed/v1/place?key=AIzaSyARUHt5Q6Q5Ub-b8JH3C3bTIQJUI-K_7os
+  &q=Fire+Equipment+Services,Burwood+East
+  &attribution_source=Google+Maps+Embed+API
+  &attribution_web_url=http://www.fairmont.com/empress-victoria/
+  &attribution_ios_deep_link_id=comgooglemaps://?daddr=Fairmont+Empress,+Victoria,+BC"></iframe>
+			</div>
+			<!-- //map -->
+			<div class="map-pos">
+				<div class="col-md-4 address-row">
+					<div class="col-xs-2 address-left">
+						<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+					</div>
+					<div class="col-xs-10 address-right">
+						<h5>Visit Us</h5>
+						<p>Business Address: Fire Equipment Services Suite 2 / 5
+							Lakeside Drive Burwood East VIC 3151</p>
+						Postal Address: Fire Equipment Services PO Box 3070 Nunawading VIC
+						3131
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="col-md-4 address-row w3-agileits">
+					<div class="col-xs-2 address-left">
+						<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+					</div>
+					<div class="col-xs-10 address-right">
+						<h5>Mail Us</h5>
+						<p>
+							<a href="mailto:info@example.com"> enquiry@fes.com.au</a>
+						</p>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="col-md-4 address-row">
+					<div class="col-xs-2 address-left">
+						<span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
+					</div>
+					<div class="col-xs-10 address-right">
+						<h5>Call Us</h5>
+						<p>+1300 855 163</p>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<form action="#" method="post">
+				<div class="col-sm-6 contact-left">
+					<input type="text" name="Name" placeholder="Your Name" required="">
+					<input type="email" name="Email" placeholder="Email" required="">
+					<input type="text" name="Mobile Number" placeholder="Mobile Number"
+						required="">
+				</div>
+				<div class="col-sm-6 contact-right">
+					<textarea name="Message" placeholder="Message" required=""></textarea>
+					<input type="submit" value="Submit">
+				</div>
+				<div class="clearfix"></div>
+			</form>
+		</div>
+	</div>
+	<!-- footer-top -->
+
+	<!-- footer-top -->
+	<div class="footer-agiletop">
+		<div class="container">
+			<div class="col-md-8 w3agile_hire_left">
+				<h4>We are always ready to help you. There are many ways to
+					contact us</h4>
+			</div>
+			<div class="col-md-4 w3agile_hire_right">
+				<a href="mailUs" class="wthree-more w3more1 nina"
+					data-text="contect me"> <span>c</span><span>o</span><span>n</span><span>t</span><span>e</span><span>c</span><span>t</span>
+					<span>m</span><span>e</span>
+				</a>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	<!-- //footer-top -->
+	<!-- footer -->
+	<div class="footer">
+		<div class="container">
+			<div class="col-md-4 w3layouts_footer_grid">
+				<h2>
+					Follow <span>Us</span>
+				</h2>
+			</div>
+			<div class="col-md-8 w3layouts_footer_grid">
+				<ul class="social_agileinfo">
+					<li><a href="#" class="w3_facebook"><i
+							class="fa fa-facebook"></i></a></li>
+					<li><a href="#" class="w3_twitter"><i
+							class="fa fa-twitter"></i></a></li>
+					<li><a href="#" class="w3_instagram"><i
+							class="fa fa-instagram"></i></a></li>
+					<li><a href="#" class="w3_google"><i
+							class="fa fa-google-plus"></i></a></li>
+				</ul>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	<!-- //footer -->
+</body>
+</html>

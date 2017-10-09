@@ -2,6 +2,9 @@ package com.fes.web.controller;
 
 import com.fes.biz.service.ICourseService;
 import com.fes.dao.domain.Course;
+
+import javax.annotation.Resource;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +18,8 @@ import org.springframework.web.bind.annotation.*;
 @Validated
 public class CourseController {
 
-    private ICourseService courseService;
+	@Resource
+	private ICourseService courseService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity getCourseById(@PathVariable("id") int id){
@@ -24,7 +28,7 @@ public class CourseController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity getAllCourses(){
-        return courseService.showAllCourses();
+    	return courseService.showAllCourses();
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)

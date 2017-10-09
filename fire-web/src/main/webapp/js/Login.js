@@ -19,7 +19,7 @@ function loginTopRequest() {
 			type : "POST",
 			// url for request.
 			// invoke methods in UserController.java
-			url : "user/verifyLogin",
+			url : "user/token",
 			data : {
 				username : $('#username').val(),
 				password : $('#password').val(),
@@ -27,29 +27,26 @@ function loginTopRequest() {
 			},
 			// asyncronise, default is true
 			async : false,
-			dataType : "text",
-			error : function(request) {
-				alert("Connection error");
-			},
-			success : function(data) {
-				//0-individual 1-organization
-				var jumpTo = "";
-				if( $('input:radio:checked').val() == 1){
-					jumpTo = "individualHome";
-				}else{
-					jumpTo = "organizationHome";
-				}
-				var json = $.parseJSON(data);
-				// json.error.returnCode : 1-failure 0-success
-				// json.data : data returned
-				if (json.error.returnCode == '0') {// success
-					loginRedirect("success", jumpTo);
-				} else {
-					alert("Username or password is wrong.");
-					jumpTo = "index";
-					loginRedirect("failure", jumpTo);
-				}
-			}
+			dataType : "json",
+            error : function(data) {
+				var json = data.responseText;
+                if (json != null || json!=""){
+                	json = $.parseJSON(json);
+                    alert(json.error.returnUserMessage);
+                }else{
+                    alert("Connection error");
+                }
+            },
+            success : function(data) {
+                //0-individual 1-organization
+				localStorage.setItem("token",data.data.token);
+				var select = $('input:radio:checked').val();
+                if( select == 1){
+                    location.href="/jsp/IndividualUser/individualHome.html";
+                }else{
+                    location.href="/jsp/OrganizationUser/organizationHome.html";
+                }
+            }
 		});
 	}else{
 		alert("Invalid username or password.");
@@ -81,7 +78,47 @@ function loginRedirect(destination,jumpPage) {
 
 //send request
 function logOut() {
-	//
+	if($('#password').val() !='' || $('#username').val() != ''){
+		$.ajax({
+			type : "POST",
+			// url for request.
+			// invoke methods in UserController.java
+			url : "user/token",
+			data : {
+				username : $('#username').val(),
+				password : $('#password').val(),
+				userType : $('input:radio:checked').val()
+			},
+			// asyncronise, default is true
+			async : false,
+			dataType : "text",
+			error : function(data) {
+                var json = data.responseText;
+                if (json != null || json!=""){
+                    json = $.parseJSON(json);
+                    alert(json.error.returnUserMessage);
+                }else{
+                    alert("Connection error");
+                }
+
+			},
+			success : function(data) {
+				//0-individual 1-organization
+                var json = $.parseJSON(data);
+				if( $('input:radio:checked').val() == '0'){
+					jumpTo = "individualHome";
+                    location.replace="/account/individualHome.html";
+				}else{
+					jumpTo = "organizationHome";
+                    location.replace="/account/organizationHome.html";
+				}
+
+
+			}
+		});
+	}else{
+		alert("Invalid username or password.");
+	}	
 }
 
 // Request Redirect

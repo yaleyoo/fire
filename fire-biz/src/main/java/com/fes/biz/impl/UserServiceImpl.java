@@ -15,6 +15,8 @@ import com.fes.dao.mappers.UserCustomerMapper;
 import com.fes.dao.mappers.UserOrganizationMapper;
 import com.fes.dao.mappers.UserStaffMapper;
 import com.fes.dao.mappers.UserTrainerMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -44,177 +46,149 @@ public class UserServiceImpl implements IUserService {
     private UserTrainerMapper userTrainerMapper;
 
     @Resource
-    private ClassMapper classMapper;
-
-    @Resource
     private TokenManager tokenManager;
     
     @Override
-    public SimpleHttpResult showAllCustomer() {
+    public ResponseEntity showAllCustomer() {
         SimpleHttpResult<List<UserCustomer>> httpResult = new SimpleHttpResult<>();
-        List<UserCustomer> result = new ArrayList<>();
-        result = userCustomerMapper.getAllCustomerInfo();
+        List<UserCustomer> result = userCustomerMapper.getAllCustomerInfo();
         httpResult.setData(result);
-        return httpResult;
+        return new ResponseEntity(httpResult, HttpStatus.OK);
     }
 
     @Override
-    public SimpleHttpResult showAllStaff() {
+    public ResponseEntity showAllStaff() {
         return null;
     }
 
     @Override
-    public SimpleHttpResult showAllOrganization() {
+    public ResponseEntity showAllOrganization() {
         return null;
     }
 
     @Override
-    public SimpleHttpResult showAllTrainer() {
+    public ResponseEntity showAllTrainer() {
         return null;
     }
 
     @Override
-    public SimpleHttpResult addIndividualCustomer(UserCustomer user) {
+    public ResponseEntity addIndividualCustomer(UserCustomer user) {
     	boolean success = userCustomerMapper.insertCustomer(user);
     	SimpleHttpResult httpResult = new SimpleHttpResult();
     	
     	if(success){
     		httpResult.setSuccess(true);
+            return new ResponseEntity(httpResult, HttpStatus.OK);
     	}
-    	else{
-    		httpResult.setSuccess(false);
-    	}
-        return httpResult;
+        httpResult.setSuccess(false);
+        return new ResponseEntity(httpResult, HttpStatus.SERVICE_UNAVAILABLE);
+
     }
     
     @Override
-	public SimpleHttpResult addOrganizationCustomer(UserOrganization user) {
+	public ResponseEntity addOrganizationCustomer(UserOrganization user) {
 		// TODO Auto-generated method stub
     	boolean success = userOrganizationMapper.insertCustomer(user);
     	SimpleHttpResult httpResult = new SimpleHttpResult();
     	
     	if(success){
     		httpResult.setSuccess(true);
+            return new ResponseEntity(httpResult, HttpStatus.OK);
     	}
-    	else{
-    		httpResult.setSuccess(false);
-    	}
-        return httpResult;
+
+        httpResult.setSuccess(false);
+        return new ResponseEntity(httpResult, HttpStatus.SERVICE_UNAVAILABLE);
+
 	}
 
 
     @Override
-    public SimpleHttpResult verifyLogin(int userType, String username, String password, HttpServletResponse response) throws UnsupportedEncodingException {
+    public ResponseEntity verifyLogin(int userType, String username, String password) throws UnsupportedEncodingException {
         SimpleHttpResult<HttpTokenVO> httpResult = new SimpleHttpResult();
         HttpTokenVO result = new HttpTokenVO();
         if (userType == UserType.CUSTOMER.getUserType()){
             UserCustomer userCustomer = userCustomerMapper.getCustomer(username);
             if (userCustomer == null){
                 httpResult.setSuccess(false, "username is incorrect!");
+                return new ResponseEntity(httpResult, HttpStatus.UNAUTHORIZED);
             }
             else if(!password.equals(userCustomer.getPassword())){
                 httpResult.setSuccess(false,"password is incorrect!");
+                return new ResponseEntity(httpResult, HttpStatus.UNAUTHORIZED);
             }
-            else {
-                String token = tokenManager.createToken(username, userType);
-                result.setToken(token);
-                httpResult.setData(result);
-            }
-            return httpResult;
+            String token = tokenManager.createToken(username, userType);
+            result.setToken(token);
+            httpResult.setData(result);
+            return new ResponseEntity(httpResult, HttpStatus.OK);
         }
 
         if (userType == UserType.ORGANIZATION.getUserType()) {
             UserOrganization userOrganization = userOrganizationMapper.getOrganization(username);
             if (userOrganization == null) {
                 httpResult.setSuccess(false, "username is incorrect!");
+                return new ResponseEntity(httpResult, HttpStatus.UNAUTHORIZED);
             }
             else if (!password.equals(userOrganization.getPassword())) {
                 httpResult.setSuccess(false, "password is incorrect!");
+                return new ResponseEntity(httpResult, HttpStatus.UNAUTHORIZED);
             }
-            else {
-                String token = tokenManager.createToken(username, userType);
-                result.setToken(token);
-                httpResult.setData(result);
-            }
-            return httpResult;
+            String token = tokenManager.createToken(username, userType);
+            result.setToken(token);
+            httpResult.setData(result);
+            return new ResponseEntity(httpResult, HttpStatus.OK);
         }
 
         if (userType == UserType.STAFF.getUserType()) {
             UserTrainer userTrainer = userTrainerMapper.getTrainer(username);
             if (userTrainer == null) {
                 httpResult.setSuccess(false, "username is incorrect!");
+                return new ResponseEntity(httpResult, HttpStatus.UNAUTHORIZED);
             }
             else if (!password.equals(userTrainer.getPassword())) {
                 httpResult.setSuccess(false, "password is incorrect!");
+                return new ResponseEntity(httpResult, HttpStatus.UNAUTHORIZED);
             }
-            else {
-                String token = tokenManager.createToken(username, userType);
-                result.setToken(token);
-                httpResult.setData(result);
-            }
-            return httpResult;
+            String token = tokenManager.createToken(username, userType);
+            result.setToken(token);
+            httpResult.setData(result);
+            return new ResponseEntity(httpResult, HttpStatus.OK);
         }
 
         if (userType == UserType.TRAINER.getUserType()) {
             UserStaff userStaff = userStaffMapper.getStaff(username);
             if (userStaff == null) {
                 httpResult.setSuccess(false, "username is incorrect!");
+                return new ResponseEntity(httpResult, HttpStatus.UNAUTHORIZED);
             }
             else if (!password.equals(userStaff.getPassword())) {
                 httpResult.setSuccess(false, "password is incorrect!");
+                return new ResponseEntity(httpResult, HttpStatus.UNAUTHORIZED);
             }
-            else {
-                String token = tokenManager.createToken(username, userType);
-                result.setToken(token);
-                httpResult.setData(result);
-            }
-            return httpResult;
+            String token = tokenManager.createToken(username, userType);
+            result.setToken(token);
+            httpResult.setData(result);
+            return new ResponseEntity(httpResult, HttpStatus.OK);
         }
 
         httpResult.setSuccess(false,"request param is incorrect!");
-        return httpResult;
+        return new ResponseEntity(httpResult, HttpStatus.BAD_REQUEST);
     }
     
     @Override
-    public SimpleHttpResult showOrganizationByID(int organizationID) {
+    public ResponseEntity showOrganizationByID(int organizationID) {
     		UserOrganization result = userOrganizationMapper.showOrganizationByID(organizationID);
     		SimpleHttpResult<UserOrganization> httpResult = new SimpleHttpResult<UserOrganization>();
     		if (result == null) {
     			httpResult.setSuccess(false, "The organization does not exist.");
+                return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
     		}
-    		else {
-    			httpResult.setData(result);
-    		}
-    		return httpResult;
+
+            httpResult.setData(result);
+
+    		return new ResponseEntity(httpResult, HttpStatus.OK);
     }
     
-    @Override
-    public SimpleHttpResult filterClass(int courseID, String classAddr, String classStartTime, int minPrice, int maxPrice ) {
-    		SimpleHttpResult<List<ClassPO>> httpResult = new SimpleHttpResult<>();
-    		List<ClassPO> result = new ArrayList<>();
-    		try {
-    			Date classTime = null;
-    			if (!"".equals(classStartTime.toString())) {
-    				SimpleDateFormat format =  new SimpleDateFormat("yyyy-mm-dd");
-    				classTime = new Date(format.parse(classStartTime).getTime());
-    			}
-    				
-    			result = classMapper.filter(courseID, classAddr, classTime, minPrice, maxPrice);
-    			
-    		} catch(ParseException e) {
-    			httpResult.setSuccess(false, "Date is invalid.");
-    			return httpResult;
-    		}
-    		
-    		
-    		if (result == null) {
-    				httpResult.setSuccess(false, "The class does not exist.");
-    		}
-    		else {
-    				httpResult.setData(result);
-		}
-		return httpResult;
-    }
+
 
 	
 }

@@ -7,11 +7,18 @@ import com.fes.common.domain.SimpleHttpResult;
 import com.fes.dao.domain.UserCustomer;
 import com.fes.dao.domain.UserOrganization;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.io.UnsupportedEncodingException;
+
 
 /**
  * Created by qigege on 2017/9/3.
@@ -19,6 +26,8 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin()
+@Validated
 public class UserController {
 
     @Resource
@@ -26,48 +35,40 @@ public class UserController {
 
     //需要登录权限认证
     @Authorization (authority = UserType.STAFF)
-    @RequestMapping(value = "/showAllCustomer", method = RequestMethod.GET)
+    @RequestMapping(value = "/customer", method = RequestMethod.GET)
+    public ResponseEntity showAllCustomer(){
 
-    public SimpleHttpResult showAllCustomer(){
-        return userService.showAllCustomer();
+            return userService.showAllCustomer();
+    }
+
+    @RequestMapping(value = "/customer", method = RequestMethod.POST)
+    public ResponseEntity individualRegister(UserCustomer user){
+
+            return userService.addIndividualCustomer(user);
     }
     
-    @RequestMapping(value = "/verifyLogin", method = RequestMethod.POST)
+    @RequestMapping(value = "/token", method = RequestMethod.POST)
     //0-individual 1-organization
-    public SimpleHttpResult verifyLogin(int userType, String username, String password, HttpServletResponse response){
-    	try {
-            SimpleHttpResult result = userService.verifyLogin(userType, username, password, response);
-            return result;
-        } catch (Exception e){
-    	    return new SimpleHttpResult(false, "Service Wrong! Please try again in a moment!");
-        }
+    public ResponseEntity verifyLogin(@RequestParam("userType") int userType, @NotNull @RequestParam("username") String username,
+                                      @NotEmpty @RequestParam("password") String password) throws UnsupportedEncodingException {
+
+             return userService.verifyLogin(userType, username, password);
     }
     
-    @RequestMapping(value = "/individualRegister", method = RequestMethod.POST)
-    public SimpleHttpResult individualRegister(UserCustomer user){
-    	
-    	return userService.addIndividualCustomer(user);
-    	//return new SimpleHttpResult();
-    }
-    
-    @RequestMapping(value = "/organizationRegister", method = RequestMethod.POST)
-    public SimpleHttpResult orgnizationRegister(UserOrganization user){
-    	System.out.println(user.getUsername());
-    	return userService.addOrganizationCustomer(user);
-    	//return new SimpleHttpResult();
-    }
-    
-    @RequestMapping(value = "/showOrganization", method = RequestMethod.GET)
-    public SimpleHttpResult showOrganizationByID(int organizationID) {
-    		return userService.showOrganizationByID(organizationID);
-    }
 
     
-    @RequestMapping(value = "/filterClass", method = RequestMethod.GET)
-    public SimpleHttpResult filterClass(int courseID, String classAddr, String classStartTime, int minPrice, int maxPrice ) {
-    		return userService.filterClass(courseID, classAddr, classStartTime, minPrice, maxPrice);
+    @RequestMapping(value = "/organization", method = RequestMethod.POST)
+    public ResponseEntity orgnizationRegister(@Valid UserOrganization user){
+
+            return userService.addOrganizationCustomer(user);
+
+    }
+    @Authorization (authority = UserType.STAFF)
+    @RequestMapping(value = "/organization/{id}", method = RequestMethod.GET)
+    public ResponseEntity showOrganizationByID(@PathVariable("id") int organizationID) {
+
+        return userService.showOrganizationByID(organizationID);
     }
 
-    
 
 }

@@ -10,6 +10,7 @@ import com.fes.common.constants.UserType;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.util.concurrent.TimeUnit;
 
@@ -35,7 +36,8 @@ public class TokenManager {
         try {
             Algorithm hc256 = Algorithm.HMAC256(EnvironmentConstant.getAppSecret());
             String token = JWT.create().withIssuer("fes").withAudience("fes client")
-                    .withClaim("username",username).withClaim("userType",userType).sign(hc256);
+                    .withClaim("username",username).withClaim("userType",userType)
+                    .withClaim("timestamp", System.currentTimeMillis()).sign(hc256);
             stringRedisTemplate.opsForValue().set(username,token,EXPIRE_TIME,TimeUnit.MINUTES);
             return token;
         } catch (Exception e) {
@@ -44,7 +46,7 @@ public class TokenManager {
         }
     }
 
-    public boolean verifyToken(String token, UserType[] userTypes) throws Exception {
+    public boolean verifyToken(String token, UserType[] userTypes, HttpServletRequest httpServletRequest) throws Exception {
         try {
             if (token == null){
                 return false;
@@ -72,6 +74,8 @@ public class TokenManager {
                 return false;
             }
             stringRedisTemplate.boundValueOps(username).expire(EXPIRE_TIME, TimeUnit.MINUTES);
+            httpServletRequest.setAttribute("username", username);
+            httpServletRequest.setAttribute("usertype", userType);
             return true;
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

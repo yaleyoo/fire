@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Individual Register</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script src="js/register.js"></script>
+<script src="js/jquery-3.2.1.js"></script>
+
+
+<!-- Custom Theme files -->
+<link href="css/bootstrap.css" type="text/css" rel="stylesheet"
+	media="all">
+<link href="css/style.css" type="text/css" rel="stylesheet" media="all">
+<link href="css/font-awesome.css" rel="stylesheet">
+<script src="js/jquery-2.2.3.min.js"></script>
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/commonJs.js"></script>
+<script type="text/javascript">
+	var countdown = 60;
+	function settime(obj) {
+		if (countdown == 0) {
+			obj.removeAttribute("disabled");
+			obj.value = "Get the CAPTCHA";
+			countdown = 60;
+			return;
+		} else {
+			obj.setAttribute("disabled", true);
+			obj.value = "resent(" + countdown + ")";
+			countdown--;
+		}
+		setTimeout(function() {
+			settime(obj)
+		}, 1000)
+	}
+</script>
+<!-- web-fonts -->
+<link
+	href="http://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700"
+	rel="stylesheet">
+<link
+	href="http://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700"
+	rel="stylesheet">
+<!-- //web-fonts -->
+</head>
+
+<body onload="individualRegisterVerification()">
+	<!-- banner -->
+	<div class="banner jarallax">
+		<div class="banner-agileinfo">
+			<!-- header -->
+			<div class="header">
+				<div class="container">
+					<div class="logo">
+						<h1>
+							<a href="index">Fes Booking</a>
+						</h1>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+			<!-- //header -->
+			<!-- banner-text -->
+			<div class="banner-w3lstext agileits-w3layouts">
+				<ol class="breadcrumb">
+					<li><a href="register">Register</a></li>
+					<li class="active">Individual</li>
+				</ol>
+			</div>
+			<!-- //banner-text -->
+		</div>
+	</div>
+	<!-- //banner -->
+
+	<div class="codes">
+		<div class="container">
+			<div class="w3ls-title">
+				<h3 class="agileits-title">Individual customer Register</h3>
+			</div>
+			<div class="grid_3 grid_4">
+				<!--<h3 class="w3ls-hdg">Horizontal Form</h3>-->
+				<div class="tab-content">
+					<div class="tab-pane active" id="horizontal-form">
+						<form class="form-horizontal" name="individualRegisterForm"
+							id="individualRegisterForm" action="post">
+							<div class="form-group">
+								<label for="focusedinput" class="col-sm-2 control-label">First
+									Name</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control1" id="focusedinput"
+										placeholder="" name="firstName" id="firstName" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="focusedinput" class="col-sm-2 control-label"><span
+									style="color: red">*</span>Family Name</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control1" id="familyName"
+										name="familyName" placeholder=""> <span
+										id="familyNameInfo"></span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="focusedinput" class="col-sm-2 control-label"><span
+									style="color: red">*</span>Email Address</label>
+								<div class="col-sm-8">
+									<div class="form-control_userName">
+										<input type="mail" class="form-control_userName_input"
+											id="emailAddr" name="emailAddr" placeholder="" /> 
+										<input type="button" class="button white" value="Get the CAPTCHA"
+											onclick="clickToVerifyCode(this);" id="btnMailVerify"
+											name="btnMailVerify" />	
+											<br>													
+											<span id="emaiInfo"></span>														
+									</div>
+									<input type="text" class="form-control_userName_Captcha"
+										id="userMailCode" name="userMailCode" placeholder="" />																							
+								</div>																
+							</div>							
+							<div class="form-group">
+								<label for="checkbox" class="col-sm-2 control-label">Gender</label>
+								<div class="col-sm-8">
+									<div class="checkbox-inline1">
+										<label><input name="sex" type="radio" checked value="1">
+											Male</label>
+									</div>
+									<div class="checkbox-inline1">
+										<label><input name="sex" type="radio" value="0">
+											Female</label>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label"><span
+									style="color: red">*</span>Password</label>
+								<div class="col-sm-8">
+									<input type="password" class="form-control1" id="password"
+										name="password" placeholder="Password" >
+										<span class="psdInfo"></span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label"><span
+									style="color: red">*</span>Confirm Password</label>
+								<div class="col-sm-8">
+									<input type="password" class="form-control1"
+										id="confirmPassword" placeholder="Confirm Password" />
+										<span class="psd1Info"></span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="txtarea1" class="col-sm-2 control-label">Address</label>
+								<div class="col-sm-8">
+									<textarea id="address" name="address" cols="50"
+										rows="4" class="form-control1"></textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="focusedinput" class="col-sm-2 control-label"
+									><span style="color: red">*</span>Contact
+									Number</label>
+								<div class="col-sm-8">
+									<input type="number" class="form-control1" id="contactNum"
+										name="contactNum" /> <span id="contactInfo"></span>
+								</div>
+							</div>
+							<div class="form_register">
+								<span id="btnInfo" ></span> 
+								<br>
+								<a class="wthree-more w3more1 nina"
+									data-text="Register" id="submit" 
+									onclick="individualRegisterRequest()"> <span>R</span><span>e</span><span>g</span><span>i</span><span>s</span><span>t</span><span>e</span><span>r</span>
+								</a>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //short-codes -->
+
+	<!-- //footer -->
+	<script src="js/SmoothScroll.min.js"></script>
+	<script src="js/jarallax.js"></script>
+	<!-- start-smooth-scrolling -->
+	<script type="text/javascript" src="js/move-top.js"></script>
+	<script type="text/javascript" src="js/easing.js"></script>
+	<!-- //end-smooth-scrolling -->
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="js/bootstrap.js"></script>
+
+	<%@ include file="../common/IncludeBottom.jsp"%>

@@ -8,7 +8,7 @@
   <display-name>fire</display-name>
 
   <welcome-file-list>
-    <welcome-file>index</welcome-file>
+    <welcome-file>index.html</welcome-file>
   </welcome-file-list>
 
   <listener>
@@ -33,10 +33,6 @@
     <url-pattern>/</url-pattern>
   </servlet-mapping>
 
-  <servlet-mapping>
-    <servlet-name>springmvc</servlet-name>
-    <url-pattern>/index</url-pattern>
-  </servlet-mapping>
 
   <context-param>
     <param-name>contextConfigLocation</param-name>

@@ -1155,7 +1155,7 @@ if ( typeof Object.create !== "function" ) {
 				iterations += 1;
 				if ( base.completeImg($currentimg.get(0)) ) {
 					addHeight();
-				} else if(iterations <= 100){ //if image loads in less than 10 seconds 
+				} else if(iterations <= 100){ //if image loads in less than 10 seconds
 					setTimeout(checkImage,100);
 				} else {
 					base.wrapperOuter.css("height", ""); //Else remove height attribute
@@ -1381,7 +1381,7 @@ if ( typeof Object.create !== "function" ) {
 		paginationSpeed 		: 800,
 		rewindSpeed 			: 1000,
 
-		autoPlay 				: false,
+		autoPlay 				: true,
 		stopOnHover 			: false,
 
 		navigation 				: false,
@@ -1404,7 +1404,7 @@ if ( typeof Object.create !== "function" ) {
 		lazyFollow 				: true,
 		lazyEffect 				: "fade",
 
-		autoHeight 				: false,
+		autoHeight 				: true,
 
 		jsonPath 				: false,
 		jsonSuccess 			: false,

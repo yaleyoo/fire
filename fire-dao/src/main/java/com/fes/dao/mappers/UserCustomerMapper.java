@@ -19,6 +19,9 @@ public interface UserCustomerMapper {
 
     boolean insertCustomer(UserCustomer user);
 
+    UserCustomer selectById(@Param("id") int userId);
+
+
     boolean update(UserCustomer user);
 
 

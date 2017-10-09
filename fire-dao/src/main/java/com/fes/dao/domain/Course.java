@@ -8,8 +8,26 @@ public class Course {
     private int id;
     private String courseName;
     private String courseDesc;
+    private String duration;
     private int courseType;
     private int coursePrice;
+    private String courseIcon;
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public String getCourseIcon() {
+        return courseIcon;
+    }
+
+    public void setCourseIcon(String courseIcon) {
+        this.courseIcon = courseIcon;
+    }
 
     public int getId() {
         return id;

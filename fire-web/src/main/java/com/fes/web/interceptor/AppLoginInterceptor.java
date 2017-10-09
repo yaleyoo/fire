@@ -7,6 +7,7 @@ import com.fes.common.constants.UserType;
 import com.fes.common.domain.SimpleHttpResult;
 import com.fes.common.util.TokenManager;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -40,6 +41,7 @@ public class AppLoginInterceptor implements HandlerInterceptor {
 
         if (!tokenManager.verifyToken(token, userTypes, httpServletRequest)){
             SimpleHttpResult httpResult = new SimpleHttpResult(false, "illegal request!");
+            httpServletResponse.setStatus(401);
             httpServletResponse.getWriter().write(JSON.toJSONString(httpResult));
             httpServletResponse.getWriter().flush();
             httpServletResponse.getWriter().close();

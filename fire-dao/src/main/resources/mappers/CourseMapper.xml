@@ -7,15 +7,17 @@
         <result column="course_desc" property="courseDesc"/>
         <result column="course_type" property="courseType"/>
         <result column="course_price" property="coursePrice"/>
+        <result column="course_icon" property="courseIcon"/>
+        <result column="duration" property="duration"/>
     </resultMap>
 
     <sql id="baseColumns">
-        id,course_name,course_desc,course_type,course_price
+        id,course_name,course_desc,course_type,course_price,course_icon,duration
     </sql>
 
     <insert id="insertCourse" parameterType="com.fes.dao.domain.Course">
-        INSERT INTO course(course_name,course_desc,course_type,course_price)
-        VALUES(#{courseName},#{courseDesc},#{courseType},#{coursePrice})
+        INSERT INTO course(course_name,course_desc,course_type,course_price,course_icon,duration)
+        VALUES(#{courseName},#{courseDesc},#{courseType},#{coursePrice},#{courseIcon},#{duration})
     </insert>
 
     <select id="selectCourseById" resultMap="courseResult">
@@ -32,7 +34,7 @@
 
     <update id="updateCourse" parameterType="com.fes.dao.domain.Course">
         update course set course_name=#{courseName},course_desc=#{courseDesc},course_type=#{courseType},
-        course_price=#{coursePrice} where id=#{id}
+        course_price=#{coursePrice},duration=#{duration} ,course_icon=#{courseIcon} where id=#{id}
     </update>
 
     <delete id="deleteCourse">

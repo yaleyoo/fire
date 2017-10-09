@@ -18,6 +18,8 @@ public interface IUserService {
 
     ResponseEntity showAllCustomer();
 
+    ResponseEntity showCustomer(int userId);
+
     ResponseEntity showAllStaff();
 
     ResponseEntity showAllOrganization();
@@ -32,6 +34,9 @@ public interface IUserService {
 
     ResponseEntity showOrganizationByID(int organizationID);
 
+    ResponseEntity logout(String username, int usertype);
+
     ResponseEntity modifyProfile(UserCustomer userCustomer);
+
 
 }

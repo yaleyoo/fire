@@ -12,6 +12,8 @@ function usernameVerify(){
 		$('#usernameResult').css({"color":"#F00"});
 	}
 }
+
+
 // send request
 function loginTopRequest() {
 	if($('#password').val() !='' || $('#username').val() != ''){
@@ -40,17 +42,30 @@ function loginTopRequest() {
             success : function(data) {
                 //0-individual 1-organization
 				localStorage.setItem("token",data.data.token);
+				localStorage.setItem("userType",data.data.userType);
+				localStorage.setItem("userId",data.data.userId);
 				var select = $('input:radio:checked').val();
                 if( select == 1){
-                    location.href="/jsp/IndividualUser/individualHome.html";
+                    location.href="/jsp/individualUser/individualHome.html";
                 }else{
-                    location.href="/jsp/OrganizationUser/organizationHome.html";
+                    location.href="/jsp/organizationUser/organizationHome.html";
                 }
             }
 		});
 	}else{
 		alert("Invalid username or password.");
 	}	
+}
+
+function getMyAccount() {
+    var userType = localStorage.getItem("userType");
+    if (userType == "customer"){
+    	location.href="/jsp/individualUser/individualHome.htm"
+	}
+	if (userType == "organization"){
+        location.href="/jsp/organizationUser/organizationHome.html";
+	}
+
 }
 
 // Request Redirect
@@ -78,47 +93,46 @@ function loginRedirect(destination,jumpPage) {
 
 //send request
 function logOut() {
-	if($('#password').val() !='' || $('#username').val() != ''){
+
+		var token = localStorage.getItem("token");
 		$.ajax({
-			type : "POST",
+			type : "DELETE",
 			// url for request.
 			// invoke methods in UserController.java
-			url : "user/token",
-			data : {
-				username : $('#username').val(),
-				password : $('#password').val(),
-				userType : $('input:radio:checked').val()
+			url : "/user/token",
+
+			headers : {
+				"Authorization" : token
 			},
 			// asyncronise, default is true
 			async : false,
-			dataType : "text",
+			dataType : "json",
 			error : function(data) {
                 var json = data.responseText;
-                if (json != null || json!=""){
-                    json = $.parseJSON(json);
-                    alert(json.error.returnUserMessage);
-                }else{
-                    alert("Connection error");
-                }
+                if (data.status == 401){
+                    localStorage.clear();
+                    location.href = "/index.html?login=false"
+                } else{
+                    if (json != null || json!=""){
+                        json = $.parseJSON(json);
+                        alert(json.error.returnUserMessage);
+                    }else{
+                        alert("Connection error");
+                    }
+				}
+
 
 			},
 			success : function(data) {
 				//0-individual 1-organization
-                var json = $.parseJSON(data);
-				if( $('input:radio:checked').val() == '0'){
-					jumpTo = "individualHome";
-                    location.replace="/account/individualHome.html";
-				}else{
-					jumpTo = "organizationHome";
-                    location.replace="/account/organizationHome.html";
-				}
+				localStorage.removeItem("token");
+                location.href="/index.html"
+
 
 
 			}
 		});
-	}else{
-		alert("Invalid username or password.");
-	}	
+
 }
 
 // Request Redirect

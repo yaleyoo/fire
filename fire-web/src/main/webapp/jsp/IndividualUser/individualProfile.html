@@ -11,43 +11,44 @@
 <meta name="keyword"
 	content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 <!-- Custom Theme files -->
-<link href="css/bootstrap.css" type="text/css" rel="stylesheet"
+<link href="/css/bootstrap.css" type="text/css" rel="stylesheet"
 	media="all">
-<link href="css/font-awesome.css" rel="stylesheet">
+<link href="/css/font-awesome.css" rel="stylesheet">
 <!-- font-awesome icons -->
-<link href="assets/css/bootstrap.css" rel="stylesheet">
+<link href="/assets/css/bootstrap.css" rel="stylesheet">
 <!--external css-->
-<link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-<link href="assets/js/fullcalendar/bootstrap-fullcalendar.css"
+<link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link href="/assets/js/fullcalendar/bootstrap-fullcalendar.css"
 	rel="stylesheet" />
 <!-- Custom styles for this template -->
-<link href="assets/css/style.css" rel="stylesheet">
-<link href="assets/css/style-responsive.css" rel="stylesheet">
-<link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-<link href="assets/js/fullcalendar/bootstrap-fullcalendar.css"
+<link href="/assets/css/style.css" rel="stylesheet">
+<link href="/assets/css/style-responsive.css" rel="stylesheet">
+<link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link href="/assets/js/fullcalendar/bootstrap-fullcalendar.css"
 	rel="stylesheet" />
-<link href="assets/css/style.css" rel="stylesheet">
-<link href="assets/css/style-responsive.css" rel="stylesheet">
-<link href="css/style.css" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/css/style.css" rel="stylesheet">
+<link href="/assets/css/style-responsive.css" rel="stylesheet">
+<link href="/css/style.css" type="text/css" rel="stylesheet" media="all">
 <!-- //Custom Theme files -->
 <!-- js -->
-<script src="js/jquery-2.2.3.min.js"></script>
-<script src="js/jquery-1.9.1.min.js"></script>
-<script src="assets/js/jquery.js"></script>
-<script src="assets/js/jquery-ui-1.9.2.custom.min.js"></script>
-<script src="assets/js/fullcalendar/fullcalendar.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
+<script src="/js/jquery-2.2.3.min.js"></script>
+<script src="/js/jquery-1.9.1.min.js"></script>
+<script src="/assets/js/jquery.js"></script>
+<script src="/assets/js/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="/assets/js/fullcalendar/fullcalendar.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
 <script class="include" type="text/javascript"
-	src="assets/js/jquery.dcjqaccordion.2.7.js"></script>
-<script src="assets/js/jquery.scrollTo.min.js"></script>
-<script src="assets/js/jquery.nicescroll.js" type="text/javascript"></script>
-<script src="js/commonJs.js"></script>
-<script src="js/Login.js"></script>
+	src="/assets/js/jquery.dcjqaccordion.2.7.js"></script>
+<script src="/assets/js/jquery.scrollTo.min.js"></script>
+<script src="/assets/js/jquery.nicescroll.js" type="text/javascript"></script>
+<script src="/js/commonJs.js"></script>
+<script src="/js/Login.js"></script>
 <!--common script for all pages-->
 <!--script for this page-->
-<script src="assets/js/calendar-conf-events.js"></script>
-<script src="js/jquery-2.2.3.min.js"></script>
-<script src="js/jquery-1.9.1.min.js"></script>
+<script src="/assets/js/calendar-conf-events.js"></script>
+<script src="/js/jquery-2.2.3.min.js"></script>
+<script src="/js/jquery-1.9.1.min.js"></script>
+	<script src="/js/request-api.js"></script>
 <!-- //js -->
 <!-- web-fonts -->
 <link
@@ -79,10 +80,10 @@
 						<div class="toggle">
 							<ul class="toggle-menu">
 								<li><a href="" class="active">Home</a></li>
-								<li><a href="courseList">Course list</a></li>
-								<li><a href="individualOrderhistory">History order</a></li>
-								<li><a href="individualProfile">Profile</a></li>
-								<li><a href="mailUs">Mail Us</a></li>
+								<li><a href="/jsp/courses.html">Course list</a></li>
+								<li><a href="/jsp/individualUser/individualOrderhistory.html">History order</a></li>
+								<li><a href="/jsp/individualUser/individualProfile.html">Profile</a></li>
+								<li><a href="/jsp/mail.html">Mail Us</a></li>
 								<li><a onclick="logOut()">Log Out</a></li>
 							</ul>
 						</div>
@@ -131,7 +132,7 @@
 									<label for="focusedinput" class="col-sm-2 control-label">First
 										Name</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control1" id="First Name"
+										<input type="text" class="form-control1" id="firstName"
 											placeholder="First Name" />
 									</div>
 								</div>
@@ -139,7 +140,7 @@
 									<label for="focusedinput" class="col-sm-2 control-label">
 										Family Name</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control1" id="Family Name"
+										<input type="text" class="form-control1" id="familyName"
 											placeholder="Family Name" />
 									</div>
 								</div>
@@ -174,7 +175,7 @@
 								<div class="form-group">
 									<label for="txtarea1" class="col-sm-2 control-label">Address</label>
 									<div class="col-sm-8">
-										<textarea name="txtarea1" id="txtarea1" cols="50" rows="4"
+										<textarea name="txtarea1" id="address" cols="50" rows="4"
 											class="form-control1" placeholder="Address"></textarea>
 									</div>
 								</div>
@@ -182,19 +183,19 @@
 									<label for="focusedinput" class="col-sm-2 control-label">Contact
 										Number</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control1" id="Contect Number"
-											placeholder="Contect Number" />
+										<input type="text" class="form-control1" id="number"
+											placeholder="Contect Number" value="dhsakjhd"/>
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="txtarea1" class="col-sm-2 control-label">Description</label>
 									<div class="col-sm-8">
-										<textarea name="txtarea1" id="txtarea1" cols="50" rows="4"
+										<textarea name="txtarea1" id="desc" cols="50" rows="4"
 											class="form-control1" placeholder="Description" /></textarea>
 									</div>
 								</div>
 								<div class="form_register">
-									<a href="" class="wthree-more w3more1 nina" data-text="Modify">
+									<a href="" class="wthree-more w3more1 nina" data-text="Modify" onclick="modifyProfile()">
 										<span>M</span><span>O</span><span>D</span><span>I</span><span>F</span><span>Y</span>
 									</a>
 								</div>
@@ -209,22 +210,22 @@
 	<!-- //short-codes -->
 	<!-- Bootstrap core CSS -->
 	<!-- js placed at the end of the document so the pages load faster -->
-	<script src="assets/js/jquery.js"></script>
-	<script src="assets/js/jquery-ui-1.9.2.custom.min.js"></script>
-	<script src="assets/js/fullcalendar/fullcalendar.min.js"></script>
-	<script src="assets/js/bootstrap.min.js"></script>
+	<script src="/assets/js/jquery.js"></script>
+	<script src="/assets/js/jquery-ui-1.9.2.custom.min.js"></script>
+	<script src="/assets/js/fullcalendar/fullcalendar.min.js"></script>
+	<script src="/assets/js/bootstrap.min.js"></script>
 	<script class="include" type="text/javascript"
-		src="assets/js/jquery.dcjqaccordion.2.7.js"></script>
-	<script src="assets/js/jquery.scrollTo.min.js"></script>
-	<script src="assets/js/jquery.nicescroll.js" type="text/javascript"></script>
+		src="/assets/js/jquery.dcjqaccordion.2.7.js"></script>
+	<script src="/assets/js/jquery.scrollTo.min.js"></script>
+	<script src="/assets/js/jquery.nicescroll.js" type="text/javascript"></script>
 	<!--common script for all pages-->
 	<!--script for this page-->
-	<script src="assets/js/calendar-conf-events.js"></script>
+	<script src="/assets/js/calendar-conf-events.js"></script>
 	<script>
 		//custom select box
-		$(function() {
+		/*$(function() {
 			$("select.styled").customSelect();
-		});
+		});*/
 	</script>
 
 	<!-- menu-js -->
@@ -237,21 +238,21 @@
 	</script>
 	<!-- //menu-js -->
 	<!-- Progressive-Effects-Animation-JavaScript -->
-	<script type="text/javascript" src="js/numscroller-1.0.js"></script>
+	<script type="text/javascript" src="/js/numscroller-1.0.js"></script>
 	<!-- //Progressive-Effects-Animation-JavaScript -->
 	<!-- jarallax -->
-	<script src="js/SmoothScroll.min.js"></script>
-	<script src="js/jarallax.js"></script>
+	<script src="/js/SmoothScroll.min.js"></script>
+	<script src="/js/jarallax.js"></script>
 	<!-- start-smooth-scrolling -->
-	<script type="text/javascript" src="js/move-top.js"></script>
-	<script type="text/javascript" src="js/easing.js"></script>
+	<script type="text/javascript" src="/js/move-top.js"></script>
+	<script type="text/javascript" src="/js/easing.js"></script>
 	<!-- //end-smooth-scrolling -->
 
 	<!-- //smooth-scrolling-of-move-up -->
 	<!-- Bootstrap core JavaScript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="js/bootstrap.js"></script>
+	<script src="/js/bootstrap.js"></script>
 
 	<!-- footer-top -->
 	<div class="footer-agiletop">
@@ -294,5 +295,55 @@
 		</div>
 	</div>
 	<!-- //footer -->
+	<script type="text/javascript">
+        $(document).ready(function() {
+            var token = localStorage.getItem("token");
+            var user_type = localStorage.getItem("userType");
+            var user_id = localStorage.getItem("userId");
+            var url = null;
+            if (user_type == "customer"){
+                url="/user/customer/" + user_id;
+            }else{
+                alert("非法访问");
+                location.href = "/index.html?login=false"
+            }
+            $.ajax({
+                type : "GET",
+                // url for request.
+                // invoke methods in UserController.java
+                url : url,
+
+                headers : {
+                    "Authorization" : token
+                },
+                // asyncronise, default is true
+                async : true,
+                dataType : "json",
+                error : function(data) {
+                    var json = data.responseText;
+                    if (data.status == 401){
+                        localStorage.clear();
+                        location.href = "/index.html?login=false"
+                    } else{
+                        if (json != null || json!=""){
+                            json = $.parseJSON(json);
+                            alert(json.error.returnUserMessage);
+                        }else{
+                            alert("Connection error");
+                        }
+                    }
+                },
+                success : function(data) {
+                    var json = data;
+                    $("#firstName").val(data.data.firstName);
+                    $("#address").val(data.data.address);
+                    $("#number").html(data.data.phoneNum);
+                    $("#desc").html(data.data.desc);
+                    $("#familyName").val(data.data.lastName);
+                }
+            });
+
+        });
+	</script>
 </body>
 </html>

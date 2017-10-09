@@ -38,7 +38,7 @@ public class TokenManager {
             String token = JWT.create().withIssuer("fes").withAudience("fes client")
                     .withClaim("username",username).withClaim("userType",userType)
                     .withClaim("timestamp", System.currentTimeMillis()).sign(hc256);
-            stringRedisTemplate.opsForValue().set(username,token,EXPIRE_TIME,TimeUnit.MINUTES);
+            stringRedisTemplate.opsForValue().set(username+userType,token,EXPIRE_TIME,TimeUnit.MINUTES);
             return token;
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,7 +69,7 @@ public class TokenManager {
             if (!hasAuthority){
                 return false;
             }
-            String redisToken = stringRedisTemplate.opsForValue().get(username);
+            String redisToken = stringRedisTemplate.opsForValue().get(username+userType);
             if(redisToken == null){
                 return false;
             }
@@ -84,6 +84,10 @@ public class TokenManager {
             throw e;
         }
 
+    }
+
+    public void deleteToken(String username, int userType){
+        stringRedisTemplate.delete(username+userType);
     }
 
     public static void main(String[] args){

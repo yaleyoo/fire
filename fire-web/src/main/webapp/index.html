@@ -38,6 +38,8 @@
 <script src="js/commonJs.js"></script>
 </head>
 <body>
+
+
 	<!-- banner -->
 	<div class="banner">
 		<div class="banner-agileinfo">
@@ -50,14 +52,14 @@
 						</h1>
 					</div>
 					<div class="social-w3licon">
-						<div align="center">
+						<div align="center" id="banner_function">
 							<a class="flatbtn" id="logout" onclick="logOut()">Log out</a>
 							<!-- ${pageContext.request.contextPath} -->
 							<a href="register" class="flatbtn" id="myaccount">My account</a>
 							<a href="#loginmodal" class="flatbtn" id="modaltrigger">Log
 								in</a>
 							<!-- ${pageContext.request.contextPath} -->
-							<a href="register" class="flatbtn" id="modaltrigger">Register</a>
+							<a href="register" class="flatbtn" id="register">Register</a>
 						</div>
 						<div id="loginmodal" style="display: none;" tabindex="1">
 							<h1>User Login</h1>
@@ -330,5 +332,31 @@
 		</div>
 	</div>
 	<!-- //footer -->
+	<script type="text/javascript">
+        $(document).ready(function() {
+            var token = localStorage.getItem("token");
+            if (token != null){
+                $("#modaltrigger").css("display", "none");
+                $("#register").css("display", "none");
+                $("#logout").css("display","inline-block");
+                $("#myaccount").css("display","inline-block");
+            } else {
+                $("#modaltrigger").css("display","inline-block");
+                $("#register").css("display","inline-block");
+                $("#logout").css("display", "none");
+                $("#myaccount").css("display", "none");
+            }
+            $('#modaltrigger').leanModal({
+                top : 110,
+                overlay : 0.45,
+                closeButton : ".hidemodal"
+            });
+			var isLogin = getUrlParam("login");
+			if (isLogin == "false"){
+                $('#modaltrigger').click();
+			}
+
+        });
+	</script>
 </body>
 </html>

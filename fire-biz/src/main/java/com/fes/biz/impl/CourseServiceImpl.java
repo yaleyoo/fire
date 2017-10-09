@@ -34,6 +34,7 @@ public class CourseServiceImpl implements ICourseService {
     public ResponseEntity showAllCourses() {
         SimpleHttpResult<List<Course>> httpResult = new SimpleHttpResult<>();
         List<Course> result = courseMapper.selectCourse();
+        httpResult.setData(result);
         return new ResponseEntity(httpResult, HttpStatus.OK);
     }
 

@@ -57,6 +57,18 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public ResponseEntity showCustomer(int userId) {
+        SimpleHttpResult<UserCustomer> httpResult = new SimpleHttpResult();
+        UserCustomer userCustomer = userCustomerMapper.selectById(userId);
+        if (userCustomer == null){
+            httpResult.setSuccess(false,"service unavailable");
+            return new ResponseEntity(httpResult, HttpStatus.SERVICE_UNAVAILABLE);
+        }
+        httpResult.setData(userCustomer);
+        return new ResponseEntity(httpResult, HttpStatus.OK);
+    }
+
+    @Override
     public ResponseEntity showAllStaff() {
         return null;
     }
@@ -118,6 +130,8 @@ public class UserServiceImpl implements IUserService {
             }
             String token = tokenManager.createToken(username, userType);
             result.setToken(token);
+            result.setUserType(UserType.CUSTOMER.strUserType);
+            result.setUserId(userCustomer.getId());
             httpResult.setData(result);
             return new ResponseEntity(httpResult, HttpStatus.OK);
         }
@@ -134,11 +148,13 @@ public class UserServiceImpl implements IUserService {
             }
             String token = tokenManager.createToken(username, userType);
             result.setToken(token);
+            result.setUserType(UserType.ORGANIZATION.strUserType);
+            result.setUserId(userOrganization.getId());
             httpResult.setData(result);
             return new ResponseEntity(httpResult, HttpStatus.OK);
         }
 
-        if (userType == UserType.STAFF.getUserType()) {
+        if (userType == UserType.TRAINER.getUserType()) {
             UserTrainer userTrainer = userTrainerMapper.getTrainer(username);
             if (userTrainer == null) {
                 httpResult.setSuccess(false, "username is incorrect!");
@@ -150,11 +166,13 @@ public class UserServiceImpl implements IUserService {
             }
             String token = tokenManager.createToken(username, userType);
             result.setToken(token);
+            result.setUserType(UserType.TRAINER.strUserType);
+            result.setUserId(userTrainer.getId());
             httpResult.setData(result);
             return new ResponseEntity(httpResult, HttpStatus.OK);
         }
 
-        if (userType == UserType.TRAINER.getUserType()) {
+        if (userType == UserType.STAFF.getUserType()) {
             UserStaff userStaff = userStaffMapper.getStaff(username);
             if (userStaff == null) {
                 httpResult.setSuccess(false, "username is incorrect!");
@@ -166,6 +184,8 @@ public class UserServiceImpl implements IUserService {
             }
             String token = tokenManager.createToken(username, userType);
             result.setToken(token);
+            result.setUserType(UserType.STAFF.strUserType);
+            result.setUserId(userStaff.getId());
             httpResult.setData(result);
             return new ResponseEntity(httpResult, HttpStatus.OK);
         }
@@ -200,8 +220,12 @@ public class UserServiceImpl implements IUserService {
     			httpResult.setSuccess(false);
     			return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
     		}
-    		
+
     }
 
-	
+    @Override
+    public ResponseEntity logout(String username, int usertype) {
+        tokenManager.deleteToken(username, usertype);
+        return new ResponseEntity(new SimpleHttpResult(), HttpStatus.OK);
+    }
 }

@@ -26,17 +26,17 @@ public class CourseController {
         return courseService.getCourseById(id);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity getAllCourses(){
     	return courseService.showAllCourses();
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity addNewCourse(Course course){
         return courseService.addCourse(course);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    @RequestMapping(value = "", method = RequestMethod.PUT)
     public ResponseEntity modifyCourse(Course course){
         return courseService.modifyCourse(course);
     }

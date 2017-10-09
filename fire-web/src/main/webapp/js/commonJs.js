@@ -5,6 +5,13 @@ function hideURLbar() {
 	window.scrollTo(0, 1);
 }
 
+//获取url中的参数
+function getUrlParam(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+    var r = window.location.search.substr(1).match(reg); //匹配目标参数
+    if (r != null) return unescape(r[2]); return null; //返回参数值
+}
+
 //menu
 $(".navicon").on('click', function(e) {
 	e.preventDefault();
@@ -47,12 +54,8 @@ $(function() {
 	$('#loginform').submit(function(e) {
 		return false;
 	});
-
-	$('#modaltrigger').leanModal({
-		top : 110,
-		overlay : 0.45,
-		closeButton : ".hidemodal"
-	});
 });
+
+
 
 

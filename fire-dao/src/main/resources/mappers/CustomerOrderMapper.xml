@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fes.dao.mappers.CustomerOrderMapper">
+    <resultMap type="com.fes.dao.domain.CustomerOrder" id="orderResult">
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="class_id_list" property="classIdList"/>
+        <result column="order_date" property="orderDate"/>
+        <result column="order_time" property="orderTime"/>
+        <result column="order_amount" property="orderAmount"/>
+    </resultMap>
+
+    <sql id="baseColumns">
+        id,user_id,class_id_list,order_date,order_time,order_amount
+    </sql>
+
+    <insert id="insert" parameterType="com.fes.dao.domain.CustomerOrder">
+        INSERT INTO order_item(id,user_id,class_id_list,order_date,order_time,order_amount)
+        VALUES(#{id},#{userId},#{classIdList},#{orderDate},#{orderTime},#{orderAmount})
+    </insert>
+
+    <delete id="deleteOrderById" parameterType="int">
+        delete
+        from order_item where id=#{id}
+    </delete>
+
+</mapper>

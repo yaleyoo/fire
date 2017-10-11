@@ -38,5 +38,7 @@ public interface IUserService {
 
     ResponseEntity modifyProfile(UserCustomer userCustomer);
 
+    ResponseEntity getVerifyCode(String username, int usertype) throws Exception;
+
 
 }

@@ -43,7 +43,7 @@ public class UserController {
     }
 
     //需要登录权限认证
-    @Authorization (authority = UserType.CUSTOMER)
+     @Authorization (authority = UserType.CUSTOMER)
     @RequestMapping(value = "/customer/{id}", method = RequestMethod.GET)
     public ResponseEntity showAllCustomer(@PathVariable("id") int userId){
 
@@ -54,6 +54,12 @@ public class UserController {
     public ResponseEntity individualRegister(UserCustomer user){
 
             return userService.addIndividualCustomer(user);
+    }
+
+    @RequestMapping(value = "/verifycode", method = RequestMethod.POST)
+    public ResponseEntity getVerifyCode(String username, int usertype) throws Exception {
+
+        return userService.getVerifyCode(username, usertype);
     }
     
     @RequestMapping(value = "/token", method = RequestMethod.POST)

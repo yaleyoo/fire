@@ -1,9 +1,13 @@
 package com.fes.biz.impl;
 
+import com.fes.biz.vo.VerifyCodeVO;
+import com.fes.common.constants.MailConstants;
 import com.fes.common.constants.UserType;
 import com.fes.biz.service.IUserService;
 import com.fes.biz.vo.HttpTokenVO;
 import com.fes.common.domain.SimpleHttpResult;
+import com.fes.common.service.MailSendService;
+import com.fes.common.util.MailCodeManager;
 import com.fes.common.util.TokenManager;
 import com.fes.dao.domain.ClassPO;
 import com.fes.dao.domain.UserCustomer;
@@ -47,6 +51,12 @@ public class UserServiceImpl implements IUserService {
 
     @Resource
     private TokenManager tokenManager;
+
+    @Resource
+    private MailSendService mailSendService;
+
+    @Resource
+    private MailCodeManager mailCodeManager;
     
     @Override
     public ResponseEntity showAllCustomer() {
@@ -85,18 +95,34 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public ResponseEntity addIndividualCustomer(UserCustomer user) {
-    	boolean success = userCustomerMapper.insertCustomer(user);
-    	SimpleHttpResult httpResult = new SimpleHttpResult();
-    	
-    	if(success){
-    		httpResult.setSuccess(true);
-            return new ResponseEntity(httpResult, HttpStatus.OK);
-    	}
-        httpResult.setSuccess(false);
-        return new ResponseEntity(httpResult, HttpStatus.SERVICE_UNAVAILABLE);
+        SimpleHttpResult httpResult = new SimpleHttpResult();
+        if (mailCodeManager.verifyCode(user.getUserMailCode(),user.getUsername(),UserType.CUSTOMER.userType)){
+            boolean success = userCustomerMapper.insertCustomer(user);
+
+
+            if(success){
+            	httpResult.setSuccess(true);
+                return new ResponseEntity(httpResult, HttpStatus.CREATED);
+            }
+            httpResult.setSuccess(false);
+            return new ResponseEntity(httpResult, HttpStatus.SERVICE_UNAVAILABLE);
+        }
+        httpResult.setSuccess(false, "verify code is wrong!");
+        return new ResponseEntity(httpResult, HttpStatus.BAD_REQUEST);
 
     }
-    
+
+    @Override
+    public ResponseEntity getVerifyCode(String username, int usertype) throws Exception {
+        SimpleHttpResult<VerifyCodeVO> httpResult = new SimpleHttpResult<>();
+        VerifyCodeVO verifyCodeVO = new VerifyCodeVO();
+        String code = mailCodeManager.createVerifyToken(username, usertype);
+        verifyCodeVO.setCode(code);
+        httpResult.setData(verifyCodeVO);
+        mailSendService.sendMail(username, MailConstants.SUBJECT,MailConstants.generateMailContent(code));
+        return new ResponseEntity(httpResult, HttpStatus.OK);
+    }
+
     @Override
 	public ResponseEntity addOrganizationCustomer(UserOrganization user) {
 		// TODO Auto-generated method stub

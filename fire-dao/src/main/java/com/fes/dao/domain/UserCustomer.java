@@ -15,6 +15,7 @@ public class UserCustomer {
     private String address;
     private String phoneNum;
     private String desc;
+    private String userMailCode;
     private int organizationId;
 
     public int getId() {
@@ -23,6 +24,14 @@ public class UserCustomer {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getUserMailCode() {
+        return userMailCode;
+    }
+
+    public void setUserMailCode(String userMailCode) {
+        this.userMailCode = userMailCode;
     }
 
     public String getClassIdList() {

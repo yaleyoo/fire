@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fes.dao.mappers.OrderMapper">
+    <resultMap type="com.fes.dao.domain.Order" id="orderResult">
+        <result column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="class_id" property="classId"/>
+        <result column="order_num" property="orderNum"/>
+        <result column="course_id" property="courseId"/>
+        <result column="course_name" property="courseName"/>
+        <result column="people_num" property="peopleNum"/>
+        <result column="payment_status" property="paymentStatus"/>
+        <result column="usertype" property="usertype"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="price" property="price"/>
+    </resultMap>
+
+    <sql id="baseColumns">
+        id,username,class_id,order_num,course_id,course_name,people_num,payment_status,usertype,create_time,update_time,price
+    </sql>
+
+    <insert id="insert" parameterType="com.fes.dao.domain.Order">
+        INSERT INTO order_list(username,class_id,order_num,course_id,course_name,people_num,payment_status,usertype,create_time,update_time,price)
+        VALUES(#{username},#{classId},#{orderNum},#{courseId},#{courseName},#{peopleNum},#{paymentStatus},#{usertype},#{createTime},#{updateTime},#{price})
+    </insert>
+
+    <delete id="deleteOrderById" parameterType="int">
+        delete
+        from order_item where id=#{id}
+    </delete>
+    
+    <select id="selectById" parameterType="int">
+    		select
+    		 <include refid="baseColumns"/>
+        from order_list where id=#{id}
+    </select>
+
+</mapper>

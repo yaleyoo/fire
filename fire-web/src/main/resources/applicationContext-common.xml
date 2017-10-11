@@ -15,5 +15,16 @@
 		<property name="stringRedisTemplate" ref="stringRedisTemplate"/>
 	</bean>
 
+	<bean id="mailService" class="com.fes.common.service.MailSendService"/>
+
+	<bean id="mailCodeManager" class="com.fes.common.util.MailCodeManager"/>
+
+	<bean id="mailConstants" class="com.fes.common.constants.MailConstants">
+		<property name="sendSmtp" value="${mail.send.smtp}"/>
+		<property name="sendMail" value="${mail.send.mail}"/>
+		<property name="sendPort" value="${mail.send.port}"/>
+		<property name="sendPassword" value="${mail.send.password}"/>
+	</bean>
+
 
 </beans>

@@ -7,12 +7,12 @@ import org.springframework.http.ResponseEntity;
 
 import com.fes.biz.service.IOrderService;
 import com.fes.common.domain.SimpleHttpResult;
-import com.fes.dao.domain.CustomerOrder;
-import com.fes.dao.mappers.CustomerOrderMapper;
+import com.fes.dao.domain.Order;
+import com.fes.dao.mappers.OrderMapper;
 
 public class OrderServiceImpl implements IOrderService{
 	@Resource
-	private CustomerOrderMapper customerOrderMapper;
+	private OrderMapper customerOrderMapper;
 	
 	@Override
 	public ResponseEntity deleteOrder(int id) {
@@ -29,8 +29,8 @@ public class OrderServiceImpl implements IOrderService{
 	}
 	@Override
 	public ResponseEntity getOrderById(int orderId) {
-		SimpleHttpResult<CustomerOrder> httpResult = new SimpleHttpResult<CustomerOrder>();
-		CustomerOrder customerOrder = customerOrderMapper.selectById(orderId);
+		SimpleHttpResult<Order> httpResult = new SimpleHttpResult<Order>();
+		Order customerOrder = customerOrderMapper.selectById(orderId);
 		if (customerOrder == null){
             httpResult.setSuccess(false,"not found");
             return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);

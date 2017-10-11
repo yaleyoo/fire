@@ -146,28 +146,30 @@ function getLength(str) {
 }
 
 // click to verify email address
-function clickToVerifyCode(obj) {
+function clickToVerifyCode(obj,usertype) {
 	if ($("#emailAddr").val() != "") {
 		if (/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
 				.test($("#emailAddr").val()) != false) {
 			// "^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$"
 			settime(obj);
-			var code = mailVerification(obj);
+			var code = mailVerification(obj,usertype);
 			$('#userMailCode').blur(function() {
-				if (code != $('#userMailCode').val()) {
-					$('#emaiInfo').text('The verification code is wrong.');
-					$('#emaiInfo').css({
-						"color" : "#F00"
-					});
-					// submit is not allowed
-					$("#submit").attr("disabled", true);
-				} else {
-					$('#emaiInfo').text('The verification code is correct.');
-					$('#emaiInfo').css({
-						"color" : "#000"
-					});
-					$("#submit").attr("disabled", false);
-				}
+				if (code != null && code != ""){
+					if (code != $('#userMailCode').val()) {
+						$('#emaiInfo').text('The verification code is wrong.');
+						$('#emaiInfo').css({
+							"color" : "#F00"
+						});
+						// submit is not allowed
+						$("#submit").attr("disabled", true);
+					} else {
+						$('#emaiInfo').text('The verification code is correct.');
+						$('#emaiInfo').css({
+							"color" : "#000"
+						});
+						$("#submit").attr("disabled", false);
+					}
+                }
 			});
 		} else {
 			$("#emaiInfo").text('The format of email address is not correct.');
@@ -184,30 +186,23 @@ function clickToVerifyCode(obj) {
 	}
 }
 // compare the inputed mail code and the automatically generated code
-function mailVerification(obj) {
+function mailVerification(obj, usertype) {
 	var value;
 	$("#emaiInfo").text('');
 	$.ajax({
 		type : "POST",
-		url : "user/verifyRegisterEmail",
+		url : "/user/verifycode",
 		data : {
-			emailAddr : $("#emailAddr").val()
+			username : $("#emailAddr").val(),
+			usertype : usertype
 		},
-		async : false,
-		dataType : "text",
+		async : true,
+		dataType : "json",
 		error : function(request) {
 			alert("Connect error");
 		},
 		success : function(data) {
-			var json = $.parseJSON(data);
-			// json.error.returnCode : 1-failure 0-success
-			// json.data : data returned
-			if (json.error.returnCode == '0') {// success
-				value = json.data.mailCode;
-			} else {
-				$('#btnMailVerify').setAttribute("disabled", false);
-				$('#btnMailVerify').val("Get the CAPTCHA");
-			}
+			value = data.data.code;
 		}
 	});
 	return value;
@@ -257,24 +252,7 @@ function individualRegisterRequest() {
 	}
 }
 
-// Request Redirect
-function indivudualRegisterRedirect(destination) {
-	if (destination == "success") {
-		var form = $("<form></form>");
-		// invoke methods in ViewController.java
-		form.attr("action", "individualHome");
-		form.attr("method", "get");
-		form.appendTo("body").submit();
-		form.remove();
-	}
-	if (destination == "failure") {
-		var form = $("<form></form>");
-		form.attr("action", "individualRegister");
-		form.attr("method", "get");
-		form.appendTo("body").submit();
-		form.remove();
-	}
-}
+
 
 /**
  * organizational register organizationName; emailAddr;
@@ -426,47 +404,29 @@ function organizationRegisterRequest() {
 		// firstName,familyName,address,gender(radio),emailAddr,password,contactNum
 		$.ajax({
 			type : "POST",
-			url : "user/organizationRegister",
+			url : "/user/organization",
 			data : $("#organizationRegisterForm").serialize(),
-			dataType : "text",
+			dataType : "json",
 			async : false,
-			error : function(request) {
-				alert("Connection error");
-			},
-			success : function(data) {
-				var json = $.parseJSON(data);
-				if (json.error.returnCode == '0') {// success
-					organizationRegisterRedirect("success");
-				} else {
-					organizationRegisterRedirect("failure");
-				}
-			}
+            error : function(data) {
+                var json = data.responseText;
+                if (json != null || json!=""){
+                    json = $.parseJSON(json);
+                    alert(json.error.returnUserMessage);
+                }else{
+                    alert("Connection error");
+                }
+            },
+            success : function(data) {
+                //0-individual 1-organization
+                alert ("register successful");
+                location.href="/index.html?login=false";
+
+            }
 		});
 	}
 }
 
-// Request Redirect
-function organizationRegisterRedirect(destination) {
-	if (destination == "success") {
-		var form = $("<form></form>");
-		// invoke methods in ViewController.java
-		form.attr("action", "organizationHome");
-		form.attr("method", "get");
-		// form.append("<input name='username' value='value'></input>"); append
-		// value here if its nessesary
-		form.appendTo("body").submit();
-		form.remove();
-	}
-	if (destination == "failure") {
-		var form = $("<form></form>");
-		form.attr("action", "organizationRegister");
-		form.attr("method", "get");
-		// form.append("<input name='username' value='value'></input>"); append
-		// value here if its nessesary
-		form.appendTo("body").submit();
-		form.remove();
-	}
-}
 
 // modifyProfile
 // click to change: transfer info to controller

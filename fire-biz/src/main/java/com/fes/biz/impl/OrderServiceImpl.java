@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.fes.biz.service.IOrderService;
 import com.fes.common.domain.SimpleHttpResult;
+import com.fes.dao.domain.CustomerOrder;
 import com.fes.dao.mappers.CustomerOrderMapper;
 
 public class OrderServiceImpl implements IOrderService{
@@ -25,6 +26,17 @@ public class OrderServiceImpl implements IOrderService{
         httpResult.setSuccess(false);
         return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
 
+	}
+	@Override
+	public ResponseEntity getOrderById(int orderId) {
+		SimpleHttpResult<CustomerOrder> httpResult = new SimpleHttpResult<CustomerOrder>();
+		CustomerOrder customerOrder = customerOrderMapper.selectById(orderId);
+		if (customerOrder == null){
+            httpResult.setSuccess(false,"not found");
+            return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
+        }
+        httpResult.setData(customerOrder);
+        return new ResponseEntity(httpResult, HttpStatus.OK);
 	}
 	
 }

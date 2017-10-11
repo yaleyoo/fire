@@ -15,7 +15,7 @@
     </sql>
 
     <insert id="insert" parameterType="com.fes.dao.domain.CustomerOrder">
-        INSERT INTO order_item(id,user_id,class_id_list,order_date,order_time,order_amount)
+        INSERT INTO order_list(id,user_id,class_id_list,order_date,order_time,order_amount)
         VALUES(#{id},#{userId},#{classIdList},#{orderDate},#{orderTime},#{orderAmount})
     </insert>
 
@@ -23,5 +23,11 @@
         delete
         from order_item where id=#{id}
     </delete>
+    
+    <select id="selectById" parameterType="int" parameterType="int">
+    		select
+    		 <include refid="baseColumns"/>
+        from order_list where id=#{id}
+    </select>
 
 </mapper>

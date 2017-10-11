@@ -14,6 +14,6 @@
 	<bean id="userService" class="com.fes.biz.impl.UserServiceImpl"/>
 	<bean id="classService" class="com.fes.biz.impl.ClassServiceImpl"/>
 	<bean id="courseService" class="com.fes.biz.impl.CourseServiceImpl"/>
-
+	<bean id="orderService" class="com.fes.biz.impl.OrderServiceImpl"/>
 
 </beans>

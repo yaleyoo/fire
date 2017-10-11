@@ -367,7 +367,7 @@
                 },
                 success : function(data) {
                     var json = data;
-					$("#name").html(data.data.username);
+					$("#name").html(data.data.firstName+" "+data.data.lastName);
 					$("#address").html(data.data.address);
 					$("#number").html(data.data.phoneNum);
 					$("#desc").html(data.data.desc);

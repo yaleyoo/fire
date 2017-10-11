@@ -6,12 +6,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <link rel="stylesheet" type="text/css" media="all"
-	href="css/stylelogin.css">
+	href="/css/stylelogin.css">
 <!-- Custom Theme files -->
-<link href="css/bootstrap.css" type="text/css" rel="stylesheet"
+<link href="/css/bootstrap.css" type="text/css" rel="stylesheet"
 	media="all">
-<link href="css/style.css" type="text/css" rel="stylesheet" media="all">
-<link href="css/font-awesome.css" rel="stylesheet">
+<link href="/css/style.css" type="text/css" rel="stylesheet" media="all">
+<link href="/css/font-awesome.css" rel="stylesheet">
 <link rel="stylesheet" href="css/flexslider.css" type="text/css"
 	media="all" />
 <!-- font-awesome icons -->
@@ -23,19 +23,19 @@
 	rel="stylesheet">
 <!-- //web-fonts -->
 
-<script src="js/jquery-2.2.3.min.js"></script>
-<script src="js/jquery-1.9.1.min.js"></script>
-<script src="js/jquery.leanModal.min.js"></script>
-<script src="js/numscroller-1.0.js"></script>
-<script src="js/SmoothScroll.min.js"></script>
-<script src="js/jarallax.js"></script>
-<script src="js/Login.js"></script>
-<script src="js/move-top.js"></script>
-<script src="js/easing.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/register.js"></script>
-<script src="js/numscroller-1.0.js"></script>
-<script src="js/commonJs.js"></script>
+<script src="/js/jquery-2.2.3.min.js"></script>
+<script src="/js/jquery-1.9.1.min.js"></script>
+<script src="/js/jquery.leanModal.min.js"></script>
+<script src="/js/numscroller-1.0.js"></script>
+<script src="/js/SmoothScroll.min.js"></script>
+<script src="/js/jarallax.js"></script>
+<script src="/js/Login.js"></script>
+<script src="/js/move-top.js"></script>
+<script src="/js/easing.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/register.js"></script>
+<script src="/js/numscroller-1.0.js"></script>
+<script src="/js/commonJs.js"></script>
 </head>
 <body>
 	<!-- banner -->
@@ -57,7 +57,7 @@
 							<a href="#loginmodal" class="flatbtn" id="modaltrigger">Log
 								in</a>
 							<!-- ${pageContext.request.contextPath} -->
-							<a href="register" class="flatbtn" id="modaltrigger">Register</a>
+							<a href="register" class="flatbtn" id="register">Register</a>
 						</div>
 						<div id="loginmodal" style="display: none;" tabindex="1">
 							<h1>User Login</h1>
@@ -99,19 +99,19 @@
 				<div class="col-md-6 offic-time">
 					<div class="time-top">
 						<h4>
-							<a href="individualRegister">Individual Register</a>
+							<a href="/jsp/account/individualRegister.html">Individual Register</a>
 						</h4>
 					</div>
 					<div class="time-bottom">
 						<p>As an individual customer, you can book our Warden cources
-							at MFB鈥檚 Burnley training facility, which include 3-hour cource
+							at MFB Burnley training facility, which include 3-hour cource
 							Wardens and 2-day ChiefWardens!</p>
 					</div>
 				</div>
 				<div class="col-md-6 offic-time">
 					<div class="time-top">
 						<h4>
-							<a href="organizationRegister">Organization Register</a>
+							<a href="/jsp/account/organizationRegister.html">Organization Register</a>
 						</h4>
 					</div>
 					<div class="time-bottom">
@@ -168,5 +168,21 @@
 		</div>
 	</div>
 	<!-- //footer -->
+<script type="text/javascript">
+	$(function () {
+        var token = localStorage.getItem("token");
+        if (token != null){
+            $("#modaltrigger").css("display", "none");
+            $("#register").css("display", "none");
+            $("#logout").css("display","inline-block");
+            $("#myaccount").css("display","inline-block");
+        } else {
+            $("#modaltrigger").css("display","inline-block");
+            $("#register").css("display","inline-block");
+            $("#logout").css("display", "none");
+            $("#myaccount").css("display", "none");
+        }
+    });
+</script>
 </body>
 </html>

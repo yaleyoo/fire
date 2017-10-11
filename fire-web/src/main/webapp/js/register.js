@@ -228,24 +228,32 @@ function individualRegisterRequest() {
 	} else {
 		$("#btnInfo").text('');
 		// firstName,familyName,address,gender(radio),emailAddr,password,contactNum
-		$.ajax({
-			type : "POST",
-			url : "user/individualRegister",
-			data : $("#individualRegisterForm").serialize(),
-			dataType : "text",
-			async : false,
-			error : function(request) {
-				alert("Connection error");
-			},
-			success : function(data) {
-				var json = $.parseJSON(data);
-				if (json.error.returnCode == '0') {// success
-					indivudualRegisterRedirect("success");
-				} else {
-					indivudualRegisterRedirect("failure");
-				}
-			}
-		});
+
+        $.ajax({
+            type : "POST",
+            // url for request.
+            // invoke methods in UserController.java
+            url : "/user/customer",
+            data : $("#individualRegisterForm").serialize(),
+            // asyncronise, default is true
+            async : false,
+            dataType : "json",
+            error : function(data) {
+                var json = data.responseText;
+                if (json != null || json!=""){
+                    json = $.parseJSON(json);
+                    alert(json.error.returnUserMessage);
+                }else{
+                    alert("Connection error");
+                }
+            },
+            success : function(data) {
+                //0-individual 1-organization
+				alert ("register successful");
+                location.href="/index.html?login=false";
+
+            }
+        });
 	}
 }
 

@@ -66,7 +66,7 @@
 						<h1><a href="../index.html">Fes Booking</a></h1>
 					</div> 
 					<div class="social-w3licon"> 
-						<center><a href="#loginmodal" class="flatbtn" id="modaltrigger">Login</a><a href="register.html" class="flatbtn" id="modaltrigger">Register</a>
+						<center><a href="#loginmodal" class="flatbtn" id="modaltrigger">Login</a><a href="register.html" class="flatbtn" id="register">Register</a>
 						</center>
 						<div id="loginmodal" style="display:none;">
 						<h1>User Login</h1>
@@ -358,6 +358,19 @@
 	<script type="text/javascript">
         $(document).ready(function() {
             var token = localStorage.getItem("token");
+
+            if (token != null){
+                $("#modaltrigger").css("display", "none");
+                $("#register").css("display", "none");
+                $("#logout").css("display","inline-block");
+                $("#myaccount").css("display","inline-block");
+            } else {
+                $("#modaltrigger").css("display","inline-block");
+                $("#register").css("display","inline-block");
+                $("#logout").css("display", "none");
+                $("#myaccount").css("display", "none");
+            }
+
             $.ajax({
                 type : "GET",
                 // url for request.

@@ -14,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -66,7 +67,9 @@ public class UserController {
     @Authorization
     @RequestMapping(value = "/token", method = RequestMethod.DELETE)
     //0-individual 1-organization
-    public ResponseEntity logout(@RequestParam("username") String username, @RequestParam("usertype") int usertype){
+    public ResponseEntity logout(HttpServletRequest request){
+        String username = (String) request.getAttribute("username");
+        int usertype = (Integer) request.getAttribute("usertype");
 
         return userService.logout(username, usertype);
     }

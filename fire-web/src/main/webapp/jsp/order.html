@@ -103,7 +103,7 @@
 				<!--<h3 class="agileits-title">Short Codes</h3> -->
 			</div> 
 			
-								<div class="panel panel-default">
+								<div class="panel panel-default" id="information">
 									<div class="panel-heading">
 										<h4 class="panel-title">
 											<a data-toggle="collapse" data-parent="#checkout-collapse" href="#checkout-collapse1">
@@ -163,7 +163,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="panel panel-default">
+								<!--<div class="panel panel-default" id="bill_information">
 									<div class="panel-heading">
 										<h4 class="panel-title">
 											<a data-toggle="collapse" data-parent="#checkout-collapse" href="#checkout-collapse2">
@@ -230,7 +230,7 @@
 											</form>
 										</div>
 									</div>
-								</div>
+								</div>-->
 								<div class="panel panel-default">
 									<div class="panel-heading">
 										<h4 class="panel-title">
@@ -240,7 +240,7 @@
 											</a>
 										</h4>
 									</div>
-									<div id="checkout-collapse3" class="panel-collapse collapse">
+									<div id="checkout-collapse3" class="">
 										<div class="panel-body">
 											<button class="btn btn-primary">Default Information</button>
 											<div class="space20 clearfix"></div>
@@ -250,31 +250,31 @@
 														<div class="form-group stylish-input">
 															<label for="inputFirstname" class="col-sm-4 col-lg-4 control-label required">First Name</label>
 															<div class="col-sm-8 col-lg-8">
-																<input type="text" class="form-control" id="inputFirstname" />
+																<input type="text" class="form-control" id="inputFirstname" value=""/>
 															</div>
 														</div>
 														<div class="form-group stylish-input">
 															<label for="inputLastname" class="col-sm-4 col-lg-4 control-label required">Last Name</label>
 															<div class="col-sm-8 col-lg-8">
-																<input type="text" class="form-control" id="inputLastname" />
+																<input type="text" class="form-control" id="inputLastname" value=""/>
 															</div>
 														</div>
 														<div class="form-group stylish-input">
 															<label for="inputEmail2" class="col-sm-4 col-lg-4 control-label required">E-Mail</label>
 															<div class="col-sm-8 col-lg-8">
-																<input type="email" class="form-control" id="inputEmail2" />
+																<input type="email" class="form-control" id="inputEmail2" value=""/>
 															</div>
 														</div>
 														<div class="form-group stylish-input">
 															<label for="inputPhone" class="col-sm-4 col-lg-4 control-label required">Telephone</label>
 															<div class="col-sm-8 col-lg-8">
-																<input type="text" class="form-control" id="inputPhone" />
+																<input type="text" class="form-control" id="inputPhone" value=""/>
 															</div>
 														</div>
 														<div class="form-group stylish-input">
 															<label for="inputCompany" class="col-sm-4 col-lg-4 control-label">Company</label>
 															<div class="col-sm-8 col-lg-8">
-																<input type="text" class="form-control" id="inputCompany" />
+																<input type="text" class="form-control" id="inputCompany" value=""/>
 															</div>
 														</div>
 													</div>
@@ -282,15 +282,15 @@
 														<div class="form-group stylish-input">
 															<label for="inputAddress1" class="col-sm-4 col-lg-4 control-label required">Address 1</label>
 															<div class="col-sm-8 col-lg-8">
-																<input type="text" class="form-control" id="inputAddress1" />
+																<input type="text" class="form-control" id="inputAddress1" value=""/>
 															</div>
 														</div>
-														<div class="form-group stylish-input">
+													<!--	<div class="form-group stylish-input">
 															<label for="inputAddress2" class="col-sm-4 col-lg-4 control-label">Address 2</label>
 															<div class="col-sm-8 col-lg-8">
 																<input type="text" class="form-control" id="inputAddress2" />
 															</div>
-														</div>
+														</div>-->
 													</div>
 												</div>
 												<div class="space20 clearfix"></div>
@@ -367,7 +367,7 @@
 											<div class="row">
 												<div class="col-xs-12 col-sm-6 pull-right center-sm">
 													<table class="shop-summary">
-														<tr>
+														<!--<tr>
 															<th>Sub Total:</th>
 															<td>$1170.00</td>
 														</tr>
@@ -378,10 +378,10 @@
 														<tr>
 															<th>Vat (10.0 %):</th>
 															<td>$117.00</td>
-														</tr>
+														</tr>-->
 														<tr class="total">
 															<th>Total:</th>
-															<td>$1053.00</td>
+															<td></td>
 														</tr>
 														<tr>
 															<th><a href="#" class="btn btn-default btn-round uppercase">Checkout</a></th>
@@ -495,6 +495,7 @@
 	<!-- start-smooth-scrolling --> 
 	<script type="text/javascript" src="../js/move-top.js"></script>
 	<script type="text/javascript" src="../js/easing.js"></script>
+	<script type="text/javascript" src="../js/commonJs.js"></script>
 	<script type="text/javascript">
 			jQuery(document).ready(function($) {
 				$(".scroll").click(function(event){		
@@ -507,6 +508,9 @@
 	<!-- //end-smooth-scrolling -->	 
 	<!-- smooth-scrolling-of-move-up -->
 	<script type="text/javascript">
+
+
+
 		$(document).ready(function() {
 			/*
 			var defaults = {
@@ -518,6 +522,105 @@
 			*/
 			
 			$().UItoTop({ easingType: 'easeOutQuart' });
+			$("#bill_information").css("display","none");
+			var token = localStorage.getItem("token");
+			if (token != null){
+				$("#information").css("display","none");
+
+			} else {
+				$("#information").show("display","block");
+
+			}
+
+
+            var token = localStorage.getItem("token");
+            var user_type = localStorage.getItem("userType");
+            var user_id = localStorage.getItem("userId");
+            var url = null;
+            if (user_type == "customer"){
+                url="/user/customer/" + user_id;
+            }else{
+                alert("非法访问");
+                location.href = "/index.html?login=false"
+            }
+            $.ajax({
+                type : "GET",
+                // url for request.
+                // invoke methods in UserController.java
+                url : url,
+
+                headers : {
+                    "Authorization" : token
+                },
+                // asyncronise, default is true
+                async : true,
+                dataType : "json",
+                error : function(data) {
+                    var json = data.responseText;
+                    if (data.status == 401){
+                        localStorage.clear();
+                        location.href = "/index.html?login=false"
+                    } else{
+                        if (json != null || json!=""){
+                            json = $.parseJSON(json);
+                            alert(json.error.returnUserMessage);
+                        }else{
+                            alert("Connection error");
+                        }
+                    }
+                },
+                success : function(data) {
+                    var json = data;
+                    $("#inputFirstname").val(data.data.firstName);
+                    $("#inputLastname").val(data.data.lastName);
+                    $("#inputAddress1").val(data.data.address);
+                    $("#inputEmail2").val(data.data.username);
+                    $("#inputPhone").val(data.data.phoneNum);
+                }
+            });
+
+
+
+            var course_id = getUrlParam("course_id");
+            if (course_id == null || course_id == ""){
+                history.back();
+            }
+            $.ajax({
+                type : "GET",
+                // url for request.
+                // invoke methods in UserController.java
+                url : "/course/"+course_id,
+
+                headers : {
+                    "Authorization" : token
+                },
+                // asyncronise, default is true
+                async : false,
+                dataType : "json",
+                error : function(data) {
+                    var json = data.responseText;
+                    if (data.status == 401){
+                        localStorage.clear();
+                        location.href = "/index.html?login=false"
+                    } else{
+                        if (json != null || json!=""){
+                            json = $.parseJSON(json);
+                            alert(json.error.returnUserMessage);
+                        }else{
+                            alert("Connection error");
+                        }
+                    }
+                },
+                success : function(data) {
+                    var valid_data = data.data;
+
+                    $(".total td").html(valid_data.coursePrice);
+
+
+
+                }
+            });
+
 			
 		});
 	</script>

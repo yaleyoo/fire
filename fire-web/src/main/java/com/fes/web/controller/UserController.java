@@ -45,9 +45,15 @@ public class UserController {
     //需要登录权限认证
      @Authorization (authority = UserType.CUSTOMER)
     @RequestMapping(value = "/customer/{id}", method = RequestMethod.GET)
-    public ResponseEntity showAllCustomer(@PathVariable("id") int userId){
+    public ResponseEntity showCustomer(@PathVariable("id") int userId){
 
         return userService.showCustomer(userId);
+    }
+
+    @RequestMapping(value = "/customer/email/{email}", method = RequestMethod.GET)
+    public ResponseEntity hasCustomer(@PathVariable("email") String email){
+
+        return userService.findExistCustomer(email);
     }
 
     @RequestMapping(value = "/customer", method = RequestMethod.POST)

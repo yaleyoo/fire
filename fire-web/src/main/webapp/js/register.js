@@ -28,8 +28,21 @@ function individualRegisterVerification() {
 
 	psd.onfocus = function() {
 		psdInfo.style.display = "inline-block";
-		psdInfo.innerHTML = '<i class="warn"></i> The password requires 6 to 16 characters, which should include number and letter';
+		psdInfo.innerHTML = '<i class="warn"></i> <span style="color:red">The password requires 6 to 16 characters, which should include number and letter</span>';
 	}
+
+    $("#firstName").blur(function() {
+        if ($(this).val() == '') {
+            $("#firstNameInfo").text("First name cannot be null");
+            $("#firstNameInfo").css({
+                "color" : "#F00"
+            });
+
+        } else {
+            $("#firstNameInfo").text("");
+        }
+    });
+
 	// verify family name is not null
 	$("#familyName").blur(function() {
 		if ($(this).val() == '') {
@@ -37,7 +50,7 @@ function individualRegisterVerification() {
 			$("#familyNameInfo").css({
 				"color" : "#F00"
 			});
-			$(this).focus();
+
 		} else {
 			$("#familyNameInfo").text("");
 		}
@@ -48,22 +61,47 @@ function individualRegisterVerification() {
 			function() {
 				if ($("#familyName") != '') {
 					if ($(this).val() == '') {
-						$("#emaiInfo").text('Email cannot be null.');
+						$("#emaiInfo").html('<b>Email cannot be null.</b>');
 						$("#emaiInfo").css({
 							"color" : "#F00"
 						});
-						$(this).focus();
+
 					} else if (/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
 							.test($(this).val()) == false) {
 						// "^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$"
-						$("#emaiInfo").text(
-								'The format of email address is not correct.');
+						$("#emaiInfo").html(
+								'<b>The format of email address is not correct.</b>');
 						$("#emaiInfo").css({
 							"color" : "#F00"
 						});
-						$(this).focus();
+
 					} else {
-						$("#emaiInfo").text('');
+                        var email = $(this).val();
+                        $.ajax({
+                            type : "GET",
+                            url : "/user/customer/email/"+email,
+                            // asyncronise, default is true
+                            async : true,
+                            dataType : "json",
+                            error : function(data) {
+                                if (data.status == 404) {
+                                    $("#emaiInfo").text('');
+                                    $("#btnMailVerify").removeAttr("disabled");
+                                } else{
+                                    if (json != null || json!=""){
+                                        json = $.parseJSON(json);
+                                        alert(json.error.returnUserMessage);
+                                    }else{
+                                        alert("Connection error");
+                                    }
+                                }
+
+                            },
+                            success : function(data) {
+								$("#emaiInfo").css("color","red").html("<b>This email has been used!</b>");
+								$("#btnMailVerify").attr("disabled","disabled");
+                            }
+                        });
 					}
 				}
 			});
@@ -75,17 +113,17 @@ function individualRegisterVerification() {
 							var m = findStr(this.value, this.value[0]);
 							if (this.value == "") {
 								psdInfo.innerHTML = '<i class="cuo"></i> please enter a password';
-								$(this).focus();
+
 							} else if (this.value.length < 6
 									|| this.value.length > 16) {
 								psdInfo.innerHTML = '<i class="cuo"></i>  <font color="red">The password requires 6 to 16 characters</font>';
-								$(this).focus();
+
 							} else if (!re_n.test(this.value)) {
 								psdInfo.innerHTML = '<i class="cuo"></i>  <font color="red">password requires at least one letter</font>';
-								$(this).focus();
+
 							} else if (!re_t.test(this.value)) {
 								psdInfo.innerHTML = '<i class="cuo"></i>  <font color="red">password requires at least one number</font>';
-								$(this).focus();
+
 							} else {
 								psdInfo.innerHTML = '<i class="right"></i> ';
 								psdInfo.innerHTML = '<i class="warn"></i> ';
@@ -117,7 +155,7 @@ function individualRegisterVerification() {
 								$("#contactInfo").css({
 									"color" : "#F00"
 								});
-								$(this).focus();
+
 							} else if (/^\({0,1}((0|\+61)(2|4|3|7|8)){0,1}\){0,1}(\ |-){0,1}[0-9]{2}(\ |-){0,1}[0-9]{2}(\ |-){0,1}[0-9]{1}(\ |-){0,1}[0-9]{3}$/
 									.test($(this).val()) == false) {
 								$("#contactInfo")
@@ -126,7 +164,7 @@ function individualRegisterVerification() {
 								$("#contactInfo").css({
 									"color" : "#F00"
 								});
-								$(this).focus();
+
 							} else {
 								$("#contactInfo").text('');
 							}
@@ -152,6 +190,7 @@ function clickToVerifyCode(obj,usertype) {
 				.test($("#emailAddr").val()) != false) {
 			// "^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$"
 			settime(obj);
+
 			var code = mailVerification(obj,usertype);
 			$('#userMailCode').blur(function() {
 				if (code != null && code != ""){
@@ -176,7 +215,7 @@ function clickToVerifyCode(obj,usertype) {
 			$("#emaiInfo").css({
 				"color" : "#F00"
 			});
-			$("#emailAddr").focus();
+
 		}
 	} else {
 		$('#emaiInfo').text('Please input the email address first.');
@@ -283,7 +322,7 @@ function organizationRegisterVerification() {
 					$("#organizationNameInfo").css({
 						"color" : "#F00"
 					});
-					$(this).focus();
+
 				} else {
 					$("#organizationNameInfo").text("");
 				}
@@ -294,11 +333,11 @@ function organizationRegisterVerification() {
 			function() {
 				if ($("#organizationName") != '') {
 					if ($(this).val() == '') {
-						$("#emaiInfo").text('Email cannot be null.');
+						$("#emaiInfo").html('Email cannot be null.');
 						$("#emaiInfo").css({
 							"color" : "#F00"
 						});
-						$(this).focus();
+
 					} else if (/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
 							.test($(this).val()) == false) {
 						// "^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$"
@@ -307,9 +346,33 @@ function organizationRegisterVerification() {
 						$("#emaiInfo").css({
 							"color" : "#F00"
 						});
-						$(this).focus();
+
 					} else {
-						$("#emaiInfo").text('');
+						var email = $(this).val();
+                        $.ajax({
+                            type : "GET",
+                            url : "/user/organization/email/"+email,
+                            // asyncronise, default is true
+                            async : true,
+                            dataType : "json",
+                            error : function(data) {
+                                var json = data.responseText;
+                                if (data.status == 404){
+                                    $("#emaiInfo").css("color","red").text("This email has been used!");
+
+                                } else{
+                                    if (json != null || json!=""){
+                                        json = $.parseJSON(json);
+                                        alert(json.error.returnUserMessage);
+                                    }else{
+                                        alert("Connection error");
+                                    }
+                                }
+                            },
+                            success : function(data) {
+                                $("#emaiInfo").text('');
+                            }
+                        });
 					}
 				}
 			});
@@ -321,17 +384,17 @@ function organizationRegisterVerification() {
 							var m = findStr(this.value, this.value[0]);
 							if (this.value == "") {
 								psdInfo.innerHTML = '<i class="cuo"></i> please enter a password';
-								$(this).focus();
+
 							} else if (this.value.length < 6
 									|| this.value.length > 16) {
 								psdInfo.innerHTML = '<i class="cuo"></i>  <font color="red">The password requires 6 to 16 characters</font>';
-								$(this).focus();
+
 							} else if (!re_n.test(this.value)) {
 								psdInfo.innerHTML = '<i class="cuo"></i>  <font color="red">password requires at least one letter</font>';
-								$(this).focus();
+
 							} else if (!re_t.test(this.value)) {
 								psdInfo.innerHTML = '<i class="cuo"></i>  <font color="red">password requires at least one number</font>';
-								$(this).focus();
+
 							} else {
 								psdInfo.innerHTML = '<i class="right"></i> ';
 								psdInfo.innerHTML = '<i class="warn"></i> ';
@@ -363,7 +426,7 @@ function organizationRegisterVerification() {
 								$("#contactInfo").css({
 									"color" : "#F00"
 								});
-								$(this).focus();
+
 							} else if (/^\({0,1}((0|\+61)(2|4|3|7|8)){0,1}\){0,1}(\ |-){0,1}[0-9]{2}(\ |-){0,1}[0-9]{2}(\ |-){0,1}[0-9]{1}(\ |-){0,1}[0-9]{3}$/
 									.test($(this).val()) == false) {
 								$("#contactInfo")
@@ -372,7 +435,7 @@ function organizationRegisterVerification() {
 								$("#contactInfo").css({
 									"color" : "#F00"
 								});
-								$(this).focus();
+
 							} else {
 								$("#contactInfo").text('');
 							}

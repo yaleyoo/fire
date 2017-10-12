@@ -31,7 +31,7 @@
         from user_customer
     </select>
 
-    <select id="getCustomer" resultMap="customerResult" parameterType="string">
+    <select id="selectByName" resultMap="customerResult" parameterType="string">
         select
         <include refid="baseColumns"/>
         from user_customer where user_name=#{username}

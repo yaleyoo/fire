@@ -15,7 +15,7 @@ public interface UserCustomerMapper {
 
     List<UserCustomer> getAllCustomerInfo();
 
-    UserCustomer getCustomer(@Param("username") String username);
+    UserCustomer selectByName(@Param("username") String username);
 
     boolean insertCustomer(UserCustomer user);
 

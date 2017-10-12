@@ -40,5 +40,7 @@ public interface IUserService {
 
     ResponseEntity getVerifyCode(String username, int usertype) throws Exception;
 
+    ResponseEntity findExistCustomer(String username);
+
 
 }

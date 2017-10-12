@@ -61,7 +61,7 @@ public class UserInjectResolver implements HandlerMethodArgumentResolver {
            if (userType != UserType.CUSTOMER.getUserType()){
                return null;
            }
-           return userCustomerMapper.getCustomer(userName);
+           return userCustomerMapper.selectByName(userName);
         }
 
         if (methodParameter.getParameterType().isAssignableFrom(UserStaff.class)){

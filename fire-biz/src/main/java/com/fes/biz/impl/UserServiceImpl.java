@@ -139,13 +139,23 @@ public class UserServiceImpl implements IUserService {
 
 	}
 
+    @Override
+    public ResponseEntity findExistCustomer(String username) {
+        SimpleHttpResult httpResult = new SimpleHttpResult();
+        UserCustomer userCustomer = userCustomerMapper.selectByName(username);
+        if (userCustomer == null){
+            httpResult.setSuccess(false);
+            return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity(httpResult, HttpStatus.OK);
+    }
 
     @Override
     public ResponseEntity verifyLogin(int userType, String username, String password) throws UnsupportedEncodingException {
         SimpleHttpResult<HttpTokenVO> httpResult = new SimpleHttpResult();
         HttpTokenVO result = new HttpTokenVO();
         if (userType == UserType.CUSTOMER.getUserType()){
-            UserCustomer userCustomer = userCustomerMapper.getCustomer(username);
+            UserCustomer userCustomer = userCustomerMapper.selectByName(username);
             if (userCustomer == null){
                 httpResult.setSuccess(false, "username is incorrect!");
                 return new ResponseEntity(httpResult, HttpStatus.UNAUTHORIZED);

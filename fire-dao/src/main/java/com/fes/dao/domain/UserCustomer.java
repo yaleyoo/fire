@@ -1,5 +1,7 @@
 package com.fes.dao.domain;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * Created by qigege on 2017/9/3.
  */
@@ -7,9 +9,13 @@ public class UserCustomer {
 
     private int id;
     private String classIdList;
+    @NotEmpty
     private String username;
+    @NotEmpty
     private String password;
+    @NotEmpty
     private String firstName;
+    @NotEmpty
     private String lastName;
     private int sex;
     private String address;

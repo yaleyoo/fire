@@ -37,10 +37,25 @@
         from user_customer where user_name=#{username}
     </select>
 	<update id="update" parameterType="com.fes.dao.domain.UserCustomer">
-		update user_customer
-		<set>
-			password=#{password}, first_name=#{firstName}, last_name=#{lastName}, sex=#{sex}, address=#{address}, phone_num=#{phoneNum}, user_customer.desc=#{desc}, organization_id=#{organizationId}
-		</set>
+		update user_customer set
+
+	  	password=#{password}, first_name=#{firstName}, last_name=#{lastName}, sex=#{sex}
+        <if test="address != null">
+               ,address=#{address}
+        </if>
+
+        <if test="phoneNum != null">
+            ,phone_num=#{phoneNum}
+        </if>
+
+        <if test="desc != null">
+            ,`desc`=#{desc}
+        </if>
+
+        <if test="organizationId != 0">
+            ,organization_id=#{organizationId}
+        </if>
+
 		where id = #{id}
 	</update>
 
@@ -49,6 +64,7 @@
         <include refid="baseColumns"/>
         from user_customer where id=#{id}
     </select>
+
 
 
 </mapper>

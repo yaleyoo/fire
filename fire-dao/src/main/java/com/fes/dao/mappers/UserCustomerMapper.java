@@ -21,7 +21,6 @@ public interface UserCustomerMapper {
 
     UserCustomer selectById(@Param("id") int userId);
 
-
     boolean update(UserCustomer user);
 
 

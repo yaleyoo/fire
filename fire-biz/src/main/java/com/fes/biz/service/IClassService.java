@@ -2,6 +2,8 @@ package com.fes.biz.service;
 
 import org.springframework.http.ResponseEntity;
 
+import com.fes.dao.domain.ClassPO;
+
 import java.text.ParseException;
 
 /**
@@ -10,4 +12,16 @@ import java.text.ParseException;
 public interface IClassService {
 
     ResponseEntity filterClass(int courseID, String classAddr, String classStartTime, int minPrice, int maxPrice) throws ParseException;
+    
+    ResponseEntity getAll();
+    
+    ResponseEntity getClassByCourseId(int courseId);
+    
+    ResponseEntity getClassById(int id);
+    
+    ResponseEntity getClassByDate(String date);
+    
+    ResponseEntity deleteClass(int courseId, int classId);
+    
+    ResponseEntity createClass(ClassPO classPO);
 }

@@ -60,19 +60,25 @@ public class CourseController {
 
     @RequestMapping(value = "/{id}/class", method = RequestMethod.GET)
     public ResponseEntity getClassesByCourseId(@PathVariable("id") int id){
-
-        //TODO
-        return new ResponseEntity(new SimpleHttpResult<>(), HttpStatus.OK);
-
+        return classService.getClassByCourseId(id);
     }
+    
+    @RequestMapping(value = "/class/{id}", method = RequestMethod.GET)
+    public ResponseEntity getClassById(@PathVariable("id") int id){
+        return classService.getClassById(id);
+    }
+    
+    @RequestMapping(value = "/class/{date}", method = RequestMethod.GET)
+    public ResponseEntity getClassById(@PathVariable("date") String date){
+        return classService.getClassByDate(date);
+    }
+    
+    
 
 
     @RequestMapping(value = "/{id}/class", method = RequestMethod.POST)
     public ResponseEntity createClass(@PathVariable("id") int courseId,ClassPO classPO){
-
-        //TODO
-        return new ResponseEntity(new SimpleHttpResult<>(), HttpStatus.OK);
-
+        return classService.createClass(classPO);
     }
 
 
@@ -85,8 +91,8 @@ public class CourseController {
 
     @RequestMapping(value = "/{courseId}/class/{classId}", method = RequestMethod.DELETE)
     public ResponseEntity deleteClass(@PathVariable("courseId") int courseId, @PathVariable("classId") int classId){
-        //TODO
-        return new ResponseEntity(new SimpleHttpResult<>(), HttpStatus.OK);
+        
+        return classService.deleteClass(courseId, classId);
 
     }
 
@@ -103,5 +109,12 @@ public class CourseController {
         return classService.filterClass(courseID, classAddr, classStartTime, minPrice, maxPrice);
 
     }
+    
+    @RequestMapping(value = "/getAllClass", method = RequestMethod.GET)
+    public ResponseEntity getAllClass() {
+    		return classService.getAll();
+    }
+    
+ 
 
 }

@@ -24,18 +24,36 @@
         price,registered_students_num,registered_students,contact_detail
     </sql>
 
-    <insert id="insert" parameterType="com.fes.dao.domain.ClassPO">
+    <insert id="createClass" parameterType="com.fes.dao.domain.ClassPO">
         INSERT INTO class (course_id,class_item_ids,tutor_id,tutor_name,tutor_desc,class_addr,class_start_time,
         class_time_table,price,registered_students_num,registered_students,contact_detail)
         VALUES(#{courseId},#{classItemIds},#{tutorId},#{tutorName},#{tutorDesc},#{classAddr},#{classStartTime},
         #{classTimeTable},#{price},#{registeredNum},#{registeredStudents},#{contactDetail})
     </insert>
+    <select id="getAll" resultMap="classResult">
+    		select
+    		<include refid="baseColumns"/>
+    		from class
+    </select>
 
-    <select id="getClassListByCourseId" resultMap="classResult">
+    <select id="getClassListByCourseId" resultMap="classResult" parameterType="int">
         select
         <include refid="baseColumns"/>
         from class where course_id=#{courseId}
     </select>
+	
+	<select id="getClassById" resultMap="classResult" parameterType="int">
+        select
+        <include refid="baseColumns"/>
+        from class where id=#{id}
+    </select>
+    
+    <select id="getClassByDate" resultMap="classResult" parameterType="Date">
+        select
+        <include refid="baseColumns"/>
+        from class where class_start_time=#{classStartTime}
+    </select>
+    
 	<select id="filter" resultMap="classResult">
     		select
     		<include refid="baseColumns"/>
@@ -54,5 +72,7 @@
 			<![CDATA[ and price <=]]> #{maxPrice} 
 		</if>   			
     </select>
+    
+  
 	
 </mapper>

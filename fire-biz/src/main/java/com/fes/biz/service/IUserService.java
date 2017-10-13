@@ -42,7 +42,7 @@ public interface IUserService {
 
     ResponseEntity findExistCustomer(String username);
 
-    ResponseEntity uploadTrainerPicture(String url);
+    ResponseEntity uploadTrainerPicture(String url, int id);
 
 
 }

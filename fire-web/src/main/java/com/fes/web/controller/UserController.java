@@ -148,10 +148,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/trainer/{id}/picture", method = RequestMethod.POST)
-    public ResponseEntity uploadTrainerPicture(String pictureUrl){
-
-        //TODO
-        return new ResponseEntity(new SimpleHttpResult<>(), HttpStatus.OK);
+    public ResponseEntity uploadTrainerPicture(@PathVariable("id") int id, String pictureUrl){
+        return userService.uploadTrainerPicture(pictureUrl, id);
     }
 
     @Authorization(authority = UserType.TRAINER)

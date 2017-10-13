@@ -270,7 +270,12 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public ResponseEntity uploadTrainerPicture(String url) {
-        return null;
+    public ResponseEntity uploadTrainerPicture(String url, int id) {
+        SimpleHttpResult httpResult = new SimpleHttpResult();
+        if (userTrainerMapper.updatePicUrl(url, id)){
+            return new ResponseEntity(httpResult, HttpStatus.OK);
+        }
+        httpResult.setSuccess(false, "upload failed");
+        return new ResponseEntity(httpResult, HttpStatus.SERVICE_UNAVAILABLE);
     }
 }

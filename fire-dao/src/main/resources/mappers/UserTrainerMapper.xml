@@ -13,12 +13,13 @@
         <result column="address" property="address"/>
         <result column="phone_num" property="phoneNum"/>
         <result column="desc" property="desc"/>
+        <result column="pic_url" property="picUrl"/>
         <result column="availability" property="availability"/>
         <result column="certification" property="certification"/>
     </resultMap>
 
     <sql id="baseColumns">
-        id, class_id_list, first_name, last_name, user_name, sex, password, address, phone_num, `desc`,
+        id, class_id_list, first_name, last_name, user_name, sex, password, address, phone_num, `desc`,pic_url,
         availability,certification
     </sql>
 
@@ -40,5 +41,9 @@
         <include refid="baseColumns"/>
         from user_trainer where user_name=#{username}
     </select>
+
+    <update id="updatePicUrl">
+        update user_customer set pic_url = #{url} where id = #{id}
+    </update>
 
 </mapper>

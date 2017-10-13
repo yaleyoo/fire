@@ -268,4 +268,9 @@ public class UserServiceImpl implements IUserService {
         tokenManager.deleteToken(username, usertype);
         return new ResponseEntity(new SimpleHttpResult(), HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity uploadTrainerPicture(String url) {
+        return null;
+    }
 }

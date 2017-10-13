@@ -59,6 +59,7 @@
 		where id = #{id}
 	</update>
 
+
     <select id="selectById" resultMap="customerResult" parameterType="int">
         select
         <include refid="baseColumns"/>

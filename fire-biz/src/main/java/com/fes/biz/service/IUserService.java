@@ -43,6 +43,8 @@ public interface IUserService {
     ResponseEntity findExistCustomer(String username);
 
     ResponseEntity uploadTrainerPicture(String url, int id);
+    
+    ResponseEntity deleteCustomer(int id);
 
 
 }

@@ -278,4 +278,14 @@ public class UserServiceImpl implements IUserService {
         httpResult.setSuccess(false, "upload failed");
         return new ResponseEntity(httpResult, HttpStatus.SERVICE_UNAVAILABLE);
     }
+    
+    @Override
+    public ResponseEntity deleteCustomer(int id) {
+    		SimpleHttpResult httpResult = new SimpleHttpResult();
+    		if (userCustomerMapper.deleteCustomer(id)) {
+    			 return new ResponseEntity(httpResult, HttpStatus.OK);
+    		}
+    		httpResult.setSuccess(false, "delete failed");
+    		return new ResponseEntity(httpResult, HttpStatus.SERVICE_UNAVAILABLE);
+    }
 }

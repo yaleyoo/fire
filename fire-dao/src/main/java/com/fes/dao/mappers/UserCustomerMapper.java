@@ -23,5 +23,6 @@ public interface UserCustomerMapper {
 
     boolean update(UserCustomer user);
 
+    boolean deleteCustomer(@Param("id")int id);
 
 }

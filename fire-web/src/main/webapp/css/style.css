@@ -29,15 +29,25 @@ body a:hover,body a:focus{
 	outline: none;
 } 
 /*-- banner --*/  
-.banner{ 
-	background:url(../images/holdingextinguisher_background.jpg)no-repeat center 0px;
+.banner {
+	background: url(../images/holdingextinguisher_background.jpg) no-repeat center 0px;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	background-size: cover;
+	position: relative;
+	height:300px;
+}
+
+.foot-banner{
+	background:url(../images/g1.jpg)no-repeat 0px 0px;
 	-webkit-background-size:cover;
 	-moz-background-size:cover;
-	background-size:cover;    
+	background-size:cover;
 	position:relative;
-} 
+}
 .banner-agileinfo {
     background: rgba(0, 0, 0, 0.42);
+	height: 300px;
 }
 .header {
     padding-top:1em;

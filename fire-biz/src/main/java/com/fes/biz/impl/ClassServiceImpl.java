@@ -3,7 +3,9 @@ package com.fes.biz.impl;
 import com.fes.biz.service.IClassService;
 import com.fes.common.domain.SimpleHttpResult;
 import com.fes.dao.domain.ClassPO;
+import com.fes.dao.domain.UserTrainer;
 import com.fes.dao.mappers.ClassMapper;
+import com.fes.dao.mappers.UserTrainerMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -21,6 +23,9 @@ public class ClassServiceImpl implements IClassService {
 
     @Resource
     private ClassMapper classMapper;
+
+    @Resource
+	private UserTrainerMapper userTrainerMapper;
 
     @Override
     public ResponseEntity filterClass(int courseID, String classAddr, String classStartTime, int minPrice, int maxPrice ) throws ParseException {

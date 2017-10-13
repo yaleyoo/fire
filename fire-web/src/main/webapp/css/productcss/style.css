@@ -426,7 +426,7 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 .fh5co-cover {
-  height: 800px;
+  height: 300px;
   background-size: cover;
   background-position: top center;
   background-repeat: no-repeat;
@@ -441,6 +441,7 @@ h1, h2, h3, h4, h5, h6, figure {
   top: 0;
   left: 0;
   right: 0;
+  height: 300px;
   background: rgba(0, 0, 0, 0.2);
 }
 .fh5co-cover > .fh5co-container {
@@ -449,20 +450,20 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 @media screen and (max-width: 768px) {
   .fh5co-cover {
-    height: 600px;
+    height: 300px;
   }
 }
 .fh5co-cover .display-t,
 .fh5co-cover .display-tc {
   z-index: 9;
-  height: 900px;
+  height: 300px;
   display: table;
   width: 100%;
 }
 @media screen and (max-width: 768px) {
   .fh5co-cover .display-t,
   .fh5co-cover .display-tc {
-    height: 600px;
+    height: 300px;
   }
 }
 .fh5co-cover.fh5co-cover-sm {
@@ -470,19 +471,19 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 @media screen and (max-width: 768px) {
   .fh5co-cover.fh5co-cover-sm {
-    height: 400px;
+    height: 300px;
   }
 }
 .fh5co-cover.fh5co-cover-sm .display-t,
 .fh5co-cover.fh5co-cover-sm .display-tc {
-  height: 600px;
+  height: 300px;
   display: table;
   width: 100%;
 }
 @media screen and (max-width: 768px) {
   .fh5co-cover.fh5co-cover-sm .display-t,
   .fh5co-cover.fh5co-cover-sm .display-tc {
-    height: 400px;
+    height: 300px;
   }
 }
 

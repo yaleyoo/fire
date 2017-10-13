@@ -3,6 +3,7 @@ package com.fes.dao.mappers;
 import java.sql.Date;
 import java.util.List;
 
+import com.fes.dao.domain.UserTrainer;
 import org.apache.ibatis.annotations.Param;
 
 import com.fes.dao.domain.ClassPO;
@@ -24,4 +25,7 @@ public interface ClassMapper {
 	boolean deleteClass(@Param("courseId")int courseId, @Param("classId")int classId);
 	
 	boolean createClass(ClassPO classPO);
+
+	boolean updateTutorInfo(UserTrainer userTrainer);
+
 }

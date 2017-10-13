@@ -147,6 +147,13 @@ public class UserController {
 
     }
 
+    @RequestMapping(value = "/trainer/{id}/picture", method = RequestMethod.POST)
+    public ResponseEntity uploadTrainerPicture(String pictureUrl){
+
+        //TODO
+        return new ResponseEntity(new SimpleHttpResult<>(), HttpStatus.OK);
+    }
+
     @Authorization(authority = UserType.TRAINER)
     @RequestMapping(value = "/trainer", method = RequestMethod.PUT)
     public ResponseEntity modifyTrainerProfile(@Valid UserTrainer user){

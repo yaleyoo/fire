@@ -26,7 +26,7 @@ http://www.freshdesignweb.com/free-beautiful-css3-table-style.html
     color: #333;
     padding: 20px;
     width:205px;
-    height:567px;
+    height:630px;
     float: left;
     _display: inline; /* IE6 double margin fix */
     position: relative;
@@ -58,7 +58,7 @@ http://www.freshdesignweb.com/free-beautiful-css3-table-style.html
     top: -20px;
     padding: 40px 20px;
     width:215px;
-    height:597px;
+    height:680px;
 }
 
 #fdw-pricing-table .plan ul li img{
@@ -103,7 +103,7 @@ http://www.freshdesignweb.com/free-beautiful-css3-table-style.html
 }
 
 #fdw-pricing-table .plan1 .header{
-    border-bottom-color: #B3E03F;
+    border-bottom-color: red;
 }
 
 #fdw-pricing-table .plan2 .header{
@@ -177,7 +177,7 @@ http://www.freshdesignweb.com/free-beautiful-css3-table-style.html
 }
 
 #fdw-pricing-table .plan1 .signup{
-    background: #B3E03F;
+    background: red;
 }
 
 #fdw-pricing-table .plan2 .signup{

@@ -65,11 +65,10 @@ public class UserController {
     }
 
     @Authorization(authority = UserType.STAFF)
-    @RequestMapping(value = "/customer/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/customer/{id}/delete", method = RequestMethod.DELETE)
     public ResponseEntity deleteCustomer( @PathVariable("id") int id) {
-        // TODO
-        //return userService.modifyProfile(userCustomer);
-        return new ResponseEntity(new SimpleHttpResult<>(), HttpStatus.OK);
+        return userService.deleteCustomer(id);
+        
     }
 
     @RequestMapping(value = "/customer/email/{email}", method = RequestMethod.GET)

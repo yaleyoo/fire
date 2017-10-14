@@ -44,5 +44,7 @@ public interface IUserService {
 
     ResponseEntity showTrainerById(int id);
 
+    ResponseEntity deleteCustomer(int id);
 
+    ResponseEntity uploadTrainerPicture(String url, int id);
 }

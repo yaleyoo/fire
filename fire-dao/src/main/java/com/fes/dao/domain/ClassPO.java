@@ -12,6 +12,7 @@ public class ClassPO {
     private String classItemIds;
     private int tutorId;
     private String tutorName;
+    private String tutorPic;
     private String tutorDesc;
     private String classAddr;
     private Date classStartTime;
@@ -27,6 +28,14 @@ public class ClassPO {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getTutorPic() {
+        return tutorPic;
+    }
+
+    public void setTutorPic(String tutorPic) {
+        this.tutorPic = tutorPic;
     }
 
     public int getCourseId() {

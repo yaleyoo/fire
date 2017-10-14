@@ -42,7 +42,7 @@
 <link href="../assets/js/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
 <link href="../assets/css/style.css" rel="stylesheet">
 <link href="../assets/css/style-responsive.css" rel="stylesheet">
-
+<link href="../css/style_class.css" rel="stylesheet"/>
 <!-- Custom Theme files -->
 <link href="../css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
 <link href="../css/style.css" type="text/css" rel="stylesheet" media="all">
@@ -66,7 +66,6 @@
     <script src="../js/jquery-2.2.3.min.js"></script>
 	<script src="../js/jquery-1.9.1.min.js"></script>
 	<script src="../js/commonJs.js"></script>
-	<script src="/js/orderjs/owl.carousel.js"></script>
 	<!-- //js -->
 <!-- web-fonts -->   
 <link href="http://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700" rel="stylesheet">
@@ -120,9 +119,9 @@
 	</div>
 	<!-- //banner --> 
 	<!-- portfolio -->
-	<div class="portfolio">
+
 		<div class="container"> 
-			<div class="w3ls-title"> 
+			<!--<div class="w3ls-title">
 			<div class="grid_3 grid_5 agile">
 				<div class="bs-example w3layouts" data-example-id="default-navbar"> 
 					<nav class="navbar navbar-default"> 
@@ -139,54 +138,67 @@
 										<li role="separator" class="divider"></li> 
 										<li><a href="#">Date</a></li> </ul> 
 									</li> 
-								</ul> 
+								</ul>
+
 								<form class="navbar-form navbar-left"> 
 									<div class="form-group w3-agile"><input class="form-control" placeholder="Search"></div> 
 									<button type="submit" class="btn btn-default">
 									<span class ="glyphicon glyphicon-search"></span></button> 
-								</form> 
+								</form>
 							</div> 
 						</div> 
 					</nav> 
 				</div>
 			</div> 
-			</div>
+			</div>-->
 
-			<div id="fh5co-product">
+			<div>
 				<div class="container">
 					<div class="row">
+						<h2 id="course_name2" style="position: relative;top:130px;text-align: center"></h2>
 						<div class="col-md-10 col-md-offset-1 animate-box">
-							<div id='pic' class="owl-carousel owl-carousel-fullwidth product-carousel">
-									<div class="active text-center">
-										<figure>
-											<img id="course_pic1" src="" alt="user">
-										</figure>
+							<div id='myCarousel' class="carousel slide">
+
+								<!-- 轮播（Carousel）指标 -->
+								<ol class="carousel-indicators">
+									<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+									<li data-target="#myCarousel" data-slide-to="1"></li>
+									<li data-target="#myCarousel" data-slide-to="2"></li>
+								</ol>
+
+								<!-- 轮播（Carousel）项目 -->
+								<div class="carousel-inner" style="height:950px;">
+									<div class="item active">
+										<img id="course_pic1" src="" alt="First slide">
 									</div>
-									<div class="text-center">
-										<figure>
-											<img id="course_pic2" src="" alt="user">
-										</figure>
+									<div class="item">
+										<img id="course_pic2" src="" alt="Second slide">
 									</div>
+									<div class="item">
+										<img id="course_pic3" src="" alt="Third slide">
+									</div>
+								</div>
 							</div>
 							<div class="row animate-box">
 								<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-									<h2 id="course_name1">Warden Course</h2>
+									<h2 id="course_name1"></h2>
+									<!--
 									<p>
 										<a href="/jsp/order.html" class="btn btn-primary btn-outline btn-lg">Make an order</a>
 										<a href="/jsp/courses.html" class="btn btn-primary btn-outline btn-lg">Compare</a>
-									</p>
+									</p>-->
 								</div>
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="row">
 						<div class="col-md-10 col-md-offset-1">
 							<div class="fh5co-tabs animate-box">
 								<ul class="fh5co-tab-nav">
 									<li class="active"><a href="#" data-tab="1"><span class="icon visible-xs"><i class="icon-file"></i></span><span class="hidden-xs">Course Details</span></a></li>
 									<li><a href="#" data-tab="2"><span class="icon visible-xs"><i class="icon-bar-graph"></i></span><span class="hidden-xs">Specification</span></a></li>
-									<li><a href="#" data-tab="3"><span class="icon visible-xs"><i class="icon-star"></i></span><span class="hidden-xs">Upcomeing Date</span></a></li>
+									<!--<li><a href="#" data-tab="3"><span class="icon visible-xs"><i class="icon-star"></i></span><span class="hidden-xs">Upcomeing Date</span></a></li>-->
 								</ul>
 
 								<!-- Tabs -->
@@ -194,8 +206,8 @@
 
 									<div class="fh5co-tab-content tab-content active" data-tab-content="1">
 										<div class="col-md-10 col-md-offset-1">
-											<span class="price" id="course_price">SRP: $350</span>
-											<h2 id="course_name2">Warden Course</h2>
+											<span class="price" id="course_price"></span>
+
 											<br />
 											<p>Description</p>
 											<p id="description"></p>
@@ -204,12 +216,12 @@
 												<div class="col-md-6">
 													<h2 class="uppercase">Course Duration</h2>
 													<br />
-													<p id="duration">Course Duration</p>
+													<p id="duration"></p>
 												</div>
 												<div class="col-md-6">
 													<h2 class="uppercase">Prerequisite</h2>
 													<br/>
-													<p id="prerequisite">Prerequisite</p>
+													<p id="prerequisite"></p>
 												</div>
 											</div>
 										</div>
@@ -221,12 +233,13 @@
 											<ul>
 											<br />
 												<li>
-												<p id="specification">Paragraph placeat quis fugiat provident veritatis quia iure a debitis adipisci dignissimos consectetur magni quas eius
+												<p id="specification">
 												</p>
 												</li>
 											</ul>
 										</div>
 									</div>
+
 
 									<div class="fh5co-tab-content tab-content" data-tab-content="3">
 										<div class="col-md-10 col-md-offset-1">
@@ -253,17 +266,43 @@
 					</div>
 				</div>
 			</div>
+			<hr style="border: 1px solid #CCC">
+			<header>
+				<h1><span>Classes</span></h1>
+			</header>
+			<br/><br/><br/>
 
-			<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-			<div id="fh5co-header" class="fh5co-cover fh5co-cover-sm" role="banner" style="background-image:url(../images/g1.jpg);">
+
+			<div id="fdw-pricing-table">
+				<div class="row">
+				</div>
+
+			</div>
+
+
+		</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<div class="middle-black-background foot-banner" role="banner" style="padding: 3em 0">
 				<div class="overlay"></div>
 				<div class="container">
 					<div class="row">
 						<div class="col-md-8 col-md-offset-2 text-center">
-							<div class="display-t">
-								<div class="display-tc animate-box" data-animate-effect="fadeIn">
-									<h1>Course Permission</h1>
-									<h2>Training by experienced firefighters
+							<div class="">
+								<div class=" animate-box" data-animate-effect="fadeIn">
+									<h1 style="color: white">Course Permission</h1>
+									<h2 style="color: #EEE;margin-top: 10px;">Training by experienced firefighters
 									FES provide a range of emergency management, consulting and training programs to help you prevent, manage and respond to emergencies. In addition to our popular training courses held at the MFB Burnley Training Facility, we provide consultancy and training services customised to your needs and delivered at your premises.</h2>
 								</div>
 							</div>
@@ -272,8 +311,8 @@
 				</div>
 			</div>
 
-		</div>
-	</div>
+
+
 	<!-- //portfolio --> 
 	<!-- footer-top -->  
 	<div class="footer-agiletop">
@@ -359,8 +398,7 @@
 			
 		});
 	</script>
-	
-	</script>
+
 	<script type="text/javascript">
 	$(function(){
 
@@ -413,6 +451,7 @@
 	<script src="../js/productjs/jquery.flexslider-min.js"></script>
 	<!-- Main -->
 	<script src="../js/productjs/main.js"></script>
+	<script src="../js/commonJs.js"></script>
 
 	<script>
 		$('.navicon').on('click', function (e) {
@@ -468,8 +507,7 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="../js/bootstrap.js"></script>
-	
-	</script>	
+
 	<!-- //filter-plugin --> 
 	<!-- Bootstrap core JavaScript
     ================================================== -->
@@ -477,12 +515,26 @@
     <script src="/js/bootstrap.js"></script>
 
 	<script type="text/javascript">
+
+
+
+
+
+
+
+
+
+
         $(document).ready(function() {
+            $("#myCarousel").carousel('cycle');
             var token = localStorage.getItem("token");
             var course_id = getUrlParam("course_id");
+            sessionStorage.setItem("course_id", course_id);
             if (course_id == null || course_id == ""){
                 history.back();
             }
+
+
             $.ajax({
                 type : "GET",
                 // url for request.
@@ -511,24 +563,88 @@
                 },
                 success : function(data) {
                     var valid_data = data.data;
-                    $("figure img").attr("src",valid_data.courseIcon);
+                    $(".carousel-inner img").attr("src",valid_data.courseIcon);
                     $("#course_price").html("SRC: "+valid_data.coursePrice);
                     $("#course_name1").html(valid_data.courseName);
                     $("#course_name2").html(valid_data.courseName);
                     $("#description").html(valid_data.courseDesc);
                     $("#duration").html(valid_data.duration);
-
+					$("#specification").html(valid_data.courseDesc);
                     $("title").html(valid_data.courseName);
 
                 }
             });
 
-            $("#course_pic1").load(function () {
-                $('.owl-carousel').owlCarousel(
-                    // 插件脚本的一些参数（有很多参数，下面会说一些常用的），autoplay代表是否自动轮播，默认为false
-                    {autoPlay:true,autoHeight:true}
-                );
+
+
+            $.ajax({
+                type : "GET",
+                // url for request.
+                // invoke methods in UserController.java
+                url : "/course/"+course_id+"/class",
+
+                headers : {
+                    "Authorization" : token
+                },
+                // asyncronise, default is true
+                async : false,
+                dataType : "json",
+                error : function(data) {
+                    var json = data.responseText;
+                    if (data.status == 401){
+                        localStorage.clear();
+                        location.href = "/index.html?login=false"
+                    } else{
+                        if (json != null || json!=""){
+                            json = $.parseJSON(json);
+                            alert(json.error.returnUserMessage);
+                        }else{
+                            alert("Connection error");
+                        }
+                    }
+                },
+                success : function(data) {
+                    var valid_data = data.data;
+					var i = 1 ;
+					var j = 0;
+					if (valid_data.length == 0){
+                        $("#fdw-pricing-table .row").append(
+                            '<div class="row" style="height:500px;border:1px solid #000; background-color: #BBB">' +
+							'<p style="font-size: 15pt; color: red">We are so sorry that currently we have no available classes!</p>');
+					}
+                    $.each(valid_data, function(){
+                        j++;
+                        if (i>=4){
+                            i=1;
+						}
+                        $("#fdw-pricing-table .row").append(
+                            '<div class="col-md-3" style="height:700px">'+
+                            '<div class="plan plan'+i+'"">'+
+                            '<div class="header">'+'Class '+j+'</div>'+
+
+                            '<ul>'+
+                            '<li><img src="'+/*this.tutorPi*/'/images/1.jpg'+'"/></li>'+
+                            '<li><p style="color: #000"><b>Tutor</b></p><p>'+this.tutorName +'</p></li>'+
+                            '<li><p style="color: #000"><b>Start Time</b></p><p>'+this.classStartTime+'</li>'+
+                            '<li style="word-wrap: break-word;"><p style="color: #000"><b>Address: </b></p><p>'+this.classAddr+'</p></li>'+
+
+                            '</ul>'+
+                            '<a class="signup" href="/jsp/class.html?class_id='+this.id+'&&course_id='+course_id+'">Detail</a>'+
+                            '</div>'+
+                            '</div>');
+					});
+
+
+                }
             });
+
+
+            $("#fdw-pricing-table .row .plan").hover(function () {
+                $(this).addClass("popular-plan");
+            }, function () {
+                $(this).removeClass("popular-plan");
+            });
+
 
 
 

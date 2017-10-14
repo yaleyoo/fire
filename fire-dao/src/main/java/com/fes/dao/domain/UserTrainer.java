@@ -17,6 +17,7 @@ public class UserTrainer {
     private String desc;
     private String availability;
     private String certification;
+    private String picUrl;
 
     public int getId() {
         return id;
@@ -112,5 +113,13 @@ public class UserTrainer {
 
     public void setCertification(String certification) {
         this.certification = certification;
+    }
+
+    public String getPicUrl() {
+        return picUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
     }
 }

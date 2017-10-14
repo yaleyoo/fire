@@ -280,4 +280,24 @@ public class UserServiceImpl implements IUserService {
             return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
         }
     }
+
+    @Override
+    public ResponseEntity uploadTrainerPicture(String url, int id) {
+        SimpleHttpResult httpResult = new SimpleHttpResult();
+        if (userTrainerMapper.updatePicUrl(url, id)){
+            return new ResponseEntity(httpResult, HttpStatus.OK);
+        }
+        httpResult.setSuccess(false, "upload failed");
+        return new ResponseEntity(httpResult, HttpStatus.SERVICE_UNAVAILABLE);
+    }
+
+    @Override
+    public ResponseEntity deleteCustomer(int id) {
+    		SimpleHttpResult httpResult = new SimpleHttpResult();
+    		if (userCustomerMapper.deleteCustomer(id)) {
+    			 return new ResponseEntity(httpResult, HttpStatus.OK);
+    		}
+    		httpResult.setSuccess(false, "delete failed");
+    		return new ResponseEntity(httpResult, HttpStatus.SERVICE_UNAVAILABLE);
+    }
 }

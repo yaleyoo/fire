@@ -47,4 +47,8 @@
         from user_trainer where id=#{id}
     </select>
 
+    <update id="updatePicUrl">
+        update user_customer set pic_url = #{url} where id = #{id}
+    </update>
+
 </mapper>

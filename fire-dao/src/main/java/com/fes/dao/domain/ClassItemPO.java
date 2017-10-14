@@ -9,10 +9,12 @@ public class ClassItemPO {
 
     private int id;
     private int classId;
-    private Date classTime;
+    private Date classDate;
     private int equipConsumption;
     private int attendantStudentsNum;
     private String attendantStudents;
+    private String startTime;
+    private String endTime;
 
     public int getId() {
         return id;
@@ -30,12 +32,28 @@ public class ClassItemPO {
         this.classId = classId;
     }
 
-    public Date getClassTime() {
-        return classTime;
+    public Date getClassDate() {
+        return classDate;
     }
 
-    public void setClassTime(Date classTime) {
-        this.classTime = classTime;
+    public void setClassDate(Date classDate) {
+        this.classDate = classDate;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 
     public int getEquipConsumption() {

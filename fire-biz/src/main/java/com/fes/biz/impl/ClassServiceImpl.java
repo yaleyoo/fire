@@ -3,7 +3,9 @@ package com.fes.biz.impl;
 import com.fes.biz.service.IClassService;
 import com.fes.common.domain.SimpleHttpResult;
 import com.fes.dao.domain.ClassPO;
+import com.fes.dao.domain.UserTrainer;
 import com.fes.dao.mappers.ClassMapper;
+import com.fes.dao.mappers.UserTrainerMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -21,6 +23,9 @@ public class ClassServiceImpl implements IClassService {
 
     @Resource
     private ClassMapper classMapper;
+
+    @Resource
+	private UserTrainerMapper userTrainerMapper;
 
     @Override
     public ResponseEntity filterClass(int courseID, String classAddr, String classStartTime, int minPrice, int maxPrice ) throws ParseException {
@@ -47,5 +52,77 @@ public class ClassServiceImpl implements IClassService {
 
         httpResult.setData(result);
         return new ResponseEntity(httpResult, HttpStatus.OK);
+    }
+    @Override
+    public ResponseEntity getAll() {
+    		SimpleHttpResult<List<ClassPO>> httpResult = new SimpleHttpResult<List<ClassPO>>();
+    		List<ClassPO> list = classMapper.getAll();
+    		if(list == null) {
+    			httpResult.setSuccess(false, "no any classes available now");
+    			return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
+    		}
+    		httpResult.setData(list);
+    		return new ResponseEntity(httpResult, HttpStatus.OK);
+    		
+    }
+    @Override
+    public ResponseEntity getClassByCourseId(int courseId) {
+    		SimpleHttpResult<List<ClassPO>> httpResult = new SimpleHttpResult<List<ClassPO>>();
+    		List<ClassPO> list = classMapper.getClassListByCourseId(courseId);
+    		if(list == null) {
+    			httpResult.setSuccess(false, "no any classes available for this course");
+    			return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
+    		}
+    		httpResult.setData(list);
+    		return new ResponseEntity(httpResult, HttpStatus.OK);
+    }
+    @Override
+    public ResponseEntity getClassById(int id) {
+    		SimpleHttpResult<List<ClassPO>> httpResult = new SimpleHttpResult<List<ClassPO>>();
+		List<ClassPO> list = classMapper.getClassById(id);
+		if(list == null) {
+			httpResult.setSuccess(false, "no results");
+			return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
+		}
+		httpResult.setData(list);
+		return new ResponseEntity(httpResult, HttpStatus.OK);
+    }
+    @Override
+    public ResponseEntity getClassByDate(String date) {
+    		SimpleHttpResult<List<ClassPO>> httpResult  = new SimpleHttpResult<List<ClassPO>>();
+    		SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+    		java.util.Date d = null;
+    		try {
+    			d = format.parse(date);
+    		} catch (Exception e) {
+    			httpResult.setSuccess(false, "invalid date format");
+    			return new ResponseEntity(httpResult, HttpStatus.UNPROCESSABLE_ENTITY);
+    		}
+    		Date classDate = new Date(d.getTime());
+    		List<ClassPO> list = classMapper.getClassByDate(classDate);
+    		if(list == null) {
+    			httpResult.setSuccess(false, "no results");
+    			return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
+    		}
+    		httpResult.setData(list);
+    		return new ResponseEntity(httpResult, HttpStatus.OK);
+    		
+    }
+    @Override
+    public ResponseEntity deleteClass(int courseId, int classId) {
+    		SimpleHttpResult httpResult = new SimpleHttpResult();
+    		if(classMapper.deleteClass(courseId, classId)) {
+    			return new ResponseEntity(httpResult, HttpStatus.OK);
+    		}
+    		httpResult.setSuccess(false, "delete failed!");
+    	    return new ResponseEntity(httpResult, HttpStatus.SERVICE_UNAVAILABLE);
+    }
+    public ResponseEntity createClass(ClassPO classPO) {
+    		SimpleHttpResult httpResult = new SimpleHttpResult();
+    		if(classMapper.createClass(classPO)) {
+    			return new ResponseEntity(httpResult, HttpStatus.OK);
+    		}
+    		httpResult.setSuccess(false, "create failed!");
+    	    return new ResponseEntity(httpResult, HttpStatus.SERVICE_UNAVAILABLE);
     }
 }

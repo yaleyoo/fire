@@ -4,19 +4,21 @@
     <resultMap type="com.fes.dao.domain.ClassItemPO" id="classItemResult">
         <result column="id" property="id"/>
         <result column="class_id" property="classId"/>
-        <result column="class_time" property="classTime"/>
+        <result column="class_date" property="classDate"/>
+        <result column="start_time" property="startTime"/>
+        <result column="end_time" property="endTime"/>
         <result column="equipment_consumption" property="equipConsumption"/>
         <result column="attendant_students_num" property="attendantStudentsNum"/>
         <result column="attendant_students" property="attendantStudents"/>
     </resultMap>
 
     <sql id="baseColumns">
-        id,class_id,class_time,equipment_consumption,attendant_students_num,attendant_students
+        id,class_id,class_date,equipment_consumption,attendant_students_num,attendant_students,start_time,end_time
     </sql>
 
     <insert id="insert" parameterType="com.fes.dao.domain.ClassItemPO">
-        INSERT INTO class_item(class_id,class_time,equipment_consumption,attendant_students_num,attendant_students)
-        VALUES(#{classId},#{classTime},#{equipConsumption},#{attendantStudentsNum},#{attendantStudents})
+        INSERT INTO class_item(class_id,class_date,equipment_consumption,attendant_students_num,attendant_students,start_time,end_time)
+        VALUES(#{classId},#{classDate},#{equipConsumption},#{attendantStudentsNum},#{attendantStudents},#{startTime},#{endTime})
     </insert>
 
     <select id="getCLassItemListByClassId" resultMap="classItemResult">

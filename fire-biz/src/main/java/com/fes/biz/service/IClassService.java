@@ -26,4 +26,6 @@ public interface IClassService {
     ResponseEntity createClass(ClassPO classPO);
     
     ResponseEntity modifyClass(int courseId, int classId, ClassPO classPO);
+    
+    ResponseEntity getClassItem(int classId);
 }

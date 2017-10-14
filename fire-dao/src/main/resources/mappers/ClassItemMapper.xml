@@ -21,7 +21,7 @@
         VALUES(#{classId},#{classDate},#{equipConsumption},#{attendantStudentsNum},#{attendantStudents},#{startTime},#{endTime})
     </insert>
 
-    <select id="getCLassItemListByClassId" resultMap="classItemResult">
+    <select id="getClassItemPO" resultMap="classItemResult">
         select
         <include refid="baseColumns"/>
         from class_item where class_id=#{classId}

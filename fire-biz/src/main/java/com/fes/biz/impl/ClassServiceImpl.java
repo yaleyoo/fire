@@ -2,8 +2,10 @@ package com.fes.biz.impl;
 
 import com.fes.biz.service.IClassService;
 import com.fes.common.domain.SimpleHttpResult;
+import com.fes.dao.domain.ClassItemPO;
 import com.fes.dao.domain.ClassPO;
 import com.fes.dao.domain.UserTrainer;
+import com.fes.dao.mappers.ClassItemMapper;
 import com.fes.dao.mappers.ClassMapper;
 import com.fes.dao.mappers.UserTrainerMapper;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,9 @@ public class ClassServiceImpl implements IClassService {
 
     @Resource
 	private UserTrainerMapper userTrainerMapper;
+    
+    @Resource
+    private ClassItemMapper classItemMapper;
 
     @Override
     public ResponseEntity filterClass(int courseID, String classAddr, String classStartTime, int minPrice, int maxPrice ) throws ParseException {
@@ -150,5 +155,15 @@ public class ClassServiceImpl implements IClassService {
     		}
     		httpResult.setSuccess(false, "modify failed");
     		return new ResponseEntity(httpResult, HttpStatus.SERVICE_UNAVAILABLE);
+    }@Override
+    public ResponseEntity getClassItem(int classId) {
+    		SimpleHttpResult<ClassItemPO> httpResult = new SimpleHttpResult();
+    		ClassItemPO classItemPO = classItemMapper.getClassItemPO(classId);
+    		if(classItemPO==null) {
+    			httpResult.setSuccess(false, "no results");
+    			return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
+    		}
+    		httpResult.setData(classItemPO);
+    		return new ResponseEntity(httpResult, HttpStatus.OK);
     }
 }

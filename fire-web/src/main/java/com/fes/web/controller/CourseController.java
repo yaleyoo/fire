@@ -98,8 +98,7 @@ public class CourseController {
 
     @RequestMapping(value = "/{courseId}/class/{classId}/class-item", method = RequestMethod.GET)
     public ResponseEntity showClassItem(@PathVariable("classId") int classId) {
-        //todo
-        return new ResponseEntity(new SimpleHttpResult<>(), HttpStatus.OK);
+        return classService.getClassItem(classId);
     }
 
     @Authorization(authority = UserType.STAFF)

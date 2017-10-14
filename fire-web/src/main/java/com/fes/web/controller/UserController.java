@@ -134,8 +134,7 @@ public class UserController {
     @Authorization (authority = {UserType.STAFF, UserType.TRAINER})
     @RequestMapping(value = "/trainer/{id}", method = RequestMethod.GET)
     public ResponseEntity showTrainerByID(@PathVariable("id") int id) {
-
-        return new ResponseEntity(new SimpleHttpResult<>(), HttpStatus.OK);
+        return userService.showTrainerById(id);
     }
 
     @Authorization(authority = UserType.STAFF)

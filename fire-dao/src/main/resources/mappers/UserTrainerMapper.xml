@@ -41,4 +41,10 @@
         from user_trainer where user_name=#{username}
     </select>
 
+    <select id="getTrainerById" resultMap="trainerResult" parameterType="int">
+        select
+        <include refid="baseColumns"/>
+        from user_trainer where id=#{id}
+    </select>
+
 </mapper>

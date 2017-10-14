@@ -42,5 +42,7 @@ public interface IUserService {
 
     ResponseEntity findExistCustomer(String username);
 
+    ResponseEntity showTrainerById(int id);
+
 
 }

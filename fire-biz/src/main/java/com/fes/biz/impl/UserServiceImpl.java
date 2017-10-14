@@ -264,4 +264,20 @@ public class UserServiceImpl implements IUserService {
         tokenManager.deleteToken(username, usertype);
         return new ResponseEntity(new SimpleHttpResult(), HttpStatus.OK);
     }
+
+
+    @Override
+    public ResponseEntity showTrainerById(int id) {
+        UserTrainer trainer = userTrainerMapper.getTrainerById(id);
+        SimpleHttpResult httpResult = new SimpleHttpResult();
+        if(trainer!=null){
+            httpResult.setSuccess(true);
+            httpResult.setData(trainer);
+            return new ResponseEntity(httpResult, HttpStatus.OK);
+        }
+        else{
+            httpResult.setSuccess(false);
+            return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
+        }
+    }
 }

@@ -161,20 +161,16 @@
 				</div>
 				<div class="col-md-4 w3ls-banner-left">
 					<div class="w3ls-banner-left-info">
-						<h4>Job Title</h4>
-						<p>Web Designer and Developer</p>
-					</div>
-					<div class="w3ls-banner-left-info">
 						<h4>Tutor Name</h4>
-						<p>Steve Watson</p>
+						<p id="tutor-name"></p>
 					</div>
 					<div class="w3ls-banner-left-info">
 						<h4>Sex</h4>
-						<p>Male</p>
+						<p id="tutor-sex">Male</p>
 					</div>
 					<div class="w3ls-banner-left-info">
 						<h4>Certification</h4>
-						<p>Eiusmod Tempor inclore Place,Kingsport 56777.</p>
+						<p id="tutor-cert"></p>
 					</div>
 				</div>
 				<div class="clearfix"> </div>
@@ -204,36 +200,7 @@
 					</tr>
 					</thead>
 					<tbody>
-					<tr>
-						<td>02.06.2010</td>
-						<td>10:00</td>
-						<td>12:00</td>
-						<td>Cleaning</td>
-					</tr>
-					<tr>
-						<td>02.06.2010</td>
-						<td>12:00</td>
-						<td>15:00</td>
-						<td>Training</td>
-					</tr>
-					<tr>
-						<td>02.06.2010</td>
-						<td>15:00</td>
-						<td>17:00</td>
-						<td>Rest</td>
-					</tr>
-					<tr>
-						<td>02.06.2010</td>
-						<td>17:00</td>
-						<td>21:00</td>
-						<td>Work</td>
-					</tr>
-					<tr>
-						<td>02.06.2010</td>
-						<td>21:00</td>
-						<td>07:00</td>
-						<td>Sleep</td>
-					</tr>
+
 					</tbody>
 				</table>
 
@@ -508,9 +475,57 @@
                 },
                 success : function(data) {
                     var valid_data = data.data;
-                    for (var i=0; i< valid_data.length;i++){
-                        $("#courses").append("<div class='col-md-4 text-center animate-box fadeInUp animated-fast'> <div class='product'> <div class='product-grid' style='background-image:url("+valid_data[i].courseIcon+");'> <div class='inner'> <p> <a href='order.html?course_id="+valid_data[i].id+"' class='icon'><i class='glyphicon glyphicon-shopping-cart'></i></a> <a href='warden.html?course_id="+valid_data[i].id+"' class='icon'><i class='fa fa-eye'></i></a> </p> </div> </div> <div class='desc'> <h3><a href='single.html'>"+valid_data[i].courseName+"</a></h3><span class='price'>"+valid_data[i].coursePrice+"</span> </div> </div> </div>");
+                    var tutor_name = valid_data.firstName+valid_data.lastName;
+                    var tutor_sex = valid_data.sex;
+                    if (tutor_sex == 0){
+                        tutor_sex = 'Male';
+					}else{
+                        tutor_sex = 'Female';
 					}
+                    $("#tutor-name").html(tutor_name);
+                    $("#tutor-sex").html(tutor_sex);
+                    $("#tutor-cert").html(valid_data.certification);
+                    $(".zebra").data("address",valid_data.classAddr);
+                }
+            });
+
+            $.ajax({
+                type : "GET",
+                // url for request.
+                // invoke methods in UserController.java
+                url : "/course/"+course_id+"/class/"+class_id+"/class-item",
+
+                headers : {
+                    "Authorization" : token
+                },
+                // asyncronise, default is true
+                async : false,
+                dataType : "json",
+                error : function(data) {
+                    var json = data.responseText;
+                    if (data.status == 401){
+                        localStorage.clear();
+                        location.href = "/index.html?login=false"
+                    } else{
+                        if (json != null || json!=""){
+                            json = $.parseJSON(json);
+                            alert(json.error.returnUserMessage);
+                        }else{
+                            alert("Connection error");
+                        }
+                    }
+                },
+                success : function(data) {
+                    var valid_data = data.data;
+                    for (var i=0; i< valid_data.length;i++){
+                       $(".zebra tbody").append(
+						   '<tr>' +
+						   '<td>'+valid_data[i].strDate+'</td>' +
+						   '<td>'+valid_data[i].startTime+'</td>' +
+						   '<td>'+valid_data[i].endTime+'</td>' +
+						   '<td>'+$(".zebra").data("address")+'</td>' +
+						   '</tr>');
+                    }
                 }
             });
 

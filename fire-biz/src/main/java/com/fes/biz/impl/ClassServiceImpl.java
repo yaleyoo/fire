@@ -73,18 +73,29 @@ public class ClassServiceImpl implements IClassService {
     			httpResult.setSuccess(false, "no any classes available for this course");
     			return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
     		}
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+    		for(ClassPO result: list){
+				Date startTime = result.getClassStartTime();
+				String strTime = simpleDateFormat.format(startTime);
+				result.setStrTime(strTime);
+			}
     		httpResult.setData(list);
     		return new ResponseEntity(httpResult, HttpStatus.OK);
     }
     @Override
     public ResponseEntity getClassById(int id) {
-    		SimpleHttpResult<List<ClassPO>> httpResult = new SimpleHttpResult<List<ClassPO>>();
-		List<ClassPO> list = classMapper.getClassById(id);
-		if(list == null) {
+		SimpleHttpResult<ClassPO> httpResult = new SimpleHttpResult();
+		ClassPO result = classMapper.getClassById(id);
+		if(result == null) {
 			httpResult.setSuccess(false, "no results");
 			return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
 		}
-		httpResult.setData(list);
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		Date startTime = result.getClassStartTime();
+		String strTime = simpleDateFormat.format(startTime);
+		result.setStrTime(strTime);
+		httpResult.setData(result);
 		return new ResponseEntity(httpResult, HttpStatus.OK);
     }
     @Override

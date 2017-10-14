@@ -62,11 +62,7 @@ public class CourseController {
     public ResponseEntity getClassesByCourseId(@PathVariable("id") int id){
         return classService.getClassByCourseId(id);
     }
-    
-    @RequestMapping(value = "/class/{id}", method = RequestMethod.GET)
-    public ResponseEntity getClassById(@PathVariable("id") int id){
-        return classService.getClassById(id);
-    }
+
     
     @RequestMapping(value = "/class/{date}", method = RequestMethod.GET)
     public ResponseEntity getClassById(@PathVariable("date") String date){
@@ -98,7 +94,12 @@ public class CourseController {
 
 
     @RequestMapping(value = "/{courseId}/class/{classId}", method = RequestMethod.GET)
-    public ResponseEntity showClass(@PathVariable("courseId") int courseId, @PathVariable("classId") int classId) {
+    public ResponseEntity showClass(@PathVariable("classId") int classId) {
+        return classService.getClassById(classId);
+    }
+
+    @RequestMapping(value = "/{courseId}/class/{classId}/class-item", method = RequestMethod.GET)
+    public ResponseEntity showClassItem(@PathVariable("classId") int classId) {
         //todo
         return new ResponseEntity(new SimpleHttpResult<>(), HttpStatus.OK);
     }

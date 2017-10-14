@@ -12,6 +12,15 @@ public class Course {
     private int courseType;
     private int coursePrice;
     private String courseIcon;
+    private String courseDescBrief;
+
+    public String getCourseDescBrief() {
+        return courseDescBrief;
+    }
+
+    public void setCourseDescBrief(String courseDescBrief) {
+        this.courseDescBrief = courseDescBrief;
+    }
 
     public String getDuration() {
         return duration;

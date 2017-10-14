@@ -18,7 +18,7 @@ public interface ClassMapper {
 	
 	List<ClassPO> getClassListByCourseId(@Param("courseId")int courseId);
 	
-	List<ClassPO> getClassById(@Param("id")int id);
+	ClassPO getClassById(@Param("id")int id);
 	
 	List<ClassPO> getClassByDate(@Param("classStartTime")Date classStartTime);
 	

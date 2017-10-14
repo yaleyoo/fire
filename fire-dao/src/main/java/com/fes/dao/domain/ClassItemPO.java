@@ -15,6 +15,15 @@ public class ClassItemPO {
     private String attendantStudents;
     private String startTime;
     private String endTime;
+    private String strDate;
+
+    public String getStrDate() {
+        return strDate;
+    }
+
+    public void setStrDate(String strDate) {
+        this.strDate = strDate;
+    }
 
     public int getId() {
         return id;

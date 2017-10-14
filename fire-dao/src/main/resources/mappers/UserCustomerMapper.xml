@@ -69,7 +69,7 @@
     <delete id="deleteCustomer" parameterType="int">
         delete
         from user_customer where id=#{id}
-    </select>
+    </delete>
 
 
 

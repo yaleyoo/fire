@@ -16,11 +16,20 @@ public class ClassPO {
     private String tutorDesc;
     private String classAddr;
     private Date classStartTime;
+    private String strTime;
     private String classTimeTable;
     private int price;
     private int registeredNum;
     private String registeredStudents;
     private String contactDetail;
+
+    public String getStrTime() {
+        return strTime;
+    }
+
+    public void setStrTime(String strTime) {
+        this.strTime = strTime;
+    }
 
     public int getId() {
         return id;

@@ -229,6 +229,18 @@ public class UserServiceImpl implements IUserService {
         httpResult.setSuccess(false,"request param is incorrect!");
         return new ResponseEntity(httpResult, HttpStatus.BAD_REQUEST);
     }
+    @Override
+    public ResponseEntity getAllOrgInfo() {
+    		SimpleHttpResult<List<UserOrganization>> httpResult = new SimpleHttpResult<List<UserOrganization>>();
+    		List<UserOrganization> list = userOrganizationMapper.getAllOrgInfo();
+    		if(list == null) {
+    			httpResult.setSuccess(false, "no results");
+    			return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
+    		}
+    		httpResult.setSuccess(true);
+    		httpResult.setData(list);
+    		return new ResponseEntity(httpResult, HttpStatus.OK);
+    }
     
     @Override
     public ResponseEntity showOrganizationByID(int organizationID) {
@@ -238,10 +250,21 @@ public class UserServiceImpl implements IUserService {
     			httpResult.setSuccess(false, "The organization does not exist.");
                 return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
     		}
-
+    			httpResult.setSuccess(true);
             httpResult.setData(result);
 
     		return new ResponseEntity(httpResult, HttpStatus.OK);
+    }
+    @Override
+    public ResponseEntity deleteUserOrganization(int organizationId) {
+    		SimpleHttpResult httpResult = new SimpleHttpResult();
+    		boolean success = userOrganizationMapper.deleteCustomer(organizationId);
+    		if(success) {
+    			httpResult.setSuccess(true);
+    			return new ResponseEntity(httpResult, HttpStatus.OK);
+    		}
+    		httpResult.setSuccess(false, "delete failed");
+    		return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
     }
     
     @Override
@@ -253,7 +276,7 @@ public class UserServiceImpl implements IUserService {
     			return new ResponseEntity(httpResult, HttpStatus.OK);
     		}
     		else {
-    			httpResult.setSuccess(false);
+    			httpResult.setSuccess(false, "modify failed");
     			return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
     		}
 
@@ -285,6 +308,7 @@ public class UserServiceImpl implements IUserService {
     public ResponseEntity uploadTrainerPicture(String url, int id) {
         SimpleHttpResult httpResult = new SimpleHttpResult();
         if (userTrainerMapper.updatePicUrl(url, id)){
+        		httpResult.setSuccess(true);
             return new ResponseEntity(httpResult, HttpStatus.OK);
         }
         httpResult.setSuccess(false, "upload failed");
@@ -295,6 +319,7 @@ public class UserServiceImpl implements IUserService {
     public ResponseEntity deleteCustomer(int id) {
     		SimpleHttpResult httpResult = new SimpleHttpResult();
     		if (userCustomerMapper.deleteCustomer(id)) {
+    			 httpResult.setSuccess(true);
     			 return new ResponseEntity(httpResult, HttpStatus.OK);
     		}
     		httpResult.setSuccess(false, "delete failed");

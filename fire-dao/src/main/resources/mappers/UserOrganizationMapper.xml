@@ -40,5 +40,9 @@
     		<include refid="baseColumns"/>
     		from user_organization where id=#{organizationID}
     </select>
+    
+    <delete id="deleteCustomer" parameterType="int">
+    		delete from user_organization where id=#{id}
+    </delete>
 
 </mapper>

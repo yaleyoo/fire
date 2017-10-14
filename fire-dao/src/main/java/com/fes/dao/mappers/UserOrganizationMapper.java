@@ -2,6 +2,9 @@ package com.fes.dao.mappers;
 
 import com.fes.dao.domain.UserCustomer;
 import com.fes.dao.domain.UserOrganization;
+
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -13,5 +16,8 @@ public interface UserOrganizationMapper {
     UserOrganization showOrganizationByID(@Param("organizationID") int organizationID);
     
     boolean insertCustomer(UserOrganization user);
-
+   
+    List<UserOrganization> getAllOrgInfo();
+    
+    boolean deleteCustomer(@Param("id") int id);
 }

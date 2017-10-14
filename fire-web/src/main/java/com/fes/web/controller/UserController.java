@@ -125,8 +125,8 @@ public class UserController {
 
     @RequestMapping(value = "/organization/{id}", method = RequestMethod.DELETE)
     public ResponseEntity deleteOrgnization(int id){
-        //TODO
-        return new ResponseEntity(new SimpleHttpResult<>(), HttpStatus.OK);
+  
+        return userService.deleteUserOrganization(id);
 
     }
 

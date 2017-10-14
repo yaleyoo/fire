@@ -9,5 +9,7 @@ import org.apache.ibatis.annotations.Param;
 public interface UserTrainerMapper {
     UserTrainer getTrainer(@Param("username") String username);
 
+    UserTrainer getTrainerById(@Param("id") int id);
+
     boolean updatePicUrl(@Param("url") String url, @Param("id") int id);
 }

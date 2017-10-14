@@ -7,7 +7,6 @@ import com.fes.biz.service.IUserService;
 import com.fes.biz.vo.HttpTokenVO;
 import com.fes.common.domain.SimpleHttpResult;
 import com.fes.common.service.MailSendService;
-import com.fes.common.util.MD5Util;
 import com.fes.common.util.MailCodeManager;
 import com.fes.common.util.TokenManager;
 import com.fes.dao.domain.ClassPO;
@@ -97,12 +96,10 @@ public class UserServiceImpl implements IUserService {
     @Override
     public ResponseEntity addIndividualCustomer(UserCustomer user) {
         SimpleHttpResult httpResult = new SimpleHttpResult();
-
         if (mailCodeManager.verifyCode(user.getUserMailCode(),user.getUsername(),UserType.CUSTOMER.userType)){
-            String password = user.getPassword();
-            String passMD5 = MD5Util.MD5(password);
-            user.setPassword(passMD5);
             boolean success = userCustomerMapper.insertCustomer(user);
+
+
             if(success){
             	httpResult.setSuccess(true);
                 return new ResponseEntity(httpResult, HttpStatus.CREATED);
@@ -159,7 +156,6 @@ public class UserServiceImpl implements IUserService {
         HttpTokenVO result = new HttpTokenVO();
         if (userType == UserType.CUSTOMER.getUserType()){
             UserCustomer userCustomer = userCustomerMapper.selectByName(username);
-            password = MD5Util.MD5(password);
             if (userCustomer == null){
                 httpResult.setSuccess(false, "username is incorrect!");
                 return new ResponseEntity(httpResult, HttpStatus.UNAUTHORIZED);
@@ -269,6 +265,22 @@ public class UserServiceImpl implements IUserService {
         return new ResponseEntity(new SimpleHttpResult(), HttpStatus.OK);
     }
 
+
+    @Override
+    public ResponseEntity showTrainerById(int id) {
+        UserTrainer trainer = userTrainerMapper.getTrainerById(id);
+        SimpleHttpResult httpResult = new SimpleHttpResult();
+        if(trainer!=null){
+            httpResult.setSuccess(true);
+            httpResult.setData(trainer);
+            return new ResponseEntity(httpResult, HttpStatus.OK);
+        }
+        else{
+            httpResult.setSuccess(false);
+            return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
+        }
+    }
+
     @Override
     public ResponseEntity uploadTrainerPicture(String url, int id) {
         SimpleHttpResult httpResult = new SimpleHttpResult();
@@ -278,7 +290,7 @@ public class UserServiceImpl implements IUserService {
         httpResult.setSuccess(false, "upload failed");
         return new ResponseEntity(httpResult, HttpStatus.SERVICE_UNAVAILABLE);
     }
-    
+
     @Override
     public ResponseEntity deleteCustomer(int id) {
     		SimpleHttpResult httpResult = new SimpleHttpResult();

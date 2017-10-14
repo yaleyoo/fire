@@ -37,6 +37,8 @@ public interface IUserService {
     ResponseEntity getAllOrgInfo();
     
     ResponseEntity deleteUserOrganization(int organizationId);
+    
+    ResponseEntity modifyUserOrganization(UserOrganization userOrganization);
 
     ResponseEntity logout(String username, int usertype);
 

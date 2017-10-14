@@ -268,6 +268,18 @@ public class UserServiceImpl implements IUserService {
     }
     
     @Override
+    public ResponseEntity modifyUserOrganization(UserOrganization userOrganization) {
+    		SimpleHttpResult httpResult = new SimpleHttpResult();
+    		boolean success = userOrganizationMapper.modifyOrganization(userOrganization);
+    		if(success) {
+    			httpResult.setSuccess(true);
+    			return new ResponseEntity(httpResult, HttpStatus.OK);
+    		}
+    		httpResult.setSuccess(false, "modify failed");
+    		return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
+    }
+    
+    @Override
     public ResponseEntity modifyProfile(UserCustomer userCustomer) {
     		SimpleHttpResult httpResult = new SimpleHttpResult();
     		boolean success = userCustomerMapper.update(userCustomer);
@@ -325,4 +337,6 @@ public class UserServiceImpl implements IUserService {
     		httpResult.setSuccess(false, "delete failed");
     		return new ResponseEntity(httpResult, HttpStatus.SERVICE_UNAVAILABLE);
     }
+    
+   
 }

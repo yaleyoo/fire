@@ -20,4 +20,6 @@ public interface UserOrganizationMapper {
     List<UserOrganization> getAllOrgInfo();
     
     boolean deleteCustomer(@Param("id") int id);
+    
+    boolean modifyOrganization(UserOrganization userOrganization);
 }

@@ -44,5 +44,23 @@
     <delete id="deleteCustomer" parameterType="int">
     		delete from user_organization where id=#{id}
     </delete>
+    
+    <update id="modifyOrganization" parameterType="com.fes.dao.domain.UserOrganization">
+    		update user_organization set 
+    		password=#{password}, user_name=#{username}, address=#{address}, organization_name=#{organizationName}
+    		<if test="classIdList != null">
+               ,class_id_list=#{classIdList}
+        </if>
+        <if test="userIdList != null">
+               ,user_id_list=#{userIdList}
+        </if>
+        <if test="desc != null">
+               ,desc=#{desc}
+        </if>
+        <if test="peopleNum != null">
+               ,people_num=#{peopleNum}
+        </if>
+        where id=#{id}
+    </update>
 
 </mapper>

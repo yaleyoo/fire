@@ -80,9 +80,7 @@ public class CourseController {
 
     @RequestMapping(value = "/{courseId}/class/{classId}", method = RequestMethod.PUT)
     public ResponseEntity modifyClass(@PathVariable("courseId") int courseId, @PathVariable("classId") int classId, @Valid ClassPO classPO){
-        //TODO
-        return new ResponseEntity(new SimpleHttpResult<>(), HttpStatus.OK);
-
+    		return classService.modifyClass(courseId, classId, classPO);
     }
 
     @RequestMapping(value = "/{courseId}/class/{classId}", method = RequestMethod.DELETE)

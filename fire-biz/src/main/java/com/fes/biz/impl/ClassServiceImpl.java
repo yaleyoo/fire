@@ -123,17 +123,32 @@ public class ClassServiceImpl implements IClassService {
     public ResponseEntity deleteClass(int courseId, int classId) {
     		SimpleHttpResult httpResult = new SimpleHttpResult();
     		if(classMapper.deleteClass(courseId, classId)) {
+    			httpResult.setSuccess(true);
     			return new ResponseEntity(httpResult, HttpStatus.OK);
     		}
     		httpResult.setSuccess(false, "delete failed!");
     	    return new ResponseEntity(httpResult, HttpStatus.SERVICE_UNAVAILABLE);
     }
+    
+    @Override
     public ResponseEntity createClass(ClassPO classPO) {
     		SimpleHttpResult httpResult = new SimpleHttpResult();
     		if(classMapper.createClass(classPO)) {
+    			httpResult.setSuccess(true);
     			return new ResponseEntity(httpResult, HttpStatus.OK);
     		}
     		httpResult.setSuccess(false, "create failed!");
     	    return new ResponseEntity(httpResult, HttpStatus.SERVICE_UNAVAILABLE);
+    }
+    
+    @Override
+    public ResponseEntity modifyClass(int courseId, int classId, ClassPO classPO) {
+    		SimpleHttpResult httpResult = new SimpleHttpResult();
+    		if(classMapper.modifyClass(courseId, classId, classPO)) {
+    			httpResult.setSuccess(true);
+    			return new ResponseEntity(httpResult, HttpStatus.OK);
+    		}
+    		httpResult.setSuccess(false, "modify failed");
+    		return new ResponseEntity(httpResult, HttpStatus.SERVICE_UNAVAILABLE);
     }
 }

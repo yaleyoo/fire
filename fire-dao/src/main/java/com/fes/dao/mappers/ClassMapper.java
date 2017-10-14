@@ -27,5 +27,7 @@ public interface ClassMapper {
 	boolean createClass(ClassPO classPO);
 
 	boolean updateTutorInfo(UserTrainer userTrainer);
+	
+	boolean modifyClass(@Param("courseId")int courseId, @Param("classId")int classId, ClassPO classPO);
 
 }

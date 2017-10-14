@@ -82,6 +82,13 @@
         where tutor_id = #{id}
     </update>
     
-  
-	
+  	<delete id="deleteClass">
+  		delete from class where id=#{classId} and course_id=#{courseId}
+  	</delete>
+  	
+  	<update id="modifyClass" parameterType="com.fes.dao.domain.ClassPO">
+  		update class set class_item_ids=#{classItemIds}, class_addr=#{classAddr}, 
+  		class_start_time=#{classStartTime}, class_time_table=#{classTimeTable}, 
+  		price=#{price}, contact_detail=#{contactDetail}
+  		where id=#{id} and course_id=#{courseId}
 </mapper>

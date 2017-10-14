@@ -24,4 +24,6 @@ public interface IClassService {
     ResponseEntity deleteClass(int courseId, int classId);
     
     ResponseEntity createClass(ClassPO classPO);
+    
+    ResponseEntity modifyClass(int courseId, int classId, ClassPO classPO);
 }

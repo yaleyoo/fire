@@ -16,6 +16,7 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -155,15 +156,18 @@ public class ClassServiceImpl implements IClassService {
     		}
     		httpResult.setSuccess(false, "modify failed");
     		return new ResponseEntity(httpResult, HttpStatus.SERVICE_UNAVAILABLE);
-    }@Override
+    }
+
+    @Override
     public ResponseEntity getClassItem(int classId) {
-    		SimpleHttpResult<ClassItemPO> httpResult = new SimpleHttpResult();
-    		ClassItemPO classItemPO = classItemMapper.getClassItemPO(classId);
-    		if(classItemPO==null) {
-    			httpResult.setSuccess(false, "no results");
-    			return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
-    		}
-    		httpResult.setData(classItemPO);
-    		return new ResponseEntity(httpResult, HttpStatus.OK);
+
+		SimpleHttpResult<List<ClassItemPO>> httpResult = new SimpleHttpResult();
+		List<ClassItemPO> classItemPO = classItemMapper.getClassItemPO(classId);
+		if(classItemPO==null || classItemPO.isEmpty()) {
+			httpResult.setSuccess(false, "no results");
+			return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
+		}
+		httpResult.setData(classItemPO);
+		return new ResponseEntity(httpResult, HttpStatus.OK);
     }
 }

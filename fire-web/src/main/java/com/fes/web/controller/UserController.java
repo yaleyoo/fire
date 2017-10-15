@@ -150,6 +150,12 @@ public class UserController {
         return userService.updateTrainerInfo(id,username,password,firstname,lastname,sex,address,phoneNum,desc);
     }
 
+    @Authorization(authority = UserType.TRAINER)
+    @RequestMapping(value = "/trainer/availability", method = RequestMethod.POST)
+    public ResponseEntity updateAvailability(@Valid int id, String availability){
+        return userService.updateTrainerAvailability(id, availability);
+    }
+
     @RequestMapping(value = "/trainer/{id}", method = RequestMethod.DELETE)
     public ResponseEntity deleteTrainer(int id){
         //TODO

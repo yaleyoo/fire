@@ -16,4 +16,6 @@ public interface UserTrainerMapper {
     boolean updateProfile(@Param("id") int id, @Param("username") String username, @Param("password") String password, @Param("firstname") String firstname,
                           @Param("lastname") String lastname, @Param("sex") int sex,@Param("address") String address,
                           @Param("phoneNum") String phoneNum, @Param("desc") String description);
+
+    boolean updateAvailability(@Param("id") int id, @Param("availability") String availability);
 }

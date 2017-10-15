@@ -61,4 +61,6 @@ public interface IUserService {
     ResponseEntity updateTrainerInfo(int id, String username, String password, String firstname
             , String lastname, String sex, String address,String phoneNum
             ,String desc);
+
+    ResponseEntity updateTrainerAvailability(int id, String availability);
 }

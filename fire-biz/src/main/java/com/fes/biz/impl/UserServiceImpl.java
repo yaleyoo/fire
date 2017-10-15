@@ -379,11 +379,26 @@ public class UserServiceImpl implements IUserService {
         else
             gender=0;
         if(userTrainerMapper.updateProfile(id,username,password,firstname,lastname,gender,address,phoneNum,desc)){
+            httpResult.setSuccess(true);
             return new ResponseEntity(httpResult, HttpStatus.OK);
         }
-        else
+        else {
+            httpResult.setSuccess(false);
             return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
+        }
+    }
 
+    @Override
+    public ResponseEntity updateTrainerAvailability(int id, String availability){
+        SimpleHttpResult<List<UserCustomer>> httpResult = new SimpleHttpResult<>();
+        if(userTrainerMapper.updateAvailability(id, availability)){
+            httpResult.setSuccess(true);
+            return new ResponseEntity(httpResult, HttpStatus.OK);
+        }
+        else{
+            httpResult.setSuccess(false);
+            return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
+        }
     }
 
 

@@ -51,4 +51,10 @@
         update user_customer set pic_url = #{url} where id = #{id}
     </update>
 
+    <update id="updateProfile">
+        update user_trainer set user_name = #{username}, password = #{password}, first_name=#{firstname},
+         last_name=#{lastname},sex=#{sex},address=#{address},phone_num=#{phoneNum}, desc=#{desc}
+         where id = #{id}
+    </update>
+
 </mapper>

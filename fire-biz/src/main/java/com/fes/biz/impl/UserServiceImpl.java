@@ -368,5 +368,23 @@ public class UserServiceImpl implements IUserService {
         return new ResponseEntity(httpResult, HttpStatus.OK);
     }
 
+    @Override
+    public ResponseEntity updateTrainerInfo(int id, String username, String password, String firstname, String lastname,
+                                            String sex, String address, String phoneNum, String desc) {
+        SimpleHttpResult<List<UserCustomer>> httpResult = new SimpleHttpResult<>();
+        int gender;
+        if(sex.equals("male")){
+            gender=1;
+        }
+        else
+            gender=0;
+        if(userTrainerMapper.updateProfile(id,username,password,firstname,lastname,gender,address,phoneNum,desc)){
+            return new ResponseEntity(httpResult, HttpStatus.OK);
+        }
+        else
+            return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
+
+    }
+
 
 }

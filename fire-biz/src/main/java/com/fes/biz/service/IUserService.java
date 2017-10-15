@@ -57,4 +57,8 @@ public interface IUserService {
     ResponseEntity getLoginInfo(String username, int usertype);
 
     ResponseEntity showMembersInfo(int id);
+
+    ResponseEntity updateTrainerInfo(int id, String username, String password, String firstname
+            , String lastname, String sex, String address,String phoneNum
+            ,String desc);
 }

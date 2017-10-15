@@ -143,9 +143,11 @@ public class UserController {
 
     @Authorization(authority = UserType.TRAINER)
     @RequestMapping(value = "/trainer", method = RequestMethod.PUT)
-    public ResponseEntity modifyTrainerProfile(@Valid UserTrainer user){
-        //TODO
-        return new ResponseEntity(new SimpleHttpResult<>(), HttpStatus.OK);
+    public ResponseEntity modifyTrainerProfile(@Valid int id, String username, String password, String firstname
+                                                        , String lastname, String sex, String address,String phoneNum
+                                                                ,String desc){
+
+        return userService.updateTrainerInfo(id,username,password,firstname,lastname,sex,address,phoneNum,desc);
     }
 
     @RequestMapping(value = "/trainer/{id}", method = RequestMethod.DELETE)

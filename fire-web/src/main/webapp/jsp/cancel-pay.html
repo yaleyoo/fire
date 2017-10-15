@@ -101,68 +101,68 @@
 		<div class="container"> 	
 			<div class="w3ls-title">
 				<!--<h3 class="agileits-title">Short Codes</h3> -->
-			</div>
-
-			<!--<div class="panel panel-default" id="information">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#checkout-collapse" href="#checkout-collapse1">
-                            <span class="step">01</span>
-                            Checkout Infomation
-                        </a>
-                    </h4>
-                </div>
-                <div id="checkout-collapse1" class="panel-collapse collapse in">
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-6">
-                                <form>
-                                    <fieldset>
-                                        <legend class="title">New Customer</legend>
-                                        <div class="inner">
-                                            <p>Checkout Options:</p>
-                                            <div class="form-account">
-                                                <div class="radio">
-                                                    <input type="radio" name="customer" id="radio-register" class="prettyCheckable" checked="checked" data-label="Register Account" />
-                                                </div>
-                                            </div>
-                                            <div class="space20 clearfix"></div>
-                                            <button class="btn btn-default btn-round uppercase padder" href="register.html">Register</button>
-                                        </div>
-                                    </fieldset>
-                                </form>
-                            </div>
-                            <div class="space40 visible-xs"></div>
-                            <div class="col-xs-12 col-sm-6">
-                                <form class="form-horizontal">
-                                    <fieldset>
-                                        <legend class="title">Registered Customer</legend>
-                                        <div class="inner">
-                                            <p>I'm a Registered Customer</p>
-                                            <div class="form-login">
-                                                <div class="form-group stylish-input">
-                                                    <label for="inputEmail" class="col-xs-12 col-sm-3 control-label required">Email</label>
-                                                    <div class="col-lg-7">
-                                                        <input type="text" class="form-control" id="inputEmail">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group stylish-input">
-                                                    <label for="inputPassword" class="col-xs-12 col-sm-3 control-label required">Password</label>
-                                                    <div class="col-lg-7">
-                                                        <input type="password" class="form-control" id="inputPassword">
-                                                        <a href="#" class="help-block">Forgot your password?</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <button class="btn btn-primary btn-round padder">Login</button>
-                                        </div>
-                                    </fieldset>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-
+			</div> 
+			
+								<div class="panel panel-default" id="information">
+									<div class="panel-heading">
+										<h4 class="panel-title">
+											<a data-toggle="collapse" data-parent="#checkout-collapse" href="#checkout-collapse1">
+												<span class="step">01</span>
+												Checkout Infomation
+											</a>
+										</h4>
+									</div>
+									<div id="checkout-collapse1" class="panel-collapse collapse in">
+										<div class="panel-body">
+											<div class="row">
+												<div class="col-xs-12 col-sm-6">
+													<form>
+														<fieldset>
+															<legend class="title">New Customer</legend>
+															<div class="inner">
+																<p>Checkout Options:</p>
+																<div class="form-account">
+																	<div class="radio">
+																		<input type="radio" name="customer" id="radio-register" class="prettyCheckable" checked="checked" data-label="Register Account" />
+																	</div>
+																</div>
+																<div class="space20 clearfix"></div>
+																<button class="btn btn-default btn-round uppercase padder" href="register.html">Register</button>
+															</div>
+														</fieldset>
+													</form>
+												</div>
+												<div class="space40 visible-xs"></div>
+												<div class="col-xs-12 col-sm-6">
+													<form class="form-horizontal">
+														<fieldset>
+															<legend class="title">Rrgistered Customer</legend>
+															<div class="inner">
+																<p>I'm a Registered Customer</p>
+																<div class="form-login">
+																	<div class="form-group stylish-input">
+																		<label for="inputEmail" class="col-xs-12 col-sm-3 control-label required">Email</label>
+																		<div class="col-lg-7">
+																			<input type="text" class="form-control" id="inputEmail">
+																		</div>
+																	</div>
+																	<div class="form-group stylish-input">
+																		<label for="inputPassword" class="col-xs-12 col-sm-3 control-label required">Password</label>
+																		<div class="col-lg-7">
+																			<input type="password" class="form-control" id="inputPassword">
+																			<a href="#" class="help-block">Forgot your password?</a>
+																		</div>
+																	</div>
+																</div>
+																<button class="btn btn-primary btn-round padder">Login</button>
+															</div>
+														</fieldset>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 								<!--<div class="panel panel-default" id="bill_information">
 									<div class="panel-heading">
 										<h4 class="panel-title">
@@ -396,7 +396,7 @@
 									</div>
 								</div>
 							</div>
-
+		</div> 
 	</div>  
 	<!-- //short-codes -->      
 	
@@ -514,13 +514,15 @@
 
 
 		$(document).ready(function() {
-            var course_id = getUrlParam("course_id");
-            var class_id = getUrlParam("class_id");
-
-            if (course_id == null || course_id == "" || class_id=="" || class_id==null){
-                alert("illegal access!");
-                history.back();
-            }
+			/*
+			var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+			};
+			*/
+			
 			$().UItoTop({ easingType: 'easeOutQuart' });
 			$("#bill_information").css("display","none");
 			var token = localStorage.getItem("token");
@@ -531,121 +533,18 @@
 				$("#information").show("display","block");
 
 			}
-            var user_type;
-            var user_id;
-            var username;
-            var course_name;
-            var people_num;
-            var price;
-            var tutor_id;
-            var tutor_name;
+
+
+            var token = localStorage.getItem("token");
+            var user_type = localStorage.getItem("userType");
+            var user_id = localStorage.getItem("userId");
             var url = null;
-            $.ajax({
-                type : "GET",
-                // url for request.
-                // invoke methods in UserController.java
-                url : "/user/login-info",
-
-                headers : {
-                    "Authorization" : token
-                },
-                // asyncronise, default is true
-                async : true,
-                dataType : "json",
-                error : function(data) {
-                    var json = data.responseText;
-                    if (data.status == 401){
-                        localStorage.clear();
-                        window.open("/index.html?login=false");
-                    } else{
-                        if (json != null || json!=""){
-                            json = $.parseJSON(json);
-                            alert(json.error.returnUserMessage);
-                        }else{
-                            alert("Connection error");
-                        }
-                    }
-                },
-                success : function(data) {
-                    var json = data.data;
-                    user_id = json.userId;
-                    user_type = json.usertype;
-                    username = json.username;
-                }
-            });
-
-            $.ajax({
-                type : "GET",
-                // url for request.
-                // invoke methods in UserController.java
-                url : "/course/"+course_id+"/class/"+class_id,
-
-                headers : {
-                    "Authorization" : token
-                },
-                // asyncronise, default is true
-                async : false,
-                dataType : "json",
-                error : function(data) {
-                    var json = data.responseText;
-                    if (data.status == 401){
-                        localStorage.clear();
-                        location.href = "/index.html?login=false"
-                    } else{
-                        if (json != null || json!=""){
-                            json = $.parseJSON(json);
-                            alert(json.error.returnUserMessage);
-                        }else{
-                            alert("Connection error");
-                        }
-                    }
-                },
-                success : function(data) {
-                    var json = data.data;
-                    var tutor_id = json.tutorId;
-                    user_type = json.usertype;
-                    username = json.username;
-                }
-            });
-
-
-            $("#checkout").click(function () {
-                $.ajax({
-                    type : "POST",
-                    // url for request.
-                    // invoke methods in UserController.java
-                    url : "/order",
-
-                    headers : {
-                        "Authorization" : token
-                    },
-                    // asyncronise, default is true
-                    async : false,
-                    dataType : "json",
-                    error : function(data) {
-                        var json = data.responseText;
-                        if (data.status == 401){
-                            localStorage.clear();
-                            location.href = "/index.html?login=false"
-                        } else{
-                            if (json != null || json!=""){
-                                json = $.parseJSON(json);
-                                alert(json.error.returnUserMessage);
-                            }else{
-                                alert("Connection error");
-                            }
-                        }
-                    },
-                    success : function(data) {
-                        var json = data;
-                        $("#inputFirstname").val(data.data.firstName);
-                        $("#inputLastname").val(data.data.lastName);
-                        $("#inputAddress1").val(data.data.address);
-                        $("#inputEmail2").val(data.data.username);
-                        $("#inputPhone").val(data.data.phoneNum);
-                    }
-                });
-            });
+            if (user_type == "customer"){
+                url="/user/customer/" + user_id;
+            }else{
+                alert("Please login in first!");
+                location.href = "/index.html?login=false"
+            }
             $.ajax({
                 type : "GET",
                 // url for request.

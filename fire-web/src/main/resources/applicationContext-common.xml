@@ -26,5 +26,7 @@
 		<property name="sendPassword" value="${mail.send.password}"/>
 	</bean>
 
+	<bean id="paypalService" class="com.fes.common.service.PaypalService"/>
+
 
 </beans>

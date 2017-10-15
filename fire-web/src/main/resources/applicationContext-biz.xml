@@ -16,4 +16,12 @@
 	<bean id="courseService" class="com.fes.biz.impl.CourseServiceImpl"/>
 	<bean id="orderService" class="com.fes.biz.impl.OrderServiceImpl"/>
 
+
+	<!--paypal config-->
+	<bean id="apiContext" class="com.paypal.base.rest.APIContext">
+		<constructor-arg index="0" value="${client.id}"/>
+		<constructor-arg index="1" value="${client.secret}"/>
+		<constructor-arg index="2" value="${client.mode}"/>
+	</bean>
+
 </beans>

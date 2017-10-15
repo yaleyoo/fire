@@ -63,4 +63,14 @@
         where id=#{id}
     </update>
 
+    <select id="selectMembers" resultType="string" parameterType="int">
+        select user_id_list from user_organization where id=#{id}
+    </select>
+
+    <select id="selectByName" resultType="com.fes.dao.domain.UserOrganization" parameterType="string">
+        select
+        <include refid="baseColumns"/>
+        from user_organization where user_name=#{username}
+    </select>
+
 </mapper>

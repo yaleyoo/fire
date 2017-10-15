@@ -45,6 +45,7 @@ public class AppLoginInterceptor implements HandlerInterceptor {
             httpServletResponse.getWriter().write(JSON.toJSONString(httpResult));
             httpServletResponse.getWriter().flush();
             httpServletResponse.getWriter().close();
+            return false;
         }
 
         return true;

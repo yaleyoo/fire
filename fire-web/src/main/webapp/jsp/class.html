@@ -140,7 +140,7 @@
 			<div class="w3l-banner-grids">
 				<div class="col-md-8 w3ls-banner-right">
 					<div class="banner-right-img">
-						<img src="/images/1.jpg" alt="" />
+						<img id="photo" src="" alt="" />
 					</div>
 					<div class="banner-right-info">
 						<h2>Donec dolor felis, consectetur eget massa non, mattis euismod est. Nam augue neque, hendrerit nec scelerisque non, ultrices at ligula. Praesent posuere, turpis eget lobortis elementum, ex ante ultricies ligula, sit amet varius lacus dui in magna. Aliquam erat volutpat. Nulla condimentum, enim vitae congue ultrices, nibh erat efficitur sem, vel iaculis lectus eros in turpis. Aliquam venenatis cursus suscipit.</h2>
@@ -204,7 +204,7 @@
 					</tbody>
 				</table>
 
-				<button class="btn btn-block btn-lg btn-info">BOOK</button>
+				<button class="btn btn-block btn-lg btn-info" id="book">BOOK</button>
 			</div>
 
 
@@ -421,6 +421,7 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/js/bootstrap.js"></script>
+	<script src="/js/commonJs.js"></script>
 
 	<script type="text/javascript">
         $(document).ready(function() {
@@ -432,6 +433,11 @@
                 alert("illegal access!");
                 history.back();
             }
+
+
+            $("#book").click(function () {
+				location.href="/jsp/order.html?course_id="+course_id+"&&class_id="+class_id;
+            });
 
             if (token != null){
                 $("#modaltrigger").css("display", "none");
@@ -475,7 +481,7 @@
                 },
                 success : function(data) {
                     var valid_data = data.data;
-                    var tutor_name = valid_data.firstName+valid_data.lastName;
+                    var tutor_name = valid_data.tutorName;
                     var tutor_sex = valid_data.sex;
                     if (tutor_sex == 0){
                         tutor_sex = 'Male';
@@ -485,6 +491,7 @@
                     $("#tutor-name").html(tutor_name);
                     $("#tutor-sex").html(tutor_sex);
                     $("#tutor-cert").html(valid_data.certification);
+                    $("#photo").attr("src",valid_data.tutorPic);
                     $(".zebra").data("address",valid_data.classAddr);
                 }
             });

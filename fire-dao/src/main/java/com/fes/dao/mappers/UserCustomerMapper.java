@@ -25,4 +25,6 @@ public interface UserCustomerMapper {
 
     boolean deleteCustomer(@Param("id")int id);
 
+    List<UserCustomer> selectByIds(@Param("ids") List<String> ids);
+
 }

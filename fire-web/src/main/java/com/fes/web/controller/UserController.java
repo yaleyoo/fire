@@ -97,10 +97,12 @@ public class UserController {
         return userService.logout(username, usertype);
     }
 
-    
-    @RequestMapping(value = "/loginInfo", method = RequestMethod.GET)
-    public ResponseEntity getLoginInformation(){
-        return new ResponseEntity(new SimpleHttpResult(), HttpStatus.OK);
+    @Authorization
+    @RequestMapping(value = "/login-info", method = RequestMethod.GET)
+    public ResponseEntity getLoginInformation(HttpServletRequest request){
+        String username = (String) request.getAttribute("username");
+        int usertype = (Integer) request.getAttribute("usertype");
+        return userService.getLoginInfo(username, usertype);
     }
     
     @RequestMapping(value = "/organization", method = RequestMethod.POST)

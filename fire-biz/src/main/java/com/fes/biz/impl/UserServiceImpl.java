@@ -1,5 +1,6 @@
 package com.fes.biz.impl;
 
+import com.fes.biz.vo.LoginInfoVO;
 import com.fes.biz.vo.VerifyCodeVO;
 import com.fes.common.constants.MailConstants;
 import com.fes.common.constants.UserType;
@@ -30,6 +31,7 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -241,7 +243,7 @@ public class UserServiceImpl implements IUserService {
     		httpResult.setData(list);
     		return new ResponseEntity(httpResult, HttpStatus.OK);
     }
-    
+
     @Override
     public ResponseEntity showOrganizationByID(int organizationID) {
     		UserOrganization result = userOrganizationMapper.showOrganizationByID(organizationID);
@@ -250,7 +252,7 @@ public class UserServiceImpl implements IUserService {
     			httpResult.setSuccess(false, "The organization does not exist.");
                 return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
     		}
-    			httpResult.setSuccess(true);
+
             httpResult.setData(result);
 
     		return new ResponseEntity(httpResult, HttpStatus.OK);
@@ -266,7 +268,7 @@ public class UserServiceImpl implements IUserService {
     		httpResult.setSuccess(false, "delete failed");
     		return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
     }
-    
+
     @Override
     public ResponseEntity modifyUserOrganization(UserOrganization userOrganization) {
     		SimpleHttpResult httpResult = new SimpleHttpResult();
@@ -278,7 +280,7 @@ public class UserServiceImpl implements IUserService {
     		httpResult.setSuccess(false, "modify failed");
     		return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
     }
-    
+
     @Override
     public ResponseEntity modifyProfile(UserCustomer userCustomer) {
     		SimpleHttpResult httpResult = new SimpleHttpResult();
@@ -288,7 +290,7 @@ public class UserServiceImpl implements IUserService {
     			return new ResponseEntity(httpResult, HttpStatus.OK);
     		}
     		else {
-    			httpResult.setSuccess(false, "modify failed");
+    			httpResult.setSuccess(false);
     			return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
     		}
 
@@ -337,6 +339,34 @@ public class UserServiceImpl implements IUserService {
     		httpResult.setSuccess(false, "delete failed");
     		return new ResponseEntity(httpResult, HttpStatus.SERVICE_UNAVAILABLE);
     }
-    
-   
+
+    @Override
+    public ResponseEntity getLoginInfo(String username, int usertype) {
+        SimpleHttpResult<LoginInfoVO> httpResult = new SimpleHttpResult<>();
+        LoginInfoVO loginInfoVO = new LoginInfoVO();
+        loginInfoVO.setUsername(username);
+        loginInfoVO.setUsertype(usertype);
+        httpResult.setData(loginInfoVO);
+        return new ResponseEntity(httpResult, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity showMembersInfo(int id) {
+        SimpleHttpResult<List<UserCustomer>> httpResult = new SimpleHttpResult<>();
+        String userIds = userOrganizationMapper.selectMembers(id);
+        if (userIds == null){
+            httpResult.setSuccess(false, "no members!");
+            return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
+        }
+        List<String> idList = Arrays.asList(userIds.split(","));
+        if (idList.isEmpty()){
+            httpResult.setSuccess(false, "no members!");
+            return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
+        }
+        List<UserCustomer> userCustomerList = userCustomerMapper.selectByIds(idList);
+        httpResult.setData(userCustomerList);
+        return new ResponseEntity(httpResult, HttpStatus.OK);
+    }
+
+
 }

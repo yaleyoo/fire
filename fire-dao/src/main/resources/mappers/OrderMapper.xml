@@ -5,6 +5,8 @@
         <result column="id" property="id"/>
         <result column="username" property="username"/>
         <result column="class_id" property="classId"/>
+        <result column="tutor_id" property="tutorId"/>
+        <result column="tutor_name" property="tutorName"/>
         <result column="order_num" property="orderNum"/>
         <result column="course_id" property="courseId"/>
         <result column="course_name" property="courseName"/>
@@ -17,17 +19,17 @@
     </resultMap>
 
     <sql id="baseColumns">
-        id,username,class_id,order_num,course_id,course_name,people_num,payment_status,usertype,create_time,update_time,price
+        id,username,class_id,order_num,course_id,course_name,people_num,payment_status,usertype,create_time,update_time,price,tutor_id,tutor_name
     </sql>
 
     <insert id="insert" parameterType="com.fes.dao.domain.Order">
-        INSERT INTO order_list(username,class_id,order_num,course_id,course_name,people_num,payment_status,usertype,create_time,update_time,price)
-        VALUES(#{username},#{classId},#{orderNum},#{courseId},#{courseName},#{peopleNum},#{paymentStatus},#{usertype},#{createTime},#{updateTime},#{price})
+        INSERT INTO order_list(username,class_id,order_num,course_id,course_name,people_num,payment_status,usertype,create_time,update_time,price,tutor_id,tutor_name)
+        VALUES(#{username},#{classId},#{orderNum},#{courseId},#{courseName},#{peopleNum},#{paymentStatus},#{usertype},#{createTime},#{updateTime},#{price},#{tutorId},#{tutorName})
     </insert>
 
     <delete id="deleteOrderById" parameterType="int">
         delete
-        from order_item where id=#{id}
+        from order_list where id=#{id}
     </delete>
     
     <select id="selectById" parameterType="int">

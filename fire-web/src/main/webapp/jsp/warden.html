@@ -179,16 +179,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="row animate-box">
-								<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-									<h2 id="course_name1"></h2>
-									<!--
-									<p>
-										<a href="/jsp/order.html" class="btn btn-primary btn-outline btn-lg">Make an order</a>
-										<a href="/jsp/courses.html" class="btn btn-primary btn-outline btn-lg">Compare</a>
-									</p>-->
-								</div>
-							</div>
+
 						</div>
 					</div>
 
@@ -565,7 +556,7 @@
                     var valid_data = data.data;
                     $(".carousel-inner img").attr("src",valid_data.courseIcon);
                     $("#course_price").html("SRC: "+valid_data.coursePrice);
-                    $("#course_name1").html(valid_data.courseName);
+
                     $("#course_name2").html(valid_data.courseName);
                     $("#description").html(valid_data.courseDesc);
                     $("#duration").html(valid_data.duration);
@@ -609,7 +600,7 @@
 					var j = 0;
 					if (valid_data.length == 0){
                         $("#fdw-pricing-table .row").append(
-                            '<div class="row" style="height:500px;border:1px solid #000; background-color: #BBB">' +
+                            '<div class="row" style="height:500px;border:1px solid #000; background-color: #BBB;padding: 4em 0">' +
 							'<p style="font-size: 15pt; color: red">We are so sorry that currently we have no available classes!</p>');
 					}
                     $.each(valid_data, function(){

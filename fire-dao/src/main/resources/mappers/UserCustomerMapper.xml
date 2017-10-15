@@ -71,6 +71,15 @@
         from user_customer where id=#{id}
     </delete>
 
+    <select id="selectByIds" resultMap="customerResult" parameterType="int">
+        select
+        <include refid="baseColumns"/>
+        from user_customer where id in
+        <foreach collection="ids" index="index" open="(" item="id" close=")" separator=",">
+          #{item}
+        </foreach>
+    </select>
+
 
 
 </mapper>

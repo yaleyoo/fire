@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Order {
 	private int id;
 	private String username;
-	private String classId;
+	private int classId;
 	private String orderNum;
 	private int courseId;
 	private String courseName;
@@ -15,6 +15,24 @@ public class Order {
 	private Date createTime;
 	private Date updateTime;
 	private int price;
+	private int tutorId;
+	private String tutorName;
+
+	public int getTutorId() {
+		return tutorId;
+	}
+
+	public void setTutorId(int tutorId) {
+		this.tutorId = tutorId;
+	}
+
+	public String getTutorName() {
+		return tutorName;
+	}
+
+	public void setTutorName(String tutorName) {
+		this.tutorName = tutorName;
+	}
 
 	public int getId() {
 		return id;
@@ -32,11 +50,11 @@ public class Order {
 		this.username = username;
 	}
 
-	public String getClassId() {
+	public int getClassId() {
 		return classId;
 	}
 
-	public void setClassId(String classId) {
+	public void setClassId(int classId) {
 		this.classId = classId;
 	}
 

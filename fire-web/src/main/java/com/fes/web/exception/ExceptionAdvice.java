@@ -1,6 +1,8 @@
 package com.fes.web.exception;
 
+import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.fes.common.domain.SimpleHttpResult;
+import com.paypal.base.rest.PayPalRESTException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
@@ -41,9 +43,6 @@ public class ExceptionAdvice {
     }
 
 
-
-
-
     /**
      * 500 - Internal Server Error
      */
@@ -53,4 +52,25 @@ public class ExceptionAdvice {
         System.out.println(e);
         return new SimpleHttpResult(false, "Service Wrong! Please try again later!");
     }
+
+    /**
+     * 503 - Service Unavailable
+     */
+    @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
+    @ExceptionHandler(PayPalRESTException.class)
+    public SimpleHttpResult handlePaypalException(PayPalRESTException e) {
+        System.out.println(e);
+        return new SimpleHttpResult(false, "Paypal Service Wrong! Please try again later!");
+    }
+
+    /**
+     * 401 - UNAUTHORIZED
+     */
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(JWTDecodeException.class)
+    public SimpleHttpResult handlePaypalException(JWTDecodeException e) {
+        System.out.println(e);
+        return new SimpleHttpResult(false, "Please login first!");
+    }
+
 }

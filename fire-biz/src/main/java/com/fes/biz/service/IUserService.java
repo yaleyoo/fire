@@ -33,11 +33,11 @@ public interface IUserService {
     ResponseEntity verifyLogin(int userType, String username, String password) throws UnsupportedEncodingException;
 
     ResponseEntity showOrganizationByID(int organizationID);
-    
+
     ResponseEntity getAllOrgInfo();
-    
+
     ResponseEntity deleteUserOrganization(int organizationId);
-    
+
     ResponseEntity modifyUserOrganization(UserOrganization userOrganization);
 
     ResponseEntity logout(String username, int usertype);
@@ -53,5 +53,8 @@ public interface IUserService {
     ResponseEntity deleteCustomer(int id);
 
     ResponseEntity uploadTrainerPicture(String url, int id);
-    
+
+    ResponseEntity getLoginInfo(String username, int usertype);
+
+    ResponseEntity showMembersInfo(int id);
 }

@@ -9,4 +9,6 @@ public interface OrderMapper {
 	boolean deleteOrderById(@Param("id")int id);
 	
 	Order selectById(@Param("id")int id);
+
+	boolean insert(Order order);
 }

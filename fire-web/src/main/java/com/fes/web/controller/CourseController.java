@@ -5,6 +5,7 @@ import com.fes.biz.service.ICourseService;
 import com.fes.common.annotation.Authorization;
 import com.fes.common.constants.UserType;
 import com.fes.common.domain.SimpleHttpResult;
+import com.fes.dao.domain.ClassItemPO;
 import com.fes.dao.domain.ClassPO;
 import com.fes.dao.domain.Course;
 
@@ -99,6 +100,24 @@ public class CourseController {
     @RequestMapping(value = "/{courseId}/class/{classId}/class-item", method = RequestMethod.GET)
     public ResponseEntity showClassItem(@PathVariable("classId") int classId) {
         return classService.getClassItem(classId);
+    }
+
+    @RequestMapping(value = "/{courseId}/class/{classId}/class-item", method = RequestMethod.POST)
+    public ResponseEntity createClassItem(@PathVariable("classId") int classId) {
+        //TODO
+        return new ResponseEntity(null, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{courseId}/class/{classId}/class-item/{itemId}", method = RequestMethod.PUT)
+    public ResponseEntity modifyClassItem(@PathVariable("itemId") int itemId, ClassItemPO classItemPO) {
+        //TODO
+        return new ResponseEntity(null, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{courseId}/class/{classId}/class-item/{itemId}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteClassItem(@PathVariable("itemId") int itemId) {
+        //TODO
+        return new ResponseEntity(null, HttpStatus.OK);
     }
 
     @Authorization(authority = UserType.STAFF)

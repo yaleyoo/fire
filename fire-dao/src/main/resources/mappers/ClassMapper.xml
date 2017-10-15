@@ -91,4 +91,5 @@
   		class_start_time=#{classStartTime}, class_time_table=#{classTimeTable}, 
   		price=#{price}, contact_detail=#{contactDetail}
   		where id=#{id} and course_id=#{courseId}
+    </update>
 </mapper>

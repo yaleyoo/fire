@@ -534,11 +534,6 @@
             var user_type;
             var user_id;
             var username;
-            var course_name;
-            var people_num;
-            var price;
-            var tutor_id;
-            var tutor_name;
             var url = null;
             $.ajax({
                 type : "GET",
@@ -626,7 +621,7 @@
                         var json = data.responseText;
                         if (data.status == 401){
                             localStorage.clear();
-                            location.href = "/index.html?login=false"
+                            window.open("/index.html?login=false");
                         } else{
                             if (json != null || json!=""){
                                 json = $.parseJSON(json);
@@ -683,46 +678,6 @@
             });
 
 
-
-            var course_id = getUrlParam("course_id");
-            if (course_id == null || course_id == ""){
-                history.back();
-            }
-            $.ajax({
-                type : "GET",
-                // url for request.
-                // invoke methods in UserController.java
-                url : "/course/"+course_id,
-
-                headers : {
-                    "Authorization" : token
-                },
-                // asyncronise, default is true
-                async : false,
-                dataType : "json",
-                error : function(data) {
-                    var json = data.responseText;
-                    if (data.status == 401){
-                        localStorage.clear();
-                        location.href = "/index.html?login=false"
-                    } else{
-                        if (json != null || json!=""){
-                            json = $.parseJSON(json);
-                            alert(json.error.returnUserMessage);
-                        }else{
-                            alert("Connection error");
-                        }
-                    }
-                },
-                success : function(data) {
-                    var valid_data = data.data;
-
-                    $(".total td").html("$ "+valid_data.coursePrice);
-
-
-
-                }
-            });
 
 			
 		});

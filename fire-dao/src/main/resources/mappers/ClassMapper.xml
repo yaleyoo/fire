@@ -48,6 +48,15 @@
         <include refid="baseColumns"/>
         from class where id=#{id}
     </select>
+
+    <select id="getClassByIds" resultMap="classResult">
+        select
+        <include refid="baseColumns"/>
+        from class where id in
+        <foreach collection="ids" separator="," close=")" item="item" open="(" index="index">
+            #{item}
+        </foreach>
+    </select>
     
     <select id="getClassByDate" resultMap="classResult" parameterType="Date">
         select

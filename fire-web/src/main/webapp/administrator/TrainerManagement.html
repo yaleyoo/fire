@@ -267,6 +267,9 @@
 			type : "PUT",
 			// url for request.
 			// invoke methods in UserController.java
+            headers : {
+                "Authorization" : localStorage.token
+            },
 			url : "http://localhost:8080/user/trainer",
 			data : {
 				username : $('#username').val(),

@@ -11,5 +11,7 @@ import java.util.List;
  */
 public interface ClassItemMapper {
 
-	List<ClassItemPO> getClassItemPO(@Param("classId")int classId);
+	List<ClassItemPO> getClassItemByClassId(@Param("classId")int classId);
+
+	List<ClassItemPO> getClassItemByClassIds(@Param("classIds")List<String> classIds);
 }

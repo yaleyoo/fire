@@ -32,11 +32,11 @@ public class TokenManager {
         this.stringRedisTemplate = stringRedisTemplate;
     }
 
-    public  String createToken(String username, int userType) throws UnsupportedEncodingException {
+    public  String createToken(String username, int userType, int userId) throws UnsupportedEncodingException {
         try {
             Algorithm hc256 = Algorithm.HMAC256(EnvironmentConstant.getAppSecret());
             String token = JWT.create().withIssuer("fes").withAudience("fes client")
-                    .withClaim("username",username).withClaim("userType",userType)
+                    .withClaim("username",username).withClaim("userType",userType).withClaim("userId", userId)
                     .withClaim("timestamp", System.currentTimeMillis()).sign(hc256);
             stringRedisTemplate.opsForValue().set(username+userType,token,EXPIRE_TIME,TimeUnit.MINUTES);
             return token;
@@ -56,6 +56,7 @@ public class TokenManager {
             DecodedJWT decodedJWT = jwtVerifier.verify(token);
             String username = decodedJWT.getClaim("username").asString();
             int userType = decodedJWT.getClaim("userType").asInt();
+            int userId = decodedJWT.getClaim("userId").asInt();
             boolean hasAuthority = false;
             if (username == null){
                 return false;
@@ -76,6 +77,7 @@ public class TokenManager {
             stringRedisTemplate.boundValueOps(username).expire(EXPIRE_TIME, TimeUnit.MINUTES);
             httpServletRequest.setAttribute("username", username);
             httpServletRequest.setAttribute("usertype", userType);
+            httpServletRequest.setAttribute("userId", userId);
             return true;
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

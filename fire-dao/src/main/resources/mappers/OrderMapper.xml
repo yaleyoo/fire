@@ -32,10 +32,16 @@
         from order_list where id=#{id}
     </delete>
     
-    <select id="selectById" parameterType="int">
+    <select id="selectById" parameterType="int" resultMap="orderResult">
     		select
     		 <include refid="baseColumns"/>
         from order_list where id=#{id}
+    </select>
+
+    <select id="selectByUserNameAndUserType" resultMap="orderResult">
+        select
+        <include refid="baseColumns"/>
+        from order_list where username=#{username} and usertype=#{usertype}
     </select>
 
 </mapper>

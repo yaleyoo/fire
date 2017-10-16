@@ -12,6 +12,7 @@ public class ClassPO {
     private String classItemIds;
     private int tutorId;
     private String tutorName;
+    private String courseName;
     private String tutorPic;
     private String tutorDesc;
     private String classAddr;
@@ -22,6 +23,14 @@ public class ClassPO {
     private int registeredNum;
     private String registeredStudents;
     private String contactDetail;
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
 
     public String getStrTime() {
         return strTime;

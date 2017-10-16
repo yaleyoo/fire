@@ -52,6 +52,13 @@ public class UserController {
         return userService.showCustomer(userId);
     }
 
+    @Authorization (authority = UserType.CUSTOMER)
+    @RequestMapping(value = "/customer/{id}/class-time-table", method = RequestMethod.GET)
+    public ResponseEntity showCustomerTimeTable(@PathVariable("id") int userId){
+
+        return userService.showClassTimeTable(userId);
+    }
+
     @RequestMapping(value = "/customer", method = RequestMethod.POST)
     public ResponseEntity individualRegister(UserCustomer user){
 
@@ -69,6 +76,14 @@ public class UserController {
     public ResponseEntity deleteCustomer( @PathVariable("id") int id) {
         return userService.deleteCustomer(id);
         
+    }
+
+    @Authorization(authority = UserType.CUSTOMER)
+    @RequestMapping(value = "/order", method = RequestMethod.GET)
+    public ResponseEntity getOrderList(HttpServletRequest request) {
+        String username = (String) request.getAttribute("username");
+        int usertype = (Integer) request.getAttribute("usertype");
+        return userService.showOrderListByUser(username, usertype);
     }
 
     @RequestMapping(value = "/customer/email/{email}", method = RequestMethod.GET)
@@ -102,13 +117,13 @@ public class UserController {
     public ResponseEntity getLoginInformation(HttpServletRequest request){
         String username = (String) request.getAttribute("username");
         int usertype = (Integer) request.getAttribute("usertype");
-        return userService.getLoginInfo(username, usertype);
+        int userId = (Integer) request.getAttribute("userId");
+        return userService.getLoginInfo(username, usertype, userId);
     }
     
     @RequestMapping(value = "/organization", method = RequestMethod.POST)
     public ResponseEntity orgnizationRegister(@Valid UserOrganization user){
-        //TODO
-        return new ResponseEntity(new SimpleHttpResult<>(), HttpStatus.OK);
+        return userService.addOrganizationCustomer(user);
 
     }
 
@@ -143,11 +158,12 @@ public class UserController {
 
     @Authorization(authority = UserType.TRAINER)
     @RequestMapping(value = "/trainer", method = RequestMethod.PUT)
-    public ResponseEntity modifyTrainerProfile(@Valid int id, String username, String password, String firstname
-                                                        , String lastname, String sex, String address,String phoneNum
-                                                                ,String desc){
+    public ResponseEntity modifyTrainerProfile(String username, String password){
 
-        return userService.updateTrainerInfo(id,username,password,firstname,lastname,sex,address,phoneNum,desc);
+        String username2 = username;
+        String password2 = password;
+        return new ResponseEntity(new SimpleHttpResult<>(), HttpStatus.OK);
+       // return userService.updateTrainerInfo(id,username,password,firstname,lastname,sex,address,phoneNum,desc);
     }
 
     @Authorization(authority = UserType.TRAINER)

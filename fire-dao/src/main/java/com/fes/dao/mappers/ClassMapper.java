@@ -21,6 +21,8 @@ public interface ClassMapper {
 	ClassPO getClassById(@Param("id")int id);
 	
 	List<ClassPO> getClassByDate(@Param("classStartTime")Date classStartTime);
+
+	List<ClassPO> getClassByIds(@Param("ids") List<String> ids);
 	
 	boolean deleteClass(@Param("courseId")int courseId, @Param("classId")int classId);
 	

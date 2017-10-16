@@ -21,10 +21,20 @@
         VALUES(#{classId},#{classDate},#{equipConsumption},#{attendantStudentsNum},#{attendantStudents},#{startTime},#{endTime})
     </insert>
 
-    <select id="getClassItemPO" resultMap="classItemResult">
+    <select id="getClassItemByClassId" resultMap="classItemResult">
         select
         <include refid="baseColumns"/>
         from class_item where class_id=#{classId}
     </select>
+
+    <select id="getClassItemByClassIds" resultMap="classItemResult">
+        select
+        <include refid="baseColumns"/>
+        from class_item where class_id in
+        <foreach collection="classIds" index="index" open="(" item="item" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+
 
 </mapper>

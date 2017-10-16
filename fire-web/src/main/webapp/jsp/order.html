@@ -621,7 +621,7 @@
                         var json = data.responseText;
                         if (data.status == 401){
                             localStorage.clear();
-                            window.open("/index.html?login=false");
+                            location.href = "/index.html?login=false";
                         } else{
                             if (json != null || json!=""){
                                 json = $.parseJSON(json);

@@ -1,5 +1,6 @@
 package com.fes.biz.impl;
 
+import com.fes.biz.vo.ClassTimeVO;
 import com.fes.biz.vo.LoginInfoVO;
 import com.fes.biz.vo.VerifyCodeVO;
 import com.fes.common.constants.MailConstants;
@@ -10,29 +11,20 @@ import com.fes.common.domain.SimpleHttpResult;
 import com.fes.common.service.MailSendService;
 import com.fes.common.util.MailCodeManager;
 import com.fes.common.util.TokenManager;
-import com.fes.dao.domain.ClassPO;
-import com.fes.dao.domain.UserCustomer;
-import com.fes.dao.domain.UserOrganization;
-import com.fes.dao.domain.UserStaff;
-import com.fes.dao.domain.UserTrainer;
-import com.fes.dao.mappers.ClassMapper;
-import com.fes.dao.mappers.UserCustomerMapper;
-import com.fes.dao.mappers.UserOrganizationMapper;
-import com.fes.dao.mappers.UserStaffMapper;
-import com.fes.dao.mappers.UserTrainerMapper;
+import com.fes.dao.domain.*;
+import com.fes.dao.mappers.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by qigege on 2017/9/3.
@@ -50,6 +42,15 @@ public class UserServiceImpl implements IUserService {
 
     @Resource
     private UserTrainerMapper userTrainerMapper;
+
+    @Resource
+    private OrderMapper orderMapper;
+
+    @Resource
+    private ClassItemMapper classItemMapper;
+
+    @Resource
+    private ClassMapper classMapper;
 
     @Resource
     private TokenManager tokenManager;
@@ -127,7 +128,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
 	public ResponseEntity addOrganizationCustomer(UserOrganization user) {
-		// TODO Auto-generated method stub
+
     	boolean success = userOrganizationMapper.insertCustomer(user);
     	SimpleHttpResult httpResult = new SimpleHttpResult();
     	
@@ -166,7 +167,7 @@ public class UserServiceImpl implements IUserService {
                 httpResult.setSuccess(false,"password is incorrect!");
                 return new ResponseEntity(httpResult, HttpStatus.UNAUTHORIZED);
             }
-            String token = tokenManager.createToken(username, userType);
+            String token = tokenManager.createToken(username, userType, userCustomer.getId());
             result.setToken(token);
             result.setUserType(UserType.CUSTOMER.strUserType);
             result.setUserId(userCustomer.getId());
@@ -184,7 +185,7 @@ public class UserServiceImpl implements IUserService {
                 httpResult.setSuccess(false, "password is incorrect!");
                 return new ResponseEntity(httpResult, HttpStatus.UNAUTHORIZED);
             }
-            String token = tokenManager.createToken(username, userType);
+            String token = tokenManager.createToken(username, userType, userOrganization.getId());
             result.setToken(token);
             result.setUserType(UserType.ORGANIZATION.strUserType);
             result.setUserId(userOrganization.getId());
@@ -202,7 +203,7 @@ public class UserServiceImpl implements IUserService {
                 httpResult.setSuccess(false, "password is incorrect!");
                 return new ResponseEntity(httpResult, HttpStatus.UNAUTHORIZED);
             }
-            String token = tokenManager.createToken(username, userType);
+            String token = tokenManager.createToken(username, userType, userTrainer.getId());
             result.setToken(token);
             result.setUserType(UserType.TRAINER.strUserType);
             result.setUserId(userTrainer.getId());
@@ -220,7 +221,7 @@ public class UserServiceImpl implements IUserService {
                 httpResult.setSuccess(false, "password is incorrect!");
                 return new ResponseEntity(httpResult, HttpStatus.UNAUTHORIZED);
             }
-            String token = tokenManager.createToken(username, userType);
+            String token = tokenManager.createToken(username, userType, userStaff.getId());
             result.setToken(token);
             result.setUserType(UserType.STAFF.strUserType);
             result.setUserId(userStaff.getId());
@@ -341,11 +342,12 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public ResponseEntity getLoginInfo(String username, int usertype) {
+    public ResponseEntity getLoginInfo(String username, int usertype, int userId) {
         SimpleHttpResult<LoginInfoVO> httpResult = new SimpleHttpResult<>();
         LoginInfoVO loginInfoVO = new LoginInfoVO();
         loginInfoVO.setUsername(username);
         loginInfoVO.setUsertype(usertype);
+        loginInfoVO.setUserId(userId);
         httpResult.setData(loginInfoVO);
         return new ResponseEntity(httpResult, HttpStatus.OK);
     }
@@ -368,6 +370,57 @@ public class UserServiceImpl implements IUserService {
         return new ResponseEntity(httpResult, HttpStatus.OK);
     }
 
+    @Override
+    public ResponseEntity showOrderListByUser(String username, int userType) {
+        SimpleHttpResult<List<Order>> httpResult = new SimpleHttpResult<>();
+        List<Order> orderList = orderMapper.selectByUserNameAndUserType(username, userType);
+        if (orderList == null || orderList.isEmpty()){
+            httpResult.setSuccess(false, "no order!");
+            return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
+        }
+        httpResult.setData(orderList);
+        return new ResponseEntity(httpResult, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity showClassTimeTable(int id) {
+        SimpleHttpResult<ClassTimeVO> httpResult = new SimpleHttpResult<>();
+        ClassTimeVO classTimeVO = new ClassTimeVO();
+        List<Map<String, String>> result = new ArrayList<>();
+        classTimeVO.setResult(result);
+        httpResult.setData(classTimeVO);
+        UserCustomer userCustomer = userCustomerMapper.selectById(id);
+        String classIdList = userCustomer.getClassIdList();
+        if (classIdList == null){
+
+            return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
+        }
+        List<String> classIds = Arrays.asList(classIdList.split(","));
+        List<ClassItemPO> classItemList = classItemMapper.getClassItemByClassIds(classIds);
+        List<ClassPO> classPOList = classMapper.getClassByIds(classIds);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        for(ClassItemPO item : classItemList){
+            String startTime = sdf.format(item.getClassDate())+" "+item.getStartTime();
+            String endTime = sdf.format(item.getClassDate())+" "+item.getEndTime();
+            Map<String, String> map = new HashMap<>();
+            if (System.currentTimeMillis() > item.getClassDate().getTime()){
+                map.put("class", "event-success");
+            } else {
+                map.put("class", "event-info");
+            }
+            map.put("start", startTime);
+            map.put("end", endTime);
+            for (ClassPO classPO : classPOList){
+                if (classPO.getId() == item.getClassId()){
+                    map.put("title", "Course Name: "+classPO.getCourseName()+"\nAddress: "+classPO.getClassAddr());
+                    break;
+                }
+            }
+            map.put("id", String.valueOf(item.getId()));
+            result.add(map);
+        }
+        return new ResponseEntity(httpResult, HttpStatus.OK);
+    }
     @Override
     public ResponseEntity updateTrainerInfo(int id, String username, String password, String firstname, String lastname,
                                             String sex, String address, String phoneNum, String desc) {

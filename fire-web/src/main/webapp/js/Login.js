@@ -42,8 +42,6 @@ function loginTopRequest() {
             success : function(data) {
                 //0-individual 1-organization
 				localStorage.setItem("token",data.data.token);
-				localStorage.setItem("userType",data.data.userType);
-				localStorage.setItem("userId",data.data.userId);
 				var select = $('input:radio:checked').val();
                 if( select == 1){
                     location.href="/jsp/individualUser/individualHome.html";

@@ -4,7 +4,6 @@ import com.fes.biz.service.IClassService;
 import com.fes.common.domain.SimpleHttpResult;
 import com.fes.dao.domain.ClassItemPO;
 import com.fes.dao.domain.ClassPO;
-import com.fes.dao.domain.UserTrainer;
 import com.fes.dao.mappers.ClassItemMapper;
 import com.fes.dao.mappers.ClassMapper;
 import com.fes.dao.mappers.UserTrainerMapper;
@@ -16,7 +15,6 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -162,7 +160,7 @@ public class ClassServiceImpl implements IClassService {
     public ResponseEntity getClassItem(int classId) {
 
 		SimpleHttpResult<List<ClassItemPO>> httpResult = new SimpleHttpResult();
-		List<ClassItemPO> classItemPO = classItemMapper.getClassItemPO(classId);
+		List<ClassItemPO> classItemPO = classItemMapper.getClassItemByClassId(classId);
 		if(classItemPO==null || classItemPO.isEmpty()) {
 			httpResult.setSuccess(false, "no results");
 			return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);

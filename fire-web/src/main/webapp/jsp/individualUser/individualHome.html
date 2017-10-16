@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="Dashboard">
+<meta name="keyword"
+	content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+<!-- Custom Theme files -->
+<link href="/css/bootstrap.css" type="text/css" rel="stylesheet"
+	media="all">
+<link href="/css/font-awesome.css" rel="stylesheet">
+<!-- font-awesome icons -->
+<link href="/assets/css/bootstrap.css" rel="stylesheet">
+<!--external css-->
+<link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<!-- Custom styles for this template -->
+<link href="/assets/css/style.css" rel="stylesheet">
+<link href="/assets/css/style-responsive.css" rel="stylesheet">
+<link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link href="/assets/js/fullcalendar/bootstrap-fullcalendar.css"
+	rel="stylesheet" />
+<link href="/assets/css/style.css" rel="stylesheet">
+<link href="/assets/css/style-responsive.css" rel="stylesheet">
+<link href="/css/style.css" type="text/css" rel="stylesheet" media="all">
+	<link rel="stylesheet" href="/css/bootstrap.css">
+<!-- //Custom Theme files -->
+<!-- js -->
+
+<script class="include" type="text/javascript"
+	src="/assets/js/jquery.dcjqaccordion.2.7.js"></script>
+<script src="/assets/js/jquery.scrollTo.min.js"></script>
+<script src="/assets/js/jquery.nicescroll.js" type="text/javascript"></script>
+<script src="/js/commonJs.js"></script>
+<script src="/js/Login.js"></script>
+<!--common script for all pages-->
+<!--script for this page-->
+
+
+<!-- //js -->
+<!-- web-fonts -->
+<link
+	href="http://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700"
+	rel="stylesheet">
+<link
+	href="http://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700"
+	rel="stylesheet">
+<!-- //web-fonts -->
+	<link rel="stylesheet" href="/css/calendar.css">
+</head>
+<body>
+	<!-- banner -->
+	<div class="banner jarallax">
+		<div class="banner-agileinfo">
+			<!-- header -->
+			<div class="">
+				<div class="container">
+					<div class="logo">
+						<h1>
+							<a href="index">Fes Booking</a>
+						</h1>
+					</div>
+					<div class="social-w3licon">
+						<ul class="social_agileinfo">
+						</ul>
+					</div>
+					<div class="menu">
+						<a href="#" class="navicon"></a>
+						<div class="toggle">
+							<ul class="toggle-menu">
+								<li><a href="" class="active">Home</a></li>
+								<li><a href="/jsp/courses.html">Course list</a></li>
+								<li><a href="/jsp/individualUser/individualOrderhistory.html">History order</a></li>
+								<li><a href="/jsp/individualUser/individualProfile.html">Profile</a></li>
+								<li><a href="/jsp/mail.html">Mail Us</a></li>
+								<li><a onclick="logOut()">Log Out</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+			<div class="banner-w3lstext agileits-w3layouts">
+				<ol class="breadcrumb">
+					<li><a href="">Course List</a></li>
+					<li class="active" id="customername">Welcome, Cookie!</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+	<!-- //banner -->
+	<!-- banner-bottom -->
+	<div class="codes">
+		<div class="container">
+
+			<div class="grid_3 grid_5 ">
+				<div class="showback">
+					<h3 class="w3ls-hdg w3layouts ">Profile</h3>
+					<div class="alert alert-info" role="alert">
+						<ol class="breadcrumb">
+							<li class="active" >Name</li>
+							<li class="active" id="name">Name</li>
+						</ol>
+						<ol class="breadcrumb">
+							<li class="active" >Email address</li>
+							<li class="active" id="email_address">Email address</li>
+						</ol>
+						<ol class="breadcrumb">
+							<li class="active" >Address</li>
+							<li class="active" id="address">Address</li>
+
+						</ol>
+						<ol class="breadcrumb">
+							<li class="active" >Contact number</li>
+							<li class="active" id="number">Contact number</li>
+
+						</ol>
+						<ol class="breadcrumb">
+							<li class="active" >Description</li>
+							<li class="active" id="desc">Description</li>
+
+						</ol>
+						<a href="/jsp/individualUser/individualProfile.html">
+							<button type="button" class="btn btn-theme"
+									href="individualProfile">
+								<i class="fa fa-cog"></i> Modify my profile
+							</button>
+						</a>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="grid_3 grid_5">
+				<div class="showback">
+					<h3 class="w3ls-hdg">My calendar</h3>
+					<div class="alert alert-success agileits" role="alert">
+						<section id="container">
+							<section id="">
+								<!-- page start-->
+								<section class="wrapper">
+									<div class="row mt">
+										<aside class="mt">
+											<section class="panel">
+												<div class="panel-body">
+													<div class="page-header">
+
+														<div class="pull-right form-inline">
+															<div class="btn-group">
+																<button class="btn btn-primary" data-calendar-nav="prev"><< Prev</button>
+																<button class="btn" data-calendar-nav="today">Today</button>
+																<button class="btn btn-primary" data-calendar-nav="next">Next >></button>
+															</div>
+															<div class="btn-group">
+																<button class="btn btn-warning" data-calendar-view="year">Year</button>
+																<button class="btn btn-warning active" data-calendar-view="month">Month</button>
+																<button class="btn btn-warning" data-calendar-view="week">Week</button>
+																<button class="btn btn-warning" data-calendar-view="day">Day</button>
+															</div>
+														</div>
+
+														<h3></h3>
+														<small>To see example with events navigate to march 2013</small>
+													</div>
+
+													<div id="full-calendar"></div>
+												</div>
+											</section>
+										</aside>
+									</div>
+									<!-- page end-->
+								</section>
+								<!--wrapper -->
+							</section>
+							<!-- /MAIN CONTENT -->
+						</section>
+					</div>
+				</div>
+			</div>
+
+			<div class="grid_3 grid_5 w3-agileits w3layouts">
+				<div class="showback">
+					<h3 class="w3ls-hdg">History Order</h3>
+					<div class="alert alert-warning" role="alert">
+						<div class="row mt">
+							<div class="col-md-12">
+								<div class="content-panel">
+									<table class="table table-striped table-advance table-hover">
+										<div class="qian_right">
+											<h4>
+												<!--<i class="fa fa-angle-right" href="individualOrderhistory"></i>
+
+
+												<a href="individualOrderhistory.html">
+													<button type="button" class="btn btn-theme"
+															href="individualOrderhistory.html">
+														<i class="fa fa-cog"></i> Show all orders
+													</button>
+												</a>
+												-->
+											</h4>
+										</div>
+										<hr>
+										<thead>
+										<tr>
+											<th><i class="fa fa-bullhorn"></i> Order Num</th>
+											<th><i class="fa fa-bullhorn"></i> Course Name</th>
+											<th class="hidden-phone"><i
+													class="fa fa-question-circle"></i> Tutor Name</th>
+											<th><i class="fa fa-bookmark"></i> Sum</th>
+											<th><i class=" fa fa-edit"></i> Status</th>
+											<th></th>
+										</tr>
+										</thead>
+										<tbody>
+
+										</tbody>
+									</table>
+								</div>
+								<!-- /content-panel -->
+							</div>
+							<!-- /col-md-12 -->
+						</div>
+						<!-- /row -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //short-codes -->
+	<!-- Bootstrap core CSS -->
+	<!-- js placed at the end of the document so the pages load faster -->
+	<script src="/assets/js/jquery.js"></script>
+	<script src="/assets/js/jquery-ui-1.9.2.custom.min.js"></script>
+	<script src="/assets/js/fullcalendar/fullcalendar.min.js"></script>
+	<script src="/assets/js/bootstrap.min.js"></script>
+	<script class="include" type="text/javascript"
+		src="/assets/js/jquery.dcjqaccordion.2.7.js"></script>
+	<script src="/assets/js/jquery.scrollTo.min.js"></script>
+	<script src="/assets/js/jquery.nicescroll.js" type="text/javascript"></script>
+	<!--common script for all pages-->
+	<!--script for this page-->
+	<script src="/assets/js/calendar-conf-events.js"></script>
+	<!-- menu-js -->
+	<script>
+		$('.navicon').on('click', function(e) {
+			e.preventDefault();
+			$(this).toggleClass('navicon--active');
+			$('.toggle').toggleClass('toggle--active');
+		});
+	</script>
+	<!-- //menu-js -->
+	<!-- //footer -->
+	<!-- Progressive-Effects-Animation-JavaScript -->
+	<script type="text/javascript" src="/js/numscroller-1.0.js"></script>
+	<!-- //Progressive-Effects-Animation-JavaScript -->
+	<!-- jarallax -->
+	<script src="/js/SmoothScroll.min.js"></script>
+	<script src="/js/jarallax.js"></script>
+	<!-- start-smooth-scrolling -->
+	<script type="text/javascript" src="/js/move-top.js"></script>
+	<script type="text/javascript" src="/js/easing.js"></script>
+	<!-- //end-smooth-scrolling -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="/js/bootstrap.js"></script>
+
+
+	<!-- footer-top -->
+	<div class="footer-agiletop">
+		<div class="container">
+			<div class="col-md-8 w3agile_hire_left">
+				<h4>We are always ready to help you. There are many ways to
+					contact us</h4>
+			</div>
+			<div class="col-md-4 w3agile_hire_right">
+				<a href="mailUs" class="wthree-more w3more1 nina"
+					data-text="contect me"> <span>c</span><span>o</span><span>n</span><span>t</span><span>e</span><span>c</span><span>t</span>
+					<span>m</span><span>e</span>
+				</a>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	<!-- //footer-top -->
+	<!-- footer -->
+	<div class="footer">
+		<div class="container">
+			<div class="col-md-4 w3layouts_footer_grid">
+				<h2>
+					Follow <span>Us</span>
+				</h2>
+			</div>
+			<div class="col-md-8 w3layouts_footer_grid">
+				<ul class="social_agileinfo">
+					<li><a href="#" class="w3_facebook"><i
+							class="fa fa-facebook"></i></a></li>
+					<li><a href="#" class="w3_twitter"><i
+							class="fa fa-twitter"></i></a></li>
+					<li><a href="#" class="w3_instagram"><i
+							class="fa fa-instagram"></i></a></li>
+					<li><a href="#" class="w3_google"><i
+							class="fa fa-google-plus"></i></a></li>
+				</ul>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	<!-- //footer -->
+	<script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="/js/underscore-min.js"></script>
+	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/js/calendar.js"></script>
+	<script type="text/javascript" src="/js/app.js"></script>
+	<script type="text/javascript">
+
+
+	</script>
+
+	<script type="text/javascript">
+        $(document).ready(function() {
+
+            var token = localStorage.getItem("token");
+            var user_id;
+
+            var options = {
+                events_source: function(){
+                    var result = [];
+                    $.ajax({
+                        type : "GET",
+                        // url for request.
+                        // invoke methods in UserController.java
+                        url : "/user/customer/" + user_id+"/class-time-table",
+
+                        headers : {
+                            "Authorization" : token
+                        },
+                        // asyncronise, default is true
+                        async : true,
+                        dataType : "json",
+                        error : function(data) {
+                            var json = data.responseText;
+                            if (data.status == 401){
+                                localStorage.clear();
+                                location.href = "/index.html?login=false"
+                            }
+                            if (data.status == 404) {
+                                json = $.parseJSON(json);
+                                result = json.data.result;
+							} else{
+                                if (json != null || json!=""){
+                                    json = $.parseJSON(json);
+                                    alert(json.error.returnUserMessage);
+                                }else{
+                                    alert("Connection error");
+                                }
+                            }
+                        },
+                        success : function(data) {
+                            result = data.data.result;
+                        }
+                    });
+
+                    return result;
+				},
+                view: 'month',
+                tmpl_path: '/tmpls/',
+                tmpl_cache: false,
+                onAfterEventsLoad: function(events) {
+                    if(!events) {
+                        return;
+                    }
+                    var list = $('#eventlist');
+                    list.html('');
+
+                    $.each(events, function(key, val) {
+                        $(document.createElement('li'))
+                            .html('<a href="' + val.url + '">' + val.title + '</a>')
+                            .appendTo(list);
+                    });
+                },
+                onAfterViewLoad: function(view) {
+                    $('.page-header h3').text(this.getTitle());
+                    $('.btn-group button').removeClass('active');
+                    $('button[data-calendar-view="' + view + '"]').addClass('active');
+                },
+                classes: {
+                    months: {
+                        general: 'label'
+                    }
+                }
+            };
+
+
+
+            $.ajax({
+                type : "GET",
+                // url for request.
+                // invoke methods in UserController.java
+                url : "/user/login-info",
+
+                headers : {
+                    "Authorization" : token
+                },
+                // asyncronise, default is true
+                async : false,
+                dataType : "json",
+                error : function(data) {
+                    var json = data.responseText;
+                    if (data.status == 401){
+                        localStorage.clear();
+                        location.href="/index.html?login=false";
+                    } else{
+                        if (json != null || json!=""){
+                            json = $.parseJSON(json);
+                            alert(json.error.returnUserMessage);
+                        }else{
+                            alert("Connection error");
+                        }
+                    }
+                },
+                success : function(data) {
+                    var json = data.data;
+                    user_id = json.userId;
+                    var user_type = json.usertype;
+                    var username = json.username;
+                    if (user_type != 1){
+                        alert("illegal access!");
+                        location.href = "/index.html?login=false"
+                    } else{
+                        $.ajax({
+                            type : "GET",
+                            // url for request.
+                            // invoke methods in UserController.java
+                            url : "/user/customer/" + user_id,
+
+                            headers : {
+                                "Authorization" : token
+                            },
+                            // asyncronise, default is true
+                            async : false,
+                            dataType : "json",
+                            error : function(data) {
+                                var json = data.responseText;
+                                if (data.status == 401){
+                                    localStorage.clear();
+                                    location.href = "/index.html?login=false"
+                                } else{
+                                    if (json != null || json!=""){
+                                        json = $.parseJSON(json);
+                                        alert(json.error.returnUserMessage);
+                                    }else{
+                                        alert("Connection error");
+                                    }
+                                }
+                            },
+                            success : function(data) {
+                                var json = data;
+                                $("#name").html(data.data.firstName+" "+data.data.lastName);
+                                $("#address").html(data.data.address);
+                                $("#number").html(data.data.phoneNum);
+                                $("#desc").html(data.data.desc);
+                                $("#email_address").html(data.data.username);
+                            }
+                        });
+
+                        var calendar = $("#full-calendar").calendar(options);
+
+                        $('.btn-group button[data-calendar-nav]').each(function() {
+                            var $this = $(this);
+                            $this.click(function() {
+                                calendar.navigate($this.data('calendar-nav'));
+                            });
+                        });
+
+                        $('.btn-group button[data-calendar-view]').each(function() {
+                            var $this = $(this);
+                            $this.click(function() {
+                                calendar.view($this.data('calendar-view'));
+                            });
+                        });
+
+                        $('#first_day').change(function(){
+                            var value = $(this).val();
+                            value = value.length ? parseInt(value) : null;
+                            calendar.setOptions({first_day: value});
+                            calendar.view();
+                        });
+
+                        $('#language').change(function(){
+                            calendar.setLanguage($(this).val());
+                            calendar.view();
+                        });
+
+                        $('#events-in-modal').change(function(){
+                            var val = $(this).is(':checked') ? $(this).val() : null;
+                            calendar.setOptions({modal: val});
+                        });
+                        $('#format-12-hours').change(function(){
+                            var val = $(this).is(':checked') ? true : false;
+                            calendar.setOptions({format12: val});
+                            calendar.view();
+                        });
+                        $('#show_wbn').change(function(){
+                            var val = $(this).is(':checked') ? true : false;
+                            calendar.setOptions({display_week_numbers: val});
+                            calendar.view();
+                        });
+                        $('#show_wb').change(function(){
+                            var val = $(this).is(':checked') ? true : false;
+                            calendar.setOptions({weekbox: val});
+                            calendar.view();
+                        });
+
+
+
+                        $.ajax({
+                            type : "GET",
+                            // url for request.
+                            // invoke methods in UserController.java
+                            url : "/user/customer/" + user_id,
+
+                            headers : {
+                                "Authorization" : token
+                            },
+                            // asyncronise, default is true
+                            async : true,
+                            dataType : "json",
+                            error : function(data) {
+                                var json = data.responseText;
+                                if (data.status == 401){
+                                    localStorage.clear();
+                                    location.href = "/index.html?login=false"
+                                } else{
+                                    if (json != null || json!=""){
+                                        json = $.parseJSON(json);
+                                        alert(json.error.returnUserMessage);
+                                    }else{
+                                        alert("Connection error");
+                                    }
+                                }
+                            },
+                            success : function(data) {
+                                $("#name").html(data.data.firstName+" "+data.data.lastName);
+                                $("#address").html(data.data.address);
+                                $("#number").html(data.data.phoneNum);
+                                $("#desc").html(data.data.desc);
+                                $("#email_address").html(data.data.username);
+                            }
+                        });
+					}
+                }
+            });
+
+
+            $.ajax({
+                type : "GET",
+                // url for request.
+                // invoke methods in UserController.java
+                url : "/user/order",
+
+                headers : {
+                    "Authorization" : token
+                },
+                // asyncronise, default is true
+                async : true,
+                dataType : "json",
+                error : function(data) {
+                    var json = data.responseText;
+                    if (data.status == 401){
+                        localStorage.clear();
+                        location.href = "/index.html?login=false"
+                    } else{
+                        if (json != null || json!=""){
+                            json = $.parseJSON(json);
+                            if (data.status != 404) {
+                                alert(json.error.returnUserMessage);
+                            }
+                        }else{
+                            alert("Connection error");
+                        }
+                    }
+                },
+                success : function(data) {
+                    var json = data.data;
+                    $.each(json, function(){
+                        var status;
+                        var css;
+                        if (this.paymentStatus == 0){
+                            status = 'Unpaid';
+                            css = 'label-warning';
+						} else {
+                            status = 'Paid';
+                            css = 'label-info';
+						}
+                        $("table tbody").append(
+                            '<tr>'+
+                            '<td>'+this.orderNum+'</td>' +
+                            '<td><a href="basic_table.html#">'+this.courseName+'</a></td>' +
+                            '<td class="hidden-phone">'+this.tutorName+'</td>' +
+                            '<td>'+this.price+'</td>' +
+                            '<td><span class="label '+css+' label-mini">'+status+'</span></td>' +
+                            '<td>' +
+                            '<button class="btn btn-success btn-xs"> <i class="fa fa-check"></i> </button>' +
+                            '<button class="btn btn-primary btn-xs"> <i class="fa fa-pencil"></i> </button>' +
+                            '<button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>'+
+                            '</td>'+
+                            '</tr>');
+					});
+                }
+            });
+
+        });
+	</script>
+</body>
+</html>

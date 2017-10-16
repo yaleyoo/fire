@@ -86,9 +86,7 @@ public class CourseController {
 
     @RequestMapping(value = "/{courseId}/class/{classId}", method = RequestMethod.DELETE)
     public ResponseEntity deleteClass(@PathVariable("courseId") int courseId, @PathVariable("classId") int classId){
-        
         return classService.deleteClass(courseId, classId);
-
     }
 
 

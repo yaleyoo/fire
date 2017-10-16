@@ -54,9 +54,13 @@ public interface IUserService {
 
     ResponseEntity uploadTrainerPicture(String url, int id);
 
-    ResponseEntity getLoginInfo(String username, int usertype);
+    ResponseEntity getLoginInfo(String username, int usertype, int userId);
 
     ResponseEntity showMembersInfo(int id);
+
+    ResponseEntity showOrderListByUser(String username, int userType);
+
+    ResponseEntity showClassTimeTable(int id);
 
     ResponseEntity updateTrainerInfo(int id, String username, String password, String firstname
             , String lastname, String sex, String address,String phoneNum

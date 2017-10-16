@@ -139,6 +139,10 @@
             <i class="fa fa-th"></i>
             <span>Trainer Management</span>
           </a>
+          <ul class="sub">
+          <li><a  href="TrainerClass.html">My Class</a></li>
+          <li><a  href="TrainerAvailability.html">Availability</a></li>
+        </ul>
       </li>
     </ul>
     <!-- sidebar menu end-->
@@ -175,6 +179,22 @@
       $(function(){
         $('select.styled').customSelect();
       });
+      var tutor_id = localStorage.userId;
+      // $.ajax({
+      //   type:"GET",
+      //   url:"",
+      //   data:{
+      //     tutor_id : tutor_id
+      //   },
+      //   async: false,
+      //   dataType: "json",
+      //   error: function(data){
+
+      //   }
+      //   success: function(data){
+          
+      //   }
+      // });
     </script>
   </body>
   </html>

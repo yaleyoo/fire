@@ -6,7 +6,7 @@
   <meta name="description" content="">
   <meta name="author" content="Dashboard">
   <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-  <title>StaffManagement</title>
+  <title>TrainerManagement</title>
   <!-- Bootstrap core CSS -->
   <link href="assets/css/bootstrap.css" rel="stylesheet">
   <!--external css-->
@@ -14,7 +14,6 @@
   <!-- Custom styles for this template -->
   <link href="assets/css/style.css" rel="stylesheet">
   <link href="assets/css/style-responsive.css" rel="stylesheet">
-
 </head>
 
 <body>
@@ -105,7 +104,7 @@
       <ul class="sidebar-menu" id="nav-accordion">              
         <br><br>              
           <p class="centered"><a href="profile.html"><img src="assets/img/officerImg.jpg" class="img-circle" width="60"></a></p>
-       <h5 class="centered">Hi, Officer XXX</h5>   
+       <h5 class="centered" id="hi">Hi, Officer XXX</h5>   
        <li class="sub-menu">
         <a href="" >
           <!-- fa-bar-chart-o/ fa-th/ fa-tasks/ fa-book/ fa-cogs/ fa-dashboard -->
@@ -124,21 +123,22 @@
         </ul>
       </li>
       <li class="sub-menu">
-        <a href="" >
+        <a href="StaffManagement.html" >
           <!-- fa-bar-chart-o/ fa-th/ fa-tasks/ fa-book/ fa-cogs/ fa-dashboard -->
           <i class="fa fa-th"></i>
           <span>Staff Management</span>
         </a>
-        <ul class="sub">
-          <li><a  href="">General</a></li>
-        </ul>
       </li>
       <li class="sub-menu">
-          <a href="StaffManagement.html" >
-            <!-- fa-bar-chart-o/ fa-th/ fa-tasks/ fa-book/ fa-cogs/ fa-dashboard -->
-            <i class="fa fa-th"></i>
-            <span>Trainer Management</span>
-          </a>
+        <a href="" >
+          <!-- fa-bar-chart-o/ fa-th/ fa-tasks/ fa-book/ fa-cogs/ fa-dashboard -->
+          <i class="fa fa-th"></i>
+          <span>Trainer Management</span>
+        </a>
+        <ul class="sub">
+          <li><a  href="TrainerClass.html">My Class</a></li>
+          <li><a  href="TrainerAvailability.html">Availability</a></li>
+        </ul>
       </li>
     </ul>
     <!-- sidebar menu end-->
@@ -149,10 +149,44 @@
 <!--main content start-->
 <section id="main-content">
   <section class="wrapper site-min-height">		
-    <h3><i class="fa fa-angle-right"></i> My Class List</h3>
+    <h3><i class="fa fa-angle-right"></i> Profile</h3>
     <div class="row mt">
       <div class="col-lg-12">
-        <ul id="classList"></ul>
+      	<form action="javascript:update()">
+      		<p>
+	      	username:
+	        <input type="text" id="username"></input>
+	    	</p>
+	    	<p>
+	      	password:
+	        <input type="text" id="password"></input>
+	    	</p>
+	    	<p>
+	        firstname:
+	        <input  id="firstname"></input>
+	    	</p>
+	    	<p>
+	    	lastname:
+	        <input id="lastname"></input>
+	    	</p>
+	    	<p>
+	    	gender:
+	        <input id="sex"></input>
+	    	</p>
+	    	<p>
+	    	address:
+	        <input id="address"></input>
+	    	</p>
+	    	<p>
+	    	phone number:
+	        <input id="phoneNum"></input>
+	    	</p>
+	    	<p>
+	        description:
+	        <input id="description"></input>
+	    	</p>
+	    	<button>Submit</button>
+	    </form>
       </div>
     </div>  
   </section>
@@ -173,8 +207,83 @@
 <script>
       //custom select box
       $(function(){
+      	var userId = localStorage.userId;
+      	var username;
+      	var password;
+      	var firstname;
+      	var lastname;
+      	var sex;
+      	var address;
+      	var phoneNum;
+      	var description;
+      	$.ajax({
+      		type : "GET",
+			// url for request.
+			// invoke methods in UserController.java
+			url : "http://localhost:8080/user/trainer/"+userId,
+			// asyncronise, default is true
+			
+			dataType : "json",
+
+			headers : {
+				"Authorization" : localStorage.token
+			},
+			async : false,
+			
+            error : function(data) {
+				alert(data);
+            },
+            success : function(data) {
+				username = data.data.username;
+				password = data.data.password;
+				firstname=data.data.firstName;
+				lastname=data.data.lastName;
+				sex=data.data.sex;
+				if(sex==1)
+					sex="male";
+				else
+					sex="female";
+				address=data.data.address;
+				phoneNum=data.data.phoneNum;
+				description=data.data.desc;
+            }
+      	});
+  		$("#username").val(username);
+  		$("#password").val(password);
+  		$("#firstname").val(firstname);
+  		$("#lastname").val(lastname);
+  		$("#sex").val(sex);
+  		$("#address").val(address);
+  		$("#phoneNum").val(phoneNum);
+  		$("#description").val(description);
+  		$("#hi").text("Hi, Officer "+username);
+
         $('select.styled').customSelect();
       });
+
+      function update(){
+      	
+      	$.ajax({
+			type : "PUT",
+			// url for request.
+			// invoke methods in UserController.java
+			url : "http://localhost:8080/user/trainer",
+			data : {
+				username : $('#username').val(),
+				password : $('#password').val()
+			},
+			// asyncronise, default is true
+			async : false,
+			dataType : "json",
+            error : function(data) {
+				
+            },
+            success : function(data) {
+				
+            }
+			});
+      }
     </script>
+  
   </body>
   </html>

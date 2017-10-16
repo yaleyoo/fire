@@ -15,8 +15,13 @@
   <link href="assets/css/style.css" rel="stylesheet">
   <link href="assets/css/style-responsive.css" rel="stylesheet">
   <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-datetimepicker.min.css">
+
   <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="bootstrap-datetimepicker-master/build/build_standalone.less"></script>
+  <script type="text/javascript" src="bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.css"></script>
+
 </head>
 
 <body>
@@ -105,8 +110,8 @@
     <div id="sidebar"  class="nav-collapse ">
       <!-- sidebar menu start-->
       <ul class="sidebar-menu" id="nav-accordion">
-      <br><br>              
-          <p class="centered"><a href="profile.html"><img src="assets/img/officerImg.jpg" class="img-circle" width="60"></a></p>
+        <br><br>              
+        <p class="centered"><a href="profile.html"><img src="assets/img/officerImg.jpg" class="img-circle" width="60"></a></p>
         <h5 class="centered">Hi, Officer XXX</h5>   
         <li class="sub-menu">
           <a href="CourseManagement.html" >
@@ -136,12 +141,13 @@
   <!--sidebar end-->
   <!--main content start-->
   <section id="main-content">
-    <section class="wrapper site-min-height">		
+    <section class="wrapper site-min-height"> 	
       <div class="row mt">
         <div class="col-lg-12">
           <div class="row mt">
             <div class="col-md-12">
-              <div class="content-panel">
+              <div class="content-panel">                
+                <input type="hidden" id="dtp_input1" value="" /><br/>
                 <table class="table table-striped table-advance table-hover">
                   <h4><i class="fa fa-angle-right"></i> Course List </h4>
                   <hr>
@@ -157,7 +163,7 @@
                   <tfoot>
                     <tr>
                       <td colspan="5">
-                        <button type="button" class="btn btn-info">Add New Course</button>
+                        <button type="button" data-toggle="modal" data-target="#CourseModify" class="btn btn-info">Add New Course</button>
                       </td>
                     </tr>
                   </tfoot>
@@ -183,35 +189,85 @@
         <div class="modal-dialog" style="text-align: center;">
           <div class="modal-content">
             <div class="modal-header">
-              <h2><span class="label">Project </span></h2>
-            </div>
-            <div class="modal-body">
-              <form class="form-login" action="">
-                <input type="text" class="form-control" placeholder="Officer ID" autofocus>
-                <br>
-                <input type="password" class="form-control" placeholder="Password">
-                <label class="checkbox">
-                  <span class="pull-right">
-                    <a data-toggle="modal" href="login.html#myModal"> Forgot Password?</a>
-                  </span>
-                </label>
-                <button class="btn btn-theme btn-block" href="index.html" type="submit"><i class="fa fa-lock"></i> SIGN IN</button> 
-              </form>
-            </div>  
-            <div class="modal-footer">
-              <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
-              <button class="btn btn-theme" type="button">Submit</button>
-            </div>            
+              <button type="button" class="close" data-dismiss="modal" 
+              aria-hidden="true">×
+            </button>
+            <h2 class="modal-title">Course Details</h2>
           </div>
-        </div>  
-      </div>
-    </section>
-  </section><!-- /MAIN CONTENT -->
-  <!--main content end-->
+          <div class="modal-body">
+            <!-- BASIC FORM ELELEMNTS -->
+            <div class="row mt">
+              <div class="col-lg-12">
+                <div class="form-panel">
+                  <form class="form-horizontal style-form" method="get">
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Course ID</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Course Name</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control">
+                        <span class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Course Price</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control round-form">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Course Trainer</label>   
+                      <div class="col-sm-10">             
+                        <select>
+                          <optgroup label="Trainers"></optgroup>
+                          <option value="trainer1">Trainer 1</option>
+                          <option value="trainer2">Trainer 2</option>
+                        </select>
+                      </div>    
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Class Number</label>   
+                      <div class="col-sm-10">  
+                      <input id="class_num" type="text" onblur="javascript:refresh()">    
+                      </div>    
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Time</label>  
+                      <br>              
+                      <ul id="class_list">
+                      	<li>
+	                      <div class="input-group col-sm-10 date form_datetime" data-date="2017-10-18T05:25:07Z" data-date-format="dd MM yyyy - hh:ii p" data-link-field="dtp_input1">
+	                        <input class="form-control" size="16" type="text" value="" readonly>
+	                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+	                        <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+	                      </div>
+	                 	 </li>
+                  	  </ul>
+                    </div>
+                  </form>
+                </div>
+              </div><!-- col-lg-12-->       
+            </div><!-- /row -->
+          </div>  
+          <div class="modal-footer">
+            <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+            <button class="btn btn-theme" type="button">Submit</button>
+          </div>            
+        </div>
+      </div>  
+    </div>
+  </section>
+</section><!-- /MAIN CONTENT -->
+<!--main content end-->
 </section>
 <!-- js placed at the end of the document so the pages load faster -->
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/jquery-1.8.3.min.js"></script>
 <script src="assets/js/jquery-ui-1.9.2.custom.min.js"></script>
 <script src="assets/js/jquery.ui.touch-punch.min.js"></script>
 <script class="include" type="text/javascript" src="assets/js/jquery.dcjqaccordion.2.7.js"></script>
@@ -221,10 +277,91 @@
 <script src="assets/js/common-scripts.js"></script>
 <!--script for this page-->
 <script>
-      //custom select box
-      $(function(){
-        $('select.styled').customSelect();
+    //custom select box
+    $(function(){
+      $('select.styled').customSelect();
+    });
+  </script>
+
+  <script>
+    $(function () { $('#myModal').modal({
+      keyboard: true
+    })});
+  </script>
+
+  <script type="text/javascript" src="assets/js/bootstrap-datetimepicker.fr.js"></script>
+  <script type="text/javascript" src="assets/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+  <script type="text/javascript">
+    $('.form_datetime').datetimepicker({
+        //language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 1
       });
-    </script>
-  </body>
-  </html>
+    $('.form_date').datetimepicker({
+      language:  'fr',
+      weekStart: 1,
+      todayBtn:  1,
+      autoclose: 1,
+      todayHighlight: 1,
+      startView: 2,
+      minView: 2,
+      forceParse: 0
+    });
+    $('.form_time').datetimepicker({
+      language:  'fr',
+      weekStart: 1,
+      todayBtn:  1,
+      autoclose: 1,
+      todayHighlight: 1,
+      startView: 1,
+      minView: 0,
+      maxView: 1,
+      forceParse: 0
+    });
+
+    function refresh(){
+    	var num = $('#class_num').val();
+
+    	for(int i=0;i<num;i++){
+    		$('#class_list').append("<li><div class='input-group col-sm-10 date form_datetime' data-date='2017-10-18T05:25:07Z' data-date-format='dd MM yyyy - hh:ii p' data-link-field='dtp_input1'><input class='form-control' size='16' type='text' value='' readonly><span class='input-group-addon'><span class='glyphicon glyphicon-remove'></span></span><span class='input-group-addon'><span class='glyphicon glyphicon-th'></span></span></div><br></li>");
+    		$('.form_datetime').datetimepicker({
+          //language:  'fr',
+          weekStart: 1,
+          todayBtn:  1,
+          autoclose: 1,
+          todayHighlight: 1,
+          startView: 2,
+          forceParse: 0,
+          showMeridian: 1
+        });
+      $('.form_date').datetimepicker({
+        language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+      });
+      $('.form_time').datetimepicker({
+        language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 1,
+        minView: 0,
+        maxView: 1,
+        forceParse: 0
+      });
+    	}
+    }
+  </script>
+</body>
+</html>

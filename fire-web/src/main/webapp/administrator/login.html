@@ -14,23 +14,69 @@
     <!-- Custom styles for this template -->
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="assets/css/style-responsive.css" rel="stylesheet">
+     <script type="text/javascript">
+     	function login() {
+     		$.ajax({
+			type : "POST",
+			// url for request.
+			// invoke methods in UserController.java
+			url : "http://localhost:8080/user/token",
+			data : {
+				username : $('#username').val(),
+				password : $('#password').val(),
+				userType : $('input:radio:checked').val()
+			},
+			// asyncronise, default is true
+			async : false,
+			dataType : "json",
+            error : function(data) {
+				var json = data.responseText;
+                if (json != null || json!=""){
+                	json = $.parseJSON(json);
+                    alert(json.error.returnUserMessage);
+                }else{
+                    alert("Connection error");
+                }
+            },
+            success : function(data) {
+				//0-individual 1-organization
+				localStorage.setItem("token",data.data.token);
+				localStorage.setItem("userType",data.data.userType);
+				localStorage.setItem("userId",data.data.userId);
+				var select = $('input:radio:checked').val();
+				location.href="index.html";
+                // if( select == 1){
+                //     location.href="/jsp/individualUser/individualHome.html";
+                // }else{
+                //     location.href="/jsp/organizationUser/organizationHome.html";
+                // }
+            }
+			});
+    	}
+     </script>
   </head>
 
   <body>
 	  <div id="login-page">
 	  	<div class="container">	  	
-		      <form class="form-login" action="index.html">
+		      <form class="form-login" action="javascript:login()">
 		        <h2 class="form-login-heading">sign in now</h2>
 		        <div class="login-wrap">
-		            <input type="text" class="form-control" placeholder="Officer ID" autofocus>
+		            <input id="username" type="text" class="form-control" placeholder="Officer ID" autofocus>
 		            <br>
-		            <input type="password" class="form-control" placeholder="Password">
+		            <input id="password" type="password" class="form-control" placeholder="Password">
 		            <label class="checkbox">
 		                <span class="pull-right">
 		                    <a data-toggle="modal" href="login.html#myModal"> Forgot Password?</a>
 		                </span>
 		            </label>
-		            <button class="btn btn-theme btn-block" href="index.html" type="submit"><i class="fa fa-lock"></i> SIGN IN</button>	
+		            <label>
+		            	<input name="userType" id="userType1" type="radio" checked value="3">Trainer
+		            </label> 
+		            <label>
+						<input name="userType" id="userType2" type="radio" value="4">Staff
+					</label>
+		            <button class="btn btn-theme btn-block" type="submit"><i class="fa fa-lock"></i> SIGN IN</button>	
 		        </div>		
 		          <!-- Modal -->
 		          <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
@@ -44,9 +90,10 @@
 		                          <p>Enter your e-mail address below to reset your password.</p>
 		                          <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
 		                      </div>
+
 		                      <div class="modal-footer">
 		                          <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
-		                          <button class="btn btn-theme" type="button">Submit</button>
+		                          <input type="submit" id="submit" class="btn btn-theme">Submit</input>
 		                      </div>
 		                  </div>
 		              </div>
@@ -63,6 +110,8 @@
     <script type="text/javascript" src="assets/js/jquery.backstretch.min.js"></script>
     <script>
         $.backstretch("assets/img/login-bg.jpg", {speed: 500});
+        
+        
     </script>
   </body>
 </html>

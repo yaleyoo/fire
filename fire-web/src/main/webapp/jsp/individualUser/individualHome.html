@@ -599,16 +599,18 @@
                         $("table tbody").append(
                             '<tr>'+
                             '<td>'+this.orderNum+'</td>' +
-                            '<td><a href="basic_table.html#">'+this.courseName+'</a></td>' +
+                            '<td><a href="'+'/jsp/class.html?course_id='+this.courseId+'&&class_id='+this.classId+'">'+this.courseName+'</a></td>' +
                             '<td class="hidden-phone">'+this.tutorName+'</td>' +
                             '<td>'+this.price+'</td>' +
                             '<td><span class="label '+css+' label-mini">'+status+'</span></td>' +
                             '<td>' +
-                            '<button class="btn btn-success btn-xs"> <i class="fa fa-check"></i> </button>' +
+                            '<a class="btn btn-success btn-xs" href="'+"/jsp/class.html?course_id="+this.courseId+"&&class_id="+this.classId+'"> <i class="fa fa-check"></i> </a>' +
                             '<button class="btn btn-primary btn-xs"> <i class="fa fa-pencil"></i> </button>' +
                             '<button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>'+
                             '</td>'+
                             '</tr>');
+
+
 					});
                 }
             });

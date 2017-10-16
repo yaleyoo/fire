@@ -12,7 +12,11 @@ public interface OrderMapper {
 	
 	Order selectById(@Param("id")int id);
 
+	Order selectByOrderNum(@Param("orderNum") String orderNum);
+
 	boolean insert(Order order);
+
+	boolean updatePaymentStatus(@Param("orderNum") String orderNum);
 
 	List<Order> selectByUserNameAndUserType(@Param("username")String username,@Param("usertype")int usertype);
 }

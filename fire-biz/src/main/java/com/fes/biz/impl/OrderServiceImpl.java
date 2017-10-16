@@ -1,6 +1,7 @@
 package com.fes.biz.impl;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 import com.fes.biz.service.IUserService;
 import com.fes.common.constants.UserType;
@@ -11,6 +12,7 @@ import com.fes.dao.domain.UserOrganization;
 import com.fes.dao.mappers.*;
 import com.paypal.api.payments.Payment;
 import com.paypal.api.payments.PaymentExecution;
+import com.paypal.api.payments.Transaction;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 import org.springframework.http.HttpStatus;
@@ -21,7 +23,11 @@ import com.fes.common.domain.SimpleHttpResult;
 import com.fes.dao.domain.Order;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class OrderServiceImpl implements IOrderService{
@@ -72,7 +78,7 @@ public class OrderServiceImpl implements IOrderService{
 
 	@Override
 	public ResponseEntity createOrder(int classId, int peopleNUm, String username, int usertype) {
-		SimpleHttpResult httpResult = new SimpleHttpResult();
+		SimpleHttpResult<Map<String, String>> httpResult = new SimpleHttpResult();
 		Order order = new Order();
 		ClassPO classPO = classMapper.getClassById(classId);
 		if (classPO == null){
@@ -93,6 +99,9 @@ public class OrderServiceImpl implements IOrderService{
 		order.setUsername(username);
 		order.setUsertype(usertype);
 		if (customerOrderMapper.insert(order)){
+			Map<String, String> result = new HashMap<>();
+			result.put("orderNum", orderNum);
+			httpResult.setData(result);
 			return new ResponseEntity(httpResult, HttpStatus.CREATED);
 		}
 		httpResult.setSuccess(false, "Service unavailable!");
@@ -100,7 +109,7 @@ public class OrderServiceImpl implements IOrderService{
 	}
 
 	@Override
-	public ResponseEntity finishPayment(String paymentId, String PayerID) throws PayPalRESTException {
+	public void finishPayment(String paymentId, String PayerID, HttpServletResponse response) throws PayPalRESTException, IOException {
 		SimpleHttpResult httpResult = new SimpleHttpResult();
 		Payment payment = new Payment();
 		payment.setId(paymentId);
@@ -108,12 +117,32 @@ public class OrderServiceImpl implements IOrderService{
 		PaymentExecution paymentExecution = new PaymentExecution();
 		paymentExecution.setPayerId(PayerID);
 		Payment createdPayment = payment.execute(apiContext, paymentExecution);
-		System.out.println(createdPayment);
-		return new ResponseEntity(httpResult, HttpStatus.OK);
+		List<Transaction> transactions = createdPayment.getTransactions();
+		String orderNum = transactions.get(0).getReferenceId();
+		if (!customerOrderMapper.updatePaymentStatus(orderNum)){
+			response.sendRedirect("http://localhost:8080/jsp/pay-error.html");
+		}else{
+			response.sendRedirect("http://localhost:8080/jsp/pay-success.html");
+		}
 	}
 
 	@Override
-	public String startPayment(int orderId) throws PayPalRESTException {
-		return paypalService.getPayUrl(orderId);
+	public ResponseEntity startPayment(String orderNum, String username, int userType) throws PayPalRESTException {
+		SimpleHttpResult<Map<String, String>> httpResult = new SimpleHttpResult();
+		Order order = customerOrderMapper.selectByOrderNum(orderNum);
+		Map<String, String> result = new HashMap<>();
+		httpResult.setData(result);
+		if (order == null){
+			return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
+		}
+		if (!username.equals(order.getUsername()) || order.getUsertype() != userType){
+			return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
+		}
+		String returnUrl = paypalService.getPayUrl(order.getPrice(), orderNum);
+		if (returnUrl == null){
+			returnUrl = "http://localhost:8080/jsp/pay-error.html";
+		}
+		result.put("url", returnUrl);
+		return new ResponseEntity(httpResult, HttpStatus.OK);
 	}
 }

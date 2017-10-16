@@ -6,7 +6,7 @@
   <meta name="description" content="">
   <meta name="author" content="Dashboard">
   <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-  <title>CourseManagement</title>
+  <title>ClassManagement</title>
   <!-- Bootstrap core CSS -->
   <link href="assets/css/bootstrap.css" rel="stylesheet">
   <!--external css-->
@@ -117,11 +117,11 @@
           <a href="CourseManagement.html" >
             <!-- fa-bar-chart-o/ fa-th/ fa-tasks/ fa-book/ fa-cogs/ fa-dashboard -->
             <i class="fa fa-tasks"></i>
-            <span>Course Management</span>
+            <span>Class Management</span>
             
           </a>
           <ul class="sub">
-	         <li><a  href="CourseManagement.html">Course Management</a></li>
+	           <li><a  href="CourseManagement.html">Course Management</a></li>
             <li><a  href="ClassManagement.html">Class Management</a></li>
             <li><a  href="ClassItemManagement.html">Class Item Management</a></li>
         	</ul>
@@ -155,13 +155,16 @@
               <div class="content-panel">                
                 <input type="hidden" id="dtp_input1" value="" /><br/>
                 <table id="table1" class="table table-striped table-advance table-hover">
-                  <h4><i class="fa fa-angle-right"></i> Course List </h4>
+                  <h4><i class="fa fa-angle-right"></i> Class List </h4>
                   <hr>
                   <thead>
                     <tr>
-                      <th><i class="fa fa-bullhorn"></i> Course Name</th>
-                      <th class="hidden-phone"><i class="fa fa-question-circle"></i> Duration</th>
-                      <th><i class="fa fa-bookmark"></i> Course Price</th>
+                      <th><i class="fa fa-bullhorn"></i> Course ID</th>
+                      <th><i class="fa fa-bullhorn"></i> Class Name</th>
+                      <th><i class="fa fa-bullhorn"></i> Tutor</th>
+                      <th class="hidden-phone"><i class="fa fa-question-circle"></i> Start date</th>
+                      <th><i class="fa fa-bookmark"></i> Registered Students</th>
+                      <th><i class=" fa fa-edit"></i> Contact Detail</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -197,27 +200,39 @@
                   <form class="form-horizontal style-form" method="get">
                     
                     <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Course Name</label>
+                      <label class="col-sm-2 col-sm-2 control-label">Course ID</label>
                       <div class="col-sm-10">
                         <input type="text" class="form-control">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Duration</label>
+                      <label class="col-sm-2 col-sm-2 control-label">Class Name</label>
                       <div class="col-sm-10">
                         <input type="text" class="form-control">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Course Price</label>
+                      <label class="col-sm-2 col-sm-2 control-label">Tutor</label>
                       <div class="col-sm-10">
                         <input type="text" class="form-control round-form">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Course Description</label>
+                      <label class="col-sm-2 col-sm-2 control-label">Start Date</label>
                       <div class="col-sm-10">
                         <input type="text" class="form-control round-form">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Registered Students</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">contact Detail</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control">
                       </div>
                     </div>
                   </form>
@@ -250,14 +265,18 @@
 <!--script for this page-->
 <script>
     //custom select box
-    var courseName="course1";
-    var duration="500";
-    var coursePrice="$500";
+    var courseID=1;
+    var calssName="Class1";
+    var tutor = "gyy";
+    var startDate = "1933-03-44";
+    var students = 13;
+    var contact = "130044223";
+
     $(function(){
       // $('select.styled').customSelect();
       for(var i=0;i<3;i++){
-      $('#table1').find('tbody').append("<tr><td>"+courseName+"</td><td class=\"hidden-phone\">"+duration+"</td><td>"+coursePrice+"</td>"+
-                      "<td>"+
+      $('#table1').find('tbody').append("<tr><td>"+courseID+"</a></td><td class=\"hidden-phone\">"+calssName+"</td><td>"+tutor+" </td>"+
+                      "<td>"+startDate+"</td><td>"+students+"</td>"+"<td>"+contact+"</td><td>"+
                         "<button class=\"btn btn-primary btn-xs\" data-toggle=\"modal\" data-target=\"#CourseModify\"><i class=\"fa fa-pencil\"></i></button>"+
                         "<button class=\"btn btn-danger btn-xs\"><i class=\"fa fa-trash-o \"></i></button></td></tr>");
   		}	

@@ -158,12 +158,10 @@ public class UserController {
 
     @Authorization(authority = UserType.TRAINER)
     @RequestMapping(value = "/trainer", method = RequestMethod.PUT)
-    public ResponseEntity modifyTrainerProfile(String username, String password){
+    public ResponseEntity modifyTrainerProfile(int id, String username, String password, String firstname, String lastname
+                                                    ,String sex,String address, String phoneNum, String desc){
 
-        String username2 = username;
-        String password2 = password;
-        return new ResponseEntity(new SimpleHttpResult<>(), HttpStatus.OK);
-       // return userService.updateTrainerInfo(id,username,password,firstname,lastname,sex,address,phoneNum,desc);
+        return userService.updateTrainerInfo(id,username,password,firstname,lastname,sex,address,phoneNum,desc);
     }
 
     @Authorization(authority = UserType.TRAINER)

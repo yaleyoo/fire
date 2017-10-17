@@ -5,7 +5,7 @@
         <result column="id" property="id"/>
         <result column="course_name" property="courseName"/>
         <result column="course_desc" property="courseDesc"/>
-        <result column="course_desc_brief" property="courseDescBrief"/>
+        <!--<result column="course_desc_brief" property="courseDescBrief"/>-->
         <result column="course_type" property="courseType"/>
         <result column="course_price" property="coursePrice"/>
         <result column="course_icon" property="courseIcon"/>
@@ -15,13 +15,20 @@
         <result column="duration" property="duration"/>
     </resultMap>
 
+    <!--
     <sql id="baseColumns">
-        id,course_name,course_desc,course_type,course_price,course_icon,duration,course_desc_brief,picture1,picture2,picture3
+        id,course_name,course_desc,course_type,course_desc_brief,course_price,course_icon,duration,picture1,picture2,picture3
+    </sql>-->
+    <sql id="baseColumns">
+        id,course_name,course_desc,course_type,course_price,course_icon,duration,picture1,picture2,picture3
     </sql>
-
-    <insert id="insertCourse" parameterType="com.fes.dao.domain.Course">
+    <!--<insert id="insertCourse" parameterType="com.fes.dao.domain.Course">
         INSERT INTO course(course_name,course_desc,course_type,course_price,course_icon,duration,course_desc_brief,picture1,picture2,picture3)
         VALUES(#{courseName},#{courseDesc},#{courseType},#{coursePrice},#{courseIcon},#{duration},#{course_desc_brief},#{picture1},{picture2},{picture3})
+    </insert>-->
+    <insert id="insertCourse" parameterType="com.fes.dao.domain.Course">
+        INSERT INTO course(course_name,course_desc,course_type,course_price,course_icon,duration,picture1,picture2,picture3)
+        VALUES(#{courseName},#{courseDesc},#{courseType},#{coursePrice},#{courseIcon},#{duration},#{picture1},#{picture2},#{picture3})
     </insert>
 
     <select id="selectCourseById" resultMap="courseResult">
@@ -39,7 +46,7 @@
     <update id="updateCourse" parameterType="com.fes.dao.domain.Course">
         update course set course_name=#{courseName},course_desc=#{courseDesc},course_type=#{courseType},
         course_price=#{coursePrice},duration=#{duration} ,course_icon=#{courseIcon},
-        course_desc_brief=#{courseDescBrief},picture1=#{picture1},picture2={picture2},picture3={picture3} where id=#{id}
+        course_desc_brief=#{courseDescBrief},picture1=#{picture1},picture2=#{picture2},picture3=#{picture3} where id=#{id}
     </update>
 
     <delete id="deleteCourse">

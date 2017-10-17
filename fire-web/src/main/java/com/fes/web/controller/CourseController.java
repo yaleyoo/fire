@@ -46,6 +46,9 @@ public class CourseController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity addNewCourse(Course course){
+        course.getCourseName();
+        course.getCourseDesc();
+
         return courseService.addCourse(course);
     }
 
@@ -62,6 +65,11 @@ public class CourseController {
     @RequestMapping(value = "/{id}/class", method = RequestMethod.GET)
     public ResponseEntity getClassesByCourseId(@PathVariable("id") int id){
         return classService.getClassByCourseId(id);
+    }
+
+    @RequestMapping(value = "/class", method = RequestMethod.GET)
+    public ResponseEntity getAllClasses(){
+        return classService.getAll();
     }
 
     
@@ -81,6 +89,7 @@ public class CourseController {
 
     @RequestMapping(value = "/{courseId}/class/{classId}", method = RequestMethod.PUT)
     public ResponseEntity modifyClass(@PathVariable("courseId") int courseId, @PathVariable("classId") int classId, @Valid ClassPO classPO){
+
     		return classService.modifyClass(courseId, classId, classPO);
     }
 

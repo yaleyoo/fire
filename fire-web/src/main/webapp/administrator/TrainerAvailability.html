@@ -109,9 +109,9 @@
       <ul class="sidebar-menu" id="nav-accordion">              
         <br><br>              
           <p class="centered"><a href="profile.html"><img src="assets/img/officerImg.jpg" class="img-circle" width="60"></a></p>
-       <h5 class="centered">Hi, Officer XXX</h5>   
+       <h5 class="centered">Hi, Officer Administrator</h5>   
        <li class="sub-menu">
-        <a href="" >
+        <a href="CourseManagement.html" >
           <!-- fa-bar-chart-o/ fa-th/ fa-tasks/ fa-book/ fa-cogs/ fa-dashboard -->
           <i class="fa fa-tasks"></i>
           <span>Course Management</span>
@@ -144,6 +144,7 @@
             <span>Trainer Management</span>
           </a>
           <ul class="sub">
+          <li><a  href="TrainerManagement.html">My Profile</a></li>
           <li><a  href="TrainerClass.html">My Class</a></li>
           <li><a  href="TrainerAvailability.html">Availability</a></li>
         </ul>
@@ -187,16 +188,46 @@
 <!--script for this page-->
   <script>
       //custom select box
+      var availability="";
       $(function(){
-        $('select.styled').customSelect();
-        
+        $.ajax({
+          type : "GET",
+          // url for request.
+          // invoke methods in UserController.java
+          url : "http://localhost:8080/user/trainer/"+localStorage.userId,
+          // asyncronise, default is true
+          
+          dataType : "json",
+
+          headers : {
+            "Authorization" : localStorage.token
+          },
+          async : false,
+          error: function(data){
+            alert("service wrong");
+          },
+          success: function(data){
+            availability = data.data.availability;
+          }
+        });
+        if(availability!=""){
+          var array = availability.split(",");
+          for(var i=1;i<array.length-1;i++){
+            add();
+          }
+          var temp=0;
+          $('#time_list li input').each(function(){
+            $(this).val(array[temp]);
+          temp++;
+          });
+        }
+
       });
     </script>
     <script type="text/javascript" src="assets/js/bootstrap-datetimepicker.fr.js"></script>
   <script type="text/javascript" src="assets/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
   <script type="text/javascript">
     
-
     $('.form_datetime').datetimepicker({
         //language:  'fr',
         weekStart: 1,
@@ -265,7 +296,7 @@
     }
 
     function submit(){
-      var availability;
+      var availability="";
       $('#time_list li input').each(function(){
         availability = availability+$(this).val()+",";
       });
@@ -279,17 +310,18 @@
             "Authorization" : localStorage.token
           },
           data : {
-            id : localStorage.uId,
+            id : localStorage.userId,
             availability : availability
           },
           // asyncronise, default is true
           async : false,
           dataType : "json",
                 error : function(data) {
-                  location.href="TrainerManagement.html";
+                  alert("service error!");
                 },
                 success : function(data) {
-                  location.href="TrainerManagement.html";
+                  alert("update successfully!");
+                  location.href="TrainerAvailability.html";
                 }
       });
     }

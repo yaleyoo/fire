@@ -112,7 +112,7 @@
       <ul class="sidebar-menu" id="nav-accordion">
         <br><br>              
         <p class="centered"><a href="profile.html"><img src="assets/img/officerImg.jpg" class="img-circle" width="60"></a></p>
-        <h5 class="centered">Hi, Officer XXX</h5>   
+        <h5 class="centered">Hi, Officer Administrator</h5>   
         <li class="sub-menu">
           <a href="CourseManagement.html" >
             <!-- fa-bar-chart-o/ fa-th/ fa-tasks/ fa-book/ fa-cogs/ fa-dashboard -->
@@ -140,6 +140,13 @@
             <span>Staff Management</span>
           </a>
         </li>
+        <li class="sub-menu">
+          <a href="TrainerManagement.html">
+            <!-- fa-bar-chart-o/ fa-th/ fa-tasks/ fa-book/ fa-cogs/ fa-dashboard -->
+            <i class="fa fa-th"></i>
+            <span>Trainer Management</span>
+          </a>
+        </li>
       </ul>
       <!-- sidebar menu end-->
     </div>
@@ -159,8 +166,8 @@
                   <hr>
                   <thead>
                     <tr>
+                      <th><i class="fa fa-bullhorn"></i> Class ID</th>
                       <th><i class="fa fa-bullhorn"></i> Course ID</th>
-                      <th><i class="fa fa-bullhorn"></i> Class Name</th>
                       <th><i class="fa fa-bullhorn"></i> Tutor</th>
                       <th class="hidden-phone"><i class="fa fa-question-circle"></i> Start date</th>
                       <th><i class="fa fa-bookmark"></i> Registered Students</th>
@@ -190,7 +197,7 @@
               <button type="button" class="close" data-dismiss="modal" 
               aria-hidden="true">
             </button>
-            <h2 class="modal-title">Course Details</h2>
+            <h2 class="modal-title">Class Details</h2>
           </div>
           <div class="modal-body">
             <!-- BASIC FORM ELELEMNTS -->
@@ -198,41 +205,43 @@
               <div class="col-lg-12">
                 <div class="form-panel">
                   <form class="form-horizontal style-form" method="get">
+
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Class ID</label>
+                      <div class="col-sm-10">
+                        <input type="text" disabled="true" id="classID" class="form-control">
+                      </div>
+                    </div>
                     
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Course ID</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control">
+                        <input type="text" id="courseID" class="form-control">
                       </div>
                     </div>
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Class Name</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control">
-                      </div>
-                    </div>
+                    
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Tutor</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control round-form">
+                        <input type="text" id="tutor" class="form-control round-form">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Start Date</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control round-form">
+                        <input type="text" id="startDate" class="form-control round-form">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Registered Students</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control">
+                        <input type="text" id="students" class="form-control">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">contact Detail</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control">
+                        <input type="text" id="contact" class="form-control">
                       </div>
                     </div>
                   </form>
@@ -241,8 +250,8 @@
             </div><!-- /row -->
           </div>  
           <div class="modal-footer">
-            <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
-            <button class="btn btn-theme" type="button">Submit</button>
+            <button data-dismiss="modal" class="btn btn-default" type="button" id="cancel_bt" onclick="javascript:cancel()">Cancel</button>
+            <button class="btn btn-theme" type="button" onclick="javascript:submit()">Submit</button>
           </div>            
         </div>
       </div>  
@@ -264,23 +273,142 @@
 <script src="assets/js/common-scripts.js"></script>
 <!--script for this page-->
 <script>
-    //custom select box
-    var courseID=1;
-    var calssName="Class1";
-    var tutor = "gyy";
-    var startDate = "1933-03-44";
-    var students = 13;
-    var contact = "130044223";
+    var json;
+    var submitType="add";
+    //ajax
+    // var data='[{"courseID":1,"className":"class1","tutor":"gyy","startDate":"2017-10-10","students":20,"contact":"403542266"},{"courseID":2,"className":"class2","tutor":"gyy","startDate":"2017-10-11","students":22,"contact":"403542266"}]';
+    // json = $.parseJSON(data);
+    //end of ajax
+    
 
     $(function(){
+      $.ajax({
+          type : "GET",
+          // url for request.
+          // invoke methods in UserController.java
+          url : "http://localhost:8080/course/class/",
+          // asyncronise, default is true
+          
+          dataType : "json",
+
+          headers : {
+            "Authorization" : localStorage.token
+          },
+          async : false,
+          error: function(data){
+            alert("service wrong");
+          },
+          success: function(data){
+            json = data.data;
+          }
+        });
       // $('select.styled').customSelect();
-      for(var i=0;i<3;i++){
-      $('#table1').find('tbody').append("<tr><td>"+courseID+"</a></td><td class=\"hidden-phone\">"+calssName+"</td><td>"+tutor+" </td>"+
+      for(var i=0;i<json.length;i++){
+        var classID=json[i].id;
+        var courseID=json[i].courseId;
+        var tutor = json[i].tutorName;
+        var startDate = json[i].classStartTime;
+        var students = json[i].registeredNum;
+        var contact = json[i].contactDetail;
+      $('#table1').find('tbody').append("<tr><td>"+classID+"</td><td>"+courseID+"</td><td>"+tutor+" </td>"+
                       "<td>"+startDate+"</td><td>"+students+"</td>"+"<td>"+contact+"</td><td>"+
-                        "<button class=\"btn btn-primary btn-xs\" data-toggle=\"modal\" data-target=\"#CourseModify\"><i class=\"fa fa-pencil\"></i></button>"+
-                        "<button class=\"btn btn-danger btn-xs\"><i class=\"fa fa-trash-o \"></i></button></td></tr>");
+                        "<button class=\"btn btn-primary btn-xs\" data-toggle=\"modal\" data-target=\"#CourseModify\" onclick=\"modify("+i+")\"><i class=\"fa fa-pencil\"></i></button>"+
+                        "<button class=\"btn btn-danger btn-xs\"><i class=\"fa fa-trash-o \" onclick=\"deleteItem("+i+")\"></i></button></td></tr>");
   		}	
     });
+
+    function cancel(){
+      $('#classID').val("");
+      $('#courseID').val("");
+      $('#className').val("");
+      $('#tutor').val("");
+      $('#startDate').val("");
+      $('#students').val("");
+      $('#contact').val("");
+      submitType="add";
+    }
+
+    function submit(){
+      if(submitType=="add"){
+        $.ajax({
+          type : "POST",
+          // url for request.
+          // invoke methods in UserController.java
+          url : "http://localhost:8080/course/",
+          // asyncronise, default is true
+          
+          dataType : "json",
+
+          headers : {
+            "Authorization" : localStorage.token
+          },
+          data:{
+            courseName:$('#courseName').val(),
+            courseDesc:$('#course_description').val(),
+            duration:$('#duration').val(),
+            coursePrice:$('#course_price').val()
+          },
+          async : false,
+          error: function(data){
+            alert("service wrong");
+          },
+          success: function(data){
+
+            $('#cancel_bt').click();
+            alert("create successfully!");
+            location.href="CourseManagement.html";
+          }
+        });
+      }
+      else if(submitType=="update"){
+        var courseId = $('#courseID').val();
+        var classId = $('#classID').val();
+        $.ajax({
+          type : "PUT",
+          // url for request.
+          // invoke methods in UserController.java
+          url : "http://localhost:8080/course/"+courseId+"/class/"+classId,
+          // asyncronise, default is true
+          
+          dataType : "json",
+
+          headers : {
+            "Authorization" : localStorage.token
+          },
+          data:{
+            id:1,
+            tutorName:('#tutor').val(),
+            registeredNum:$('#students').val()
+          },
+          async : false,
+          error: function(data){
+            alert("service wrong");
+          },
+          success: function(data){
+
+            $('#cancel_bt').click();
+            alert("modify successfully!");
+            location.href="ClassManagement.html";
+          }
+        });
+      }
+      else{
+        alert("wrong");
+      }
+    }
+    function modify(index){
+      $('#classID').val(json[index].id);
+      $('#courseID').val(json[index].courseId);
+      $('#tutor').val(json[index].tutorName);
+      $('#startDate').val(json[index].classStartTime);
+      $('#students').val(json[index].registeredNum);
+      $('#contact').val(json[index].contactDetail);
+      submitType = "update";
+    }
+
+    function deleteItem(index){
+      alert(index);
+    }
   </script>
 
 

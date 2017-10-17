@@ -104,16 +104,16 @@
       <ul class="sidebar-menu" id="nav-accordion">              
         <br><br>              
           <p class="centered"><a href="profile.html"><img src="assets/img/officerImg.jpg" class="img-circle" width="60"></a></p>
-       <h5 class="centered" id="hi">Hi, Officer XXX</h5>   
+       <h5 class="centered" id="hi">Hi, Officer Administrator</h5>   
        <li class="sub-menu">
-        <a href="" >
+        <a href="CourseManagement.html" >
           <!-- fa-bar-chart-o/ fa-th/ fa-tasks/ fa-book/ fa-cogs/ fa-dashboard -->
           <i class="fa fa-tasks"></i>
           <span>Course Management</span>
         </a>
       </li>
       <li class="sub-menu">
-        <a href="" >
+        <a href="#" >
           <!-- fa-bar-chart-o/ fa-th/ fa-tasks/ fa-book/ fa-cogs/ fa-dashboard -->
           <i class="fa fa-bar-chart-o"></i>
           <span>Customer Management</span>
@@ -130,7 +130,7 @@
         </a>
       </li>
       <li class="sub-menu">
-        <a href="" >
+        <a href="TrainerManagement.html" >
           <!-- fa-bar-chart-o/ fa-th/ fa-tasks/ fa-book/ fa-cogs/ fa-dashboard -->
           <i class="fa fa-th"></i>
           <span>Trainer Management</span>
@@ -231,7 +231,7 @@
 			async : false,
 			
             error : function(data) {
-				alert(data);
+				alert("service wrong!");
             },
             success : function(data) {
 				username = data.data.username;
@@ -256,7 +256,6 @@
   		$("#address").val(address);
   		$("#phoneNum").val(phoneNum);
   		$("#description").val(description);
-  		$("#hi").text("Hi, Officer "+username);
 
         $('select.styled').customSelect();
       });
@@ -272,17 +271,24 @@
         "Authorization" : localStorage.token
       },
 			data : {
+        id : localStorage.userId,
 				username : $('#username').val(),
-				password : $('#password').val()
+				password : $('#password').val(),
+        firstname : $('#firstname').val(),
+        lastname: $('#lastname').val(),
+        sex: $('#sex').val(),
+        address: $('#address').val(),
+        phoneNum:$('#phoneNum').val(),
+        desc: $('#description').val()
 			},
 			// asyncronise, default is true
 			async : false,
 			dataType : "json",
             error : function(data) {
-				
+				      alert("service error.");
             },
             success : function(data) {
-				
+				      alert("update successfully!");
             }
 			});
       }

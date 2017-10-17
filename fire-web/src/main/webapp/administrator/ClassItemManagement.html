@@ -112,7 +112,7 @@
       <ul class="sidebar-menu" id="nav-accordion">
         <br><br>              
         <p class="centered"><a href="profile.html"><img src="assets/img/officerImg.jpg" class="img-circle" width="60"></a></p>
-        <h5 class="centered">Hi, Officer XXX</h5>   
+        <h5 class="centered">Hi, Officer Administrator</h5>   
         <li class="sub-menu">
           <a href="CourseManagement.html" >
             <!-- fa-bar-chart-o/ fa-th/ fa-tasks/ fa-book/ fa-cogs/ fa-dashboard -->
@@ -138,6 +138,13 @@
             <!-- fa-bar-chart-o/ fa-th/ fa-tasks/ fa-book/ fa-cogs/ fa-dashboard -->
             <i class="fa fa-th"></i>
             <span>Staff Management</span>
+          </a>
+        </li>
+        <li class="sub-menu">
+          <a href="TrainerManagement.html">
+            <!-- fa-bar-chart-o/ fa-th/ fa-tasks/ fa-book/ fa-cogs/ fa-dashboard -->
+            <i class="fa fa-th"></i>
+            <span>Trainer Management</span>
           </a>
         </li>
       </ul>
@@ -190,7 +197,7 @@
               <button type="button" class="close" data-dismiss="modal" 
               aria-hidden="true">
             </button>
-            <h2 class="modal-title">Course Details</h2>
+            <h2 class="modal-title">Class Items Details</h2>
           </div>
           <div class="modal-body">
             <!-- BASIC FORM ELELEMNTS -->
@@ -202,37 +209,37 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Class ID</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control">
+                        <input id="classID" type="text" class="form-control">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Equipment Consumption</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control round-form">
+                        <input id="equipment" type="text" class="form-control round-form">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Attendent Students</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control round-form">
+                        <input id="attendency" type="text" class="form-control round-form">
                       </div>
                     </div>
                      <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Class Date</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control round-form">
+                        <input id="classDate" type="text" class="form-control round-form">
                       </div>
                     </div>
                      <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Start Time</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control round-form">
+                        <input id="startTime" type="text" class="form-control round-form">
                       </div>
                     </div>
                      <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">End Time</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control round-form">
+                        <input id="endTime" type="text" class="form-control round-form">
                       </div>
                     </div>
                   </form>
@@ -241,8 +248,8 @@
             </div><!-- /row -->
           </div>  
           <div class="modal-footer">
-            <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
-            <button class="btn btn-theme" type="button">Submit</button>
+            <button data-dismiss="modal" class="btn btn-default" type="button" id="cancel_bt" onclick="javascript:cancel()">Cancel</button>
+            <button class="btn btn-theme" type="button" onclick="javascript:submit()">Submit</button>
           </div>            
         </div>
       </div>  
@@ -264,22 +271,63 @@
 <script src="assets/js/common-scripts.js"></script>
 <!--script for this page-->
 <script>
-    //custom select box
-    var classID=1;
-    var equipment=2;
-    var attendency = "gyy,gyy,gyy";
-    var classDate = "1933-03-44";
-    var startTime = "13:00";
-    var endTime = "15:00";
+    var json;
+    var submitType="add";
+    //ajax
+    var data='[{"classID":1,"equipment":30,"duration":1,"attendency":20,"classDate":"2017-10-18","startTime":"9:00","endTime":"12:00"},{"classID":2,"equipment":40,"duration":3,"attendency":20,"classDate":"2017-10-18","startTime":"9:00","endTime":"12:00"}]';
+    json = $.parseJSON(data);
+    //end of ajax
+    
     $(function(){
       // $('select.styled').customSelect();
-      for(var i=0;i<3;i++){
+      for(var i=0;i<json.length;i++){
+        var classID=json[i].classID;
+        var equipment=json[i].equipment;
+        var attendency = json[i].attendency;
+        var classDate = json[i].classDate;
+        var startTime = json[i].startTime;
+        var endTime = json[i].endTime;
       $('#table1').find('tbody').append("<tr><td>"+classID+"</a></td><td class=\"hidden-phone\">"+equipment+"</td><td>"+attendency+" </td>"+
                       "<td>"+classDate+"</td><td>"+startTime+"</td>"+"<td>"+endTime+"</td><td>"+
-                        "<button class=\"btn btn-primary btn-xs\" data-toggle=\"modal\" data-target=\"#CourseModify\"><i class=\"fa fa-pencil\"></i></button>"+
-                        "<button class=\"btn btn-danger btn-xs\"><i class=\"fa fa-trash-o \"></i></button></td></tr>");
+                        "<button class=\"btn btn-primary btn-xs\" data-toggle=\"modal\" data-target=\"#CourseModify\" onclick=\"modify("+i+")\"><i class=\"fa fa-pencil\"></i></button>"+
+                        "<button class=\"btn btn-danger btn-xs\" onclick=\"deleteItem("+i+")\"><i class=\"fa fa-trash-o \"></i></button></td></tr>");
       }
     });
+    
+    function cancel(){
+      $('#classID').val("");
+      $('#equipment').val("");
+      $('#attendency').val("");
+      $('#classDate').val("");
+      $('#startTime').val("");
+      $('#endTime').val("");
+      submitType="add";
+    }
+
+    function submit(){
+      if(submitType=="add"){
+        alert("add");
+      }
+      else if(submitType=="update"){
+        alert("update");
+      }
+      else{
+        alert("wrong");
+      }
+    }
+    function modify(index){
+      $('#classID').val(json[index].classID);
+      $('#equipment').val(json[index].equipment);
+      $('#attendency').val(json[index].attendency);
+      $('#classDate').val(json[index].classDate);
+      $('#startTime').val(json[index].startTime);
+      $('#endTime').val(json[index].endTime);
+      submitType = "update";
+    }
+
+    function deleteItem(index){
+      alert(index);
+    }
   </script>
 
 

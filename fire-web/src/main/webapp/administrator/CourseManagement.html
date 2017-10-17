@@ -112,7 +112,7 @@
       <ul class="sidebar-menu" id="nav-accordion">
         <br><br>              
         <p class="centered"><a href="profile.html"><img src="assets/img/officerImg.jpg" class="img-circle" width="60"></a></p>
-        <h5 class="centered">Hi, Officer XXX</h5>   
+        <h5 class="centered">Hi, Officer Administrator</h5>   
         <li class="sub-menu">
           <a href="CourseManagement.html" >
             <!-- fa-bar-chart-o/ fa-th/ fa-tasks/ fa-book/ fa-cogs/ fa-dashboard -->
@@ -140,6 +140,13 @@
             <span>Staff Management</span>
           </a>
         </li>
+        <li class="sub-menu">
+          <a href="TrainerManagement.html">
+            <!-- fa-bar-chart-o/ fa-th/ fa-tasks/ fa-book/ fa-cogs/ fa-dashboard -->
+            <i class="fa fa-th"></i>
+            <span>Trainer Management</span>
+          </a>
+        </li>
       </ul>
       <!-- sidebar menu end-->
     </div>
@@ -159,6 +166,7 @@
                   <hr>
                   <thead>
                     <tr>
+                      <th><i class="fa fa-bullhorn"></i> Course ID</th>
                       <th><i class="fa fa-bullhorn"></i> Course Name</th>
                       <th class="hidden-phone"><i class="fa fa-question-circle"></i> Duration</th>
                       <th><i class="fa fa-bookmark"></i> Course Price</th>
@@ -194,30 +202,35 @@
             <div class="row mt">
               <div class="col-lg-12">
                 <div class="form-panel">
-                  <form class="form-horizontal style-form" method="get">
-                    
+                  <form class="form-horizontal style-form">
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Course ID</label>
+                      <div class="col-sm-10">
+                        <input id="courseID" disabled="true" type="text" class="form-control">
+                      </div>
+                    </div>
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Course Name</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control">
+                        <input id="courseName" type="text" class="form-control">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Duration</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control">
+                        <input id="duration" type="text" class="form-control">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Course Price</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control round-form">
+                        <input id="course_price" type="text" class="form-control round-form">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Course Description</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control round-form">
+                        <input id="course_description" type="text" class="form-control round-form">
                       </div>
                     </div>
                   </form>
@@ -226,8 +239,8 @@
             </div><!-- /row -->
           </div>  
           <div class="modal-footer">
-            <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
-            <button class="btn btn-theme" type="button">Submit</button>
+            <button data-dismiss="modal" class="btn btn-default" id="cancel_bt" onclick="javascript:cancel()" type="button">Cancel</button>
+            <button class="btn btn-theme" type="button" onclick="javascript:submit()">Submit</button>
           </div>            
         </div>
       </div>  
@@ -249,19 +262,161 @@
 <script src="assets/js/common-scripts.js"></script>
 <!--script for this page-->
 <script>
-    //custom select box
-    var courseName="course1";
-    var duration="500";
-    var coursePrice="$500";
+    var json;
+    var submitType="add";
+    //ajax
+
+    // var data='[{"courseID":1,"courseName":"course1","duration":1,"coursePrice":100,"desc":"this is description"},{"courseID":2,"courseName":"course1","duration":1,"coursePrice":200,"desc":"this is desc"}]';
+    //json = $.parseJSON(data);
+    //end of ajax
+    
     $(function(){
-      // $('select.styled').customSelect();
-      for(var i=0;i<3;i++){
-      $('#table1').find('tbody').append("<tr><td>"+courseName+"</td><td class=\"hidden-phone\">"+duration+"</td><td>"+coursePrice+"</td>"+
+      $.ajax({
+          type : "GET",
+          // url for request.
+          // invoke methods in UserController.java
+          url : "http://localhost:8080/course/",
+          // asyncronise, default is true
+          
+          dataType : "json",
+
+          headers : {
+            "Authorization" : localStorage.token
+          },
+          async : false,
+          error: function(data){
+            alert("service wrong");
+          },
+          success: function(data){
+            json = data.data;
+          }
+        });
+
+      for(var i=0;i<json.length;i++){
+	    var courseID=json[i].id;
+	    var courseName=json[i].courseName;
+	    var duration=json[i].duration;
+	    var coursePrice=json[i].coursePrice;
+	    var description=json[i].desc;
+      $('#table1').find('tbody').append("<tr><td>"+courseID+"</td><td>"+courseName+"</td><td class=\"hidden-phone\">"+duration+"</td><td>"+coursePrice+"</td>"+
                       "<td>"+
-                        "<button class=\"btn btn-primary btn-xs\" data-toggle=\"modal\" data-target=\"#CourseModify\"><i class=\"fa fa-pencil\"></i></button>"+
-                        "<button class=\"btn btn-danger btn-xs\"><i class=\"fa fa-trash-o \"></i></button></td></tr>");
+                        "<button class=\"btn btn-primary btn-xs\" data-toggle=\"modal\" data-target=\"#CourseModify\" onclick=\"modify("+i+")\"><i class=\"fa fa-pencil\"></i></button>"+
+                        "<button class=\"btn btn-danger btn-xs\" onclick=\"deleteItem("+i+")\"><i class=\"fa fa-trash-o \"></i></button></td></tr>");
   		}	
     });
+
+    function cancel(){
+    	$('#courseID').val("");
+    	$('#courseName').val("");
+    	$('#duration').val("");
+    	$('#course_price').val("");
+    	$('#course_description').val("");
+    	submitType="add";
+    }
+
+    function submit(){
+    	if(submitType=="add"){
+    		$.ajax({
+          type : "POST",
+          // url for request.
+          // invoke methods in UserController.java
+          url : "http://localhost:8080/course/",
+          // asyncronise, default is true
+          
+          dataType : "json",
+
+          headers : {
+            "Authorization" : localStorage.token
+          },
+          data:{
+          	courseName:$('#courseName').val(),
+          	courseDesc:$('#course_description').val(),
+          	duration:$('#duration').val(),
+          	coursePrice:$('#course_price').val()
+          },
+          async : false,
+          error: function(data){
+            alert("service wrong");
+          },
+          success: function(data){
+
+          	$('#cancel_bt').click();
+          	alert("create successfully!");
+          	location.href="CourseManagement.html";
+          }
+        });
+    	}
+    	else if(submitType=="update"){
+    		$.ajax({
+          type : "PUT",
+          // url for request.
+          // invoke methods in UserController.java
+          url : "http://localhost:8080/course/",
+          // asyncronise, default is true
+          
+          dataType : "json",
+
+          headers : {
+            "Authorization" : localStorage.token
+          },
+          data:{
+          	id:$('#courseID').val(),
+          	courseName:$('#courseName').val(),
+          	courseDesc:$('#course_description').val(),
+          	duration:$('#duration').val(),
+          	coursePrice:$('#course_price').val()
+          },
+          async : false,
+          error: function(data){
+            alert("service wrong");
+          },
+          success: function(data){
+
+          	$('#cancel_bt').click();
+          	alert("create successfully!");
+          	location.href="CourseManagement.html";
+          }
+        });
+    	}
+    	else{
+    		alert("wrong");
+    	}
+    }
+
+    function modify(index){
+    	$('#courseID').val(json[index].id);
+    	$('#courseName').val(json[index].courseName);
+    	$('#duration').val(json[index].duration);
+    	$('#course_price').val(json[index].coursePrice);
+    	$('#course_description').val(json[index].courseDesc);
+    	submitType = "update";
+    }
+
+    function deleteItem(index){
+    	$.ajax({
+          type : "DELETE",
+          // url for request.
+          // invoke methods in UserController.java
+          url : "http://localhost:8080/course/"+json[index].id,
+          // asyncronise, default is true
+          
+          dataType : "json",
+
+          headers : {
+            "Authorization" : localStorage.token
+          },
+          async : false,
+          error: function(data){
+            alert("service wrong");
+          },
+          success: function(data){
+
+          	$('#cancel_bt').click();
+          	alert("delete successfully!");
+          	location.href="CourseManagement.html";
+          }
+        });
+    }
   </script>
 
 

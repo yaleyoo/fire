@@ -1,14 +1,14 @@
 package com.fes.common.service;
 
 import com.fes.common.constants.MailConstants;
+import com.sun.mail.util.MailSSLSocketFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
-import javax.mail.Message;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Date;
@@ -33,8 +33,22 @@ public class MailSendService {
         props.put("mail.smtp.host", mailConstants.getSendSmtp());
         props.put("mail.smtp.port", mailConstants.getSendPort());
         props.put("mail.smtp.auth", "true");
+        props.put("mail.debug", "true");
+        // props.setProperty("mail.smtp.port", "465");
         try {
-            session = Session.getDefaultInstance(props, null);
+            MailSSLSocketFactory sf = new MailSSLSocketFactory();
+            sf.setTrustAllHosts(true);
+            props.put("mail.smtp.ssl.enable", "true");
+            props.put("mail.smtp.ssl.socketFactory", sf);
+
+
+            session = Session.getDefaultInstance(props, new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    PasswordAuthentication pa = new PasswordAuthentication(mailConstants.getSendMail(),mailConstants.getSendPassword());
+                    return pa;
+                }
+            });
             transport = session.getTransport("smtp");
             transport.connect(mailConstants.getSendSmtp(), mailConstants.getSendMail(), mailConstants.getSendPassword());
             log.info("host {} port {} user {} password {}", mailConstants.getSendSmtp(), mailConstants.getSendPort(),
@@ -75,6 +89,8 @@ public class MailSendService {
             MimeMessage msg = new MimeMessage(session);
             //设置发送日期
             msg.setSentDate(new Date());
+            msg.addRecipients(MimeMessage.RecipientType.CC, InternetAddress.parse(mailConstants.getSendMail()));
+            MimeMessageHelper helper = new MimeMessageHelper(msg,true,"utf-8");
             fromAddress = new InternetAddress(mailConstants.getSendMail(), subject, "UTF-8");
             msg.setFrom(fromAddress);
             toAddress[0] = new InternetAddress(toEmail);
@@ -85,7 +101,7 @@ public class MailSendService {
             msg.setContent(content, "text/html;charset=utf-8");
             msg.saveChanges();
             //发送
-            transport.sendMessage(msg, msg.getAllRecipients());
+            transport.send(msg);
         } finally {
             close();
         }

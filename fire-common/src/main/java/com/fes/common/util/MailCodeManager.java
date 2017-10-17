@@ -30,7 +30,7 @@ public class MailCodeManager {
     }
     public  String createVerifyToken(String username, int userType) {
 
-        String code = VerifyCodeUtil.generateVerifyCode(32);
+        String code = VerifyCodeUtil.generateVerifyCode(6);
         stringRedisTemplate.opsForValue().set(username+userType+"verifycode",code,EXPIRE_TIME, TimeUnit.MINUTES);
         return code;
     }

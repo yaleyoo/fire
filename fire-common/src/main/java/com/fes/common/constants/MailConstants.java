@@ -16,8 +16,7 @@ public class MailConstants {
 
 
     public static String generateMailContent(String code){
-        return "Dear ,<br>Here is your captcha: <b>"+code+"</b><br>This captcha will be expired in 30 minutes, " +
-                "please use it to finish register as soon as possible!<br>Sincerely<br>FES team";
+        return "Here is your captcha: <b>"+code+"</b>";
     }
 
     public String getSendSmtp() {

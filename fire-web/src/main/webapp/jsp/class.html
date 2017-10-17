@@ -54,49 +54,72 @@
 
 
 </head>
-<body> 
-	<!-- banner -->
-	<div class="banner ">
-		<div class="banner-agileinfo">
-			<!-- header -->
-			<div class="header">
-				<div class="container">
-					<div class="logo">
-						<h1><a href="../index.html">Fes Booking</a></h1>
-					</div> 
-					<div class="social-w3licon"> 
-						<center><a href="#loginmodal" class="flatbtn" id="modaltrigger">Login</a><a href="register.html" class="flatbtn" id="register">Register</a>
-						</center>
-						<div id="loginmodal" style="display:none;">
-						<h1>User Login</h1>
-						<form id="loginform" name="loginform" method="post" action="../index.html">
-						
-							<label for="username">Username:</label>
-							<input type="text" name="username" id="username" class="txtfield" tabindex="1" />
-							<label for="password">Password:</label>
-							<input type="password" name="password" id="password" class="txtfield" tabindex="2" />
-							<label><input name="userType" type="radio"> Organization</label>
-							<label><input name="userType" type="radio"> Individual</label>
-							<br />
+<body>
+<header class="header" style="position: relative">
 
-							<div class="center"><input type="submit" name="loginbtn" id="loginbtn" class="flatbtn-blu hidemodal" value="Log In" tabindex="3"></div>
-						</form>
+	<nav class="navbar navbar-inverse" role="navigation">
+		<div class="navbar-header">
+			<button type="button" id="nav-toggle" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+			<a href="#" class="navbar-brand scroll-top logo  animated bounceInLeft"><b>冰点<i>云流量</i></b></a> </div>
+		<!--/.navbar-header-->
+		<div id="main-nav" class="collapse navbar-collapse">
+			<!-- banner -->
+			<div class="banner">
+				<div class="banner-agileinfo">
+					<!-- header -->
+					<div class="">
+						<div class="container">
+							<div class="logo">
+								<h1>
+									<a href="index">Fes Booking</a>
+								</h1>
+							</div>
+							<div class="social-w3licon">
+								<ul class="social_agileinfo">
+								</ul>
+							</div>
+
+							<!--<div class="menu">
+                                <a href="#" class="navicon"></a>
+                                <div class="toggle">
+                                    <ul class="toggle-menu">
+                                        <li><a href="" class="active">Home</a></li>
+                                        <li><a href="/jsp/courses.html">Course list</a></li>
+                                        <li><a href="/jsp/individualUser/individualOrderhistory.html">History order</a></li>
+                                        <li><a href="/jsp/individualUser/individualProfile.html">Profile</a></li>
+                                        <li><a href="/jsp/mail.html">Mail Us</a></li>
+                                        <li><a onclick="logOut()">Log Out</a></li>
+                                    </ul>
+                                </div>
+                            </div>-->
+							<div class="clearfix"></div>
+						</div>
+						<div class="container">
+							<ul class="nav navbar-nav" style="width:482px;float: none;margin:0 auto;" id="mainNav">
+								<li class="activeRed" id="firstLink"><a href="/index.html" class="scroll-link">Home</a></li>
+								<li><a href="/jsp/courses.html" tppabs="http://qigege.yun-us.jumyun.cn/flow_system" class="scroll-link whiteFont">Course list</a></li>
+								<li><a href="/jsp/individualUser/individualHome.html" tppabs="http://qigege.yun-us.jumyun.cn/flow_system" class="scroll-link whiteFont">Personal Information</a></li>
+								<li><a href="/jsp/mail.html" tppabs="http://qigege.yun-us.jumyun.cn/flow_system/" class="scroll-link whiteFont">Mail Us</a></li>
+								<li><a href="#services" class="scroll-link whiteFont" onclick="logOut()">Log Out</a></li>
+							</ul>
 						</div>
 					</div>
-					<div class="clearfix"> </div>
+					<!--<div class="banner-w3lstext agileits-w3layouts">
+                        <ol class="breadcrumb">
+                            <li><a href="">Course List</a></li>
+                            <li class="active" id="customername">Welcome, Cookie!</li>
+                        </ol>
+                    </div>-->
 				</div>
 			</div>
-			<!-- //header --> 
-			<!-- banner-text -->
-			<div class="banner-w3lstext agileits-w3layouts">  
-				<ol class="breadcrumb">
-					<li><a href="../index.html">Home</a></li>
-					<li class="active">Courses</li>
-				</ol>  
-			</div>
-			<!-- //banner-text -->
+			<!-- //banner -->
 		</div>
-	</div>
+		<!--/.navbar-collapse-->
+	</nav>
+	<!--/.navbar-->
+
+	<!--/.container-->
+</header>
 
 
 

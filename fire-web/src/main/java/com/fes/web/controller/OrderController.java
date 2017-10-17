@@ -33,6 +33,7 @@ public class OrderController {
 	private IOrderService orderService;
 
 	@ResponseBody
+	@Authorization
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity deleteOrder(@PathVariable("id") int id) {
 		return orderService.deleteOrder(id);

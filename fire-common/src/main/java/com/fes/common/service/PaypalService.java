@@ -16,7 +16,7 @@ public class PaypalService {
 
     private static final String PAYMENT_METHOD = "paypal";
 
-    private static final String CANCEL_URL = "http://localhost:8080/jsp/cancel-pay.html";
+    private static final String CANCEL_URL = "http://localhost:8080/jsp/pay-error.html";
 
     private static final String RETURN_URL = "http://localhost:8080/order/payment-process";
 
@@ -35,7 +35,7 @@ public class PaypalService {
         redirectUrls.setReturnUrl(RETURN_URL);
     }
 
-    public String getPayUrl (int price) throws PayPalRESTException {
+    public String getPayUrl (int price, String orderNum) throws PayPalRESTException {
         // Set payment details
         Details details = new Details();
         details.setShipping("0");
@@ -52,6 +52,7 @@ public class PaypalService {
 // Transaction information
         Transaction transaction = new Transaction();
         transaction.setAmount(amount);
+        transaction.setReferenceId(orderNum);
         transaction
                 .setDescription("This is the payment transaction description.");
 

@@ -44,4 +44,16 @@
         from order_list where username=#{username} and usertype=#{usertype}
     </select>
 
+
+    <select id="selectByOrderNum" parameterType="string" resultMap="orderResult">
+        select
+        <include refid="baseColumns"/>
+        from order_list where order_num=#{orderNum}
+    </select>
+    
+    <update id="updatePaymentStatus" parameterType="string">
+        update order_list set payment_status = 1 where order_num=#{orderNum}
+    </update>
+
+
 </mapper>

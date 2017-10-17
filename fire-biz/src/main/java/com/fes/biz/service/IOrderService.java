@@ -4,6 +4,9 @@ import com.fes.dao.domain.Order;
 import com.paypal.base.rest.PayPalRESTException;
 import org.springframework.http.ResponseEntity;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 public interface IOrderService {
 	
 	ResponseEntity deleteOrder(int orderId);
@@ -12,7 +15,7 @@ public interface IOrderService {
 
 	ResponseEntity createOrder(int classId, int peopleNum, String username, int usertype);
 
-	ResponseEntity finishPayment(String paymentId, String PayerID) throws PayPalRESTException;
+	void finishPayment(String paymentId, String PayerID, HttpServletResponse response) throws PayPalRESTException, IOException;
 
-	String startPayment(int orderId) throws PayPalRESTException;
+	ResponseEntity startPayment(String orderNum, String username, int userType) throws PayPalRESTException;
 }

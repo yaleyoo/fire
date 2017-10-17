@@ -52,9 +52,7 @@
     </update>
 
     <update id="updateProfile">
-        update user_trainer set user_name = #{username}, password = #{password}, first_name=#{firstname},
-         last_name=#{lastname},sex=#{sex},address=#{address},phone_num=#{phoneNum}, desc=#{desc}
-         where id = #{id}
+        update user_trainer set user_name = #{username}, password = #{password}, first_name=#{firstname},last_name=#{lastname},sex=#{sex},address=#{address},phone_num=#{phoneNum},`desc`=#{desc} where id = #{id}
     </update>
 
     <update id="updateAvailability">

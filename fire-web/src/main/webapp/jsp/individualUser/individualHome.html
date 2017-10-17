@@ -359,6 +359,7 @@
             var options = {
                 events_source: function(){
                     var result = [];
+
                     $.ajax({
                         type : "GET",
                         // url for request.
@@ -369,7 +370,7 @@
                             "Authorization" : token
                         },
                         // asyncronise, default is true
-                        async : true,
+                        async : false,
                         dataType : "json",
                         error : function(data) {
                             var json = data.responseText;
@@ -389,12 +390,18 @@
                                 }
                             }
                         },
+                        error : function(data) {
+
+                        },
                         success : function(data) {
                             result = data.data.result;
+
                         }
                     });
-
                     return result;
+
+
+
 				},
                 view: 'month',
                 tmpl_path: '/tmpls/',

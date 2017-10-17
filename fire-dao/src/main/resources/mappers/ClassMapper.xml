@@ -5,6 +5,7 @@
     <resultMap type="com.fes.dao.domain.ClassPO" id="classResult">
         <result column="id" property="id"/>
         <result column="course_id" property="courseId"/>
+        <result column="course_name" property="courseName"/>
         <result column="class_item_ids" property="classItemIds"/>
         <result column="tutor_id" property="tutorId"/>
         <result column="tutor_name" property="tutorName"/>
@@ -22,14 +23,14 @@
 
     <sql id="baseColumns">
         id,course_id,class_item_ids,tutor_id,tutor_name,tutor_desc,class_addr,class_start_time,class_time_table,
-        price,registered_students_num,registered_students,contact_detail,tutor_pic
+        price,registered_students_num,registered_students,contact_detail,tutor_pic,course_name
     </sql>
 
     <insert id="createClass" parameterType="com.fes.dao.domain.ClassPO">
         INSERT INTO class (course_id,class_item_ids,tutor_id,tutor_name,tutor_desc,class_addr,class_start_time,
-        class_time_table,price,registered_students_num,registered_students,contact_detail,tutor_pic)
+        class_time_table,price,registered_students_num,registered_students,contact_detail,tutor_pic,course_name)
         VALUES(#{courseId},#{classItemIds},#{tutorId},#{tutorName},#{tutorDesc},#{classAddr},#{classStartTime},
-        #{classTimeTable},#{price},#{registeredNum},#{registeredStudents},#{contactDetail},#{tutorPic})
+        #{classTimeTable},#{price},#{registeredNum},#{registeredStudents},#{contactDetail},#{tutorPic},#{courseName})
     </insert>
     <select id="getAll" resultMap="classResult">
     		select

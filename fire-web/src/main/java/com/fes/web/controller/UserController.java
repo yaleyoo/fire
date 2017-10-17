@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
 
 
 /**
@@ -54,7 +55,7 @@ public class UserController {
 
     @Authorization (authority = UserType.CUSTOMER)
     @RequestMapping(value = "/customer/{id}/class-time-table", method = RequestMethod.GET)
-    public ResponseEntity showCustomerTimeTable(@PathVariable("id") int userId){
+    public ResponseEntity showCustomerTimeTable(@PathVariable("id") int userId) throws ParseException {
 
         return userService.showClassTimeTable(userId);
     }

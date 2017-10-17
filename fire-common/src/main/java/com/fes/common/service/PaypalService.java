@@ -52,9 +52,9 @@ public class PaypalService {
 // Transaction information
         Transaction transaction = new Transaction();
         transaction.setAmount(amount);
-        transaction.setReferenceId(orderNum);
+        transaction.setInvoiceNumber(orderNum);
         transaction
-                .setDescription("This is the payment transaction description.");
+                .setDescription("FES Course Transaction");
 
 // Add transaction to a list
         List<Transaction> transactions = new ArrayList<Transaction>();

@@ -35,7 +35,15 @@ body a:hover,body a:focus{
 	-moz-background-size: cover;
 	background-size: cover;
 	position: relative;
-	height:300px;
+	height:150px;
+}
+
+.activeRed{
+	color:red;
+}
+
+.whiteFont{
+ color: white;
 }
 
 .foot-banner{
@@ -47,10 +55,10 @@ body a:hover,body a:focus{
 }
 .banner-agileinfo {
     background: rgba(0, 0, 0, 0.42);
-	height: 300px;
+	height: 150px;
 }
 .header {
-    padding-top:1em;
+
 }
 .header .container { 
     position: relative;

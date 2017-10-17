@@ -118,7 +118,8 @@ public class OrderServiceImpl implements IOrderService{
 		paymentExecution.setPayerId(PayerID);
 		Payment createdPayment = payment.execute(apiContext, paymentExecution);
 		List<Transaction> transactions = createdPayment.getTransactions();
-		String orderNum = transactions.get(0).getReferenceId();
+		String orderNum = transactions.get(0).getInvoiceNumber();
+		System.out.println(createdPayment);
 		if (!customerOrderMapper.updatePaymentStatus(orderNum)){
 			response.sendRedirect("http://localhost:8080/jsp/pay-error.html");
 		}else{

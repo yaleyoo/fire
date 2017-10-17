@@ -165,6 +165,11 @@ public class ClassServiceImpl implements IClassService {
 			httpResult.setSuccess(false, "no results");
 			return new ResponseEntity(httpResult, HttpStatus.NOT_FOUND);
 		}
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		for (ClassItemPO classItemPO1: classItemPO){
+			String strTime = sdf.format(classItemPO1.getClassDate());
+			classItemPO1.setStrDate(strTime);
+		}
 		httpResult.setData(classItemPO);
 		return new ResponseEntity(httpResult, HttpStatus.OK);
     }

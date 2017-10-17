@@ -60,7 +60,7 @@ public interface IUserService {
 
     ResponseEntity showOrderListByUser(String username, int userType);
 
-    ResponseEntity showClassTimeTable(int id);
+    ResponseEntity showClassTimeTable(int id) throws ParseException;
 
     ResponseEntity updateTrainerInfo(int id, String username, String password, String firstname
             , String lastname, String sex, String address,String phoneNum

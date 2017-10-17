@@ -235,7 +235,7 @@ function mailVerification(obj, usertype) {
 			username : $("#emailAddr").val(),
 			usertype : usertype
 		},
-		async : true,
+		async : false,
 		dataType : "json",
 		error : function(request) {
 			alert("Connect error");

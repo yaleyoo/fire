@@ -11,12 +11,12 @@ public class MailConstants {
     private String sendPassword;
     private String sendPort;
 
-    public static String SUBJECT = "FES Verify Code";
+    public static String SUBJECT = "Fire System Register";
 
 
 
     public static String generateMailContent(String code){
-        return "Dear Customer,<br>Here is your verify code: <b>"+code+"</b><br>This code will be expired in 30 minutes, " +
+        return "Dear ,<br>Here is your captcha: <b>"+code+"</b><br>This captcha will be expired in 30 minutes, " +
                 "please use it to finish register as soon as possible!<br>Sincerely<br>FES team";
     }
 

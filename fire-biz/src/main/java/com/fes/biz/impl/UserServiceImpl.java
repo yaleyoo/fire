@@ -9,6 +9,7 @@ import com.fes.biz.service.IUserService;
 import com.fes.biz.vo.HttpTokenVO;
 import com.fes.common.domain.SimpleHttpResult;
 import com.fes.common.service.MailSendService;
+import com.fes.common.util.MD5Util;
 import com.fes.common.util.MailCodeManager;
 import com.fes.common.util.TokenManager;
 import com.fes.dao.domain.*;
@@ -21,11 +22,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.UnsupportedEncodingException;
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
+import java.sql.Date;
 /**
  * Created by qigege on 2017/9/3.
  */
@@ -100,6 +100,8 @@ public class UserServiceImpl implements IUserService {
     public ResponseEntity addIndividualCustomer(UserCustomer user) {
         SimpleHttpResult httpResult = new SimpleHttpResult();
         if (mailCodeManager.verifyCode(user.getUserMailCode(),user.getUsername(),UserType.CUSTOMER.userType)){
+            String password = MD5Util.MD5(user.getPassword());
+            user.setPassword(password);
             boolean success = userCustomerMapper.insertCustomer(user);
 
 
@@ -159,6 +161,7 @@ public class UserServiceImpl implements IUserService {
         HttpTokenVO result = new HttpTokenVO();
         if (userType == UserType.CUSTOMER.getUserType()){
             UserCustomer userCustomer = userCustomerMapper.selectByName(username);
+            password = MD5Util.MD5(password);
             if (userCustomer == null){
                 httpResult.setSuccess(false, "username is incorrect!");
                 return new ResponseEntity(httpResult, HttpStatus.UNAUTHORIZED);
@@ -383,7 +386,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public ResponseEntity showClassTimeTable(int id) {
+    public ResponseEntity showClassTimeTable(int id) throws ParseException {
         SimpleHttpResult<ClassTimeVO> httpResult = new SimpleHttpResult<>();
         ClassTimeVO classTimeVO = new ClassTimeVO();
         List<Map<String, String>> result = new ArrayList<>();
@@ -399,6 +402,7 @@ public class UserServiceImpl implements IUserService {
         List<ClassItemPO> classItemList = classItemMapper.getClassItemByClassIds(classIds);
         List<ClassPO> classPOList = classMapper.getClassByIds(classIds);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         for(ClassItemPO item : classItemList){
             String startTime = sdf.format(item.getClassDate())+" "+item.getStartTime();
             String endTime = sdf.format(item.getClassDate())+" "+item.getEndTime();
@@ -408,11 +412,13 @@ public class UserServiceImpl implements IUserService {
             } else {
                 map.put("class", "event-info");
             }
-            map.put("start", startTime);
-            map.put("end", endTime);
+            java.util.Date start = simpleDateFormat.parse(startTime);
+            java.util.Date end = simpleDateFormat.parse(endTime);
+            map.put("start", String.valueOf(start.getTime()));
+            map.put("end", String.valueOf(end.getTime()));
             for (ClassPO classPO : classPOList){
                 if (classPO.getId() == item.getClassId()){
-                    map.put("title", "Course Name: "+classPO.getCourseName()+"\nAddress: "+classPO.getClassAddr());
+                    map.put("title", "Course Name: "+classPO.getCourseName()+"<br>Address: "+classPO.getClassAddr());
                     break;
                 }
             }
